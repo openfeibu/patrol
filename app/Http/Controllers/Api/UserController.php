@@ -22,14 +22,9 @@ class UserController extends BaseController
     {
         $user = User::getUser();
 
-        $data = User::select("users.name","users.phone","users.token","users.payment_company_id","users.payment_company_id","users.provider_id","users.token","providers.name as provider_name")
-            ->join("providers",'providers.id','=','users.provider_id')
-            ->where('users.id',$user->id)
-            ->first();
-
         return response([
             'code' => 200,
-            'data' => $data
+            'data' => $user
         ],200);
     }
 

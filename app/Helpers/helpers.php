@@ -789,3 +789,9 @@ if (!function_exists('generate_token')) {
         return md5(uniqid());
     }
 }
+if (!function_exists('avatar')) {
+    function avatar($avatar)
+    {
+        return $avatar ? url('image/original'.$avatar) : url('image/original'.config('common.default_avatar'));
+    }
+}

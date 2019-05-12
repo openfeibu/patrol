@@ -34,18 +34,25 @@ class User extends Authenticatable implements JWTSubject
     }
     public static function getUserByToken($token)
     {
-        $user = User::select('id','phone','name','payment_company_id','provider_id','token')->where('token',$token)->first();
-
-        return $user;
+        return User::select("users.id","users.name","users.avatar_url","users.phone","users.token","users.payment_company_id","users.payment_company_id","users.provider_id","users.token","providers.name as provider_name")
+            ->join("providers",'providers.id','=','users.provider_id')
+            ->where('users.token',$token)
+            ->first();
     }
     public static function getUserByPhone($phone)
     {
-        return User::select('id','phone','name','payment_company_id','provider_id','token')->where('phone',$phone)->first();
+        return User::select("users.id","users.name","users.avatar_url","users.phone","users.token","users.payment_company_id","users.payment_company_id","users.provider_id","users.token","providers.name as provider_name")
+            ->join("providers",'providers.id','=','users.provider_id')
+            ->where('users.phone',$phone)
+            ->first();
     }
     public static function getUser()
     {
         $token = RequestFacades::input('token','');
-        $user = User::select('id','phone','name','payment_company_id','provider_id','token')->where('token',$token)->first();
+        $user = User::select("users.id","users.name","users.avatar_url","users.phone","users.token","users.payment_company_id","users.payment_company_id","users.provider_id","users.token","providers.name as provider_name")
+            ->join("providers",'providers.id','=','users.provider_id')
+            ->where('users.token',$token)
+            ->first();
         if(!$user)
         {
             throw new UnauthorizedHttpException('jwt-auth', '未登录');
@@ -76,5 +83,8 @@ class User extends Authenticatable implements JWTSubject
     {
         return "phone";
     }
-
+    public function getAvatarUrlAttribute($avatar_url)
+    {
+        return avatar($avatar_url);
+    }
 }
