@@ -122,6 +122,7 @@ class OrderController extends BaseController
                 if(isset($order_record_data['signature_image']))
                 {
                     $order_record_data['status'] = 'finish';
+                    Order::where('id',$order_record['order_id'])->update(['status' => 'finish']);
                 }
                 OrderRecord::where('id',$order_record['id'])->update($order_record_data);
             }

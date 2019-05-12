@@ -20,4 +20,11 @@ class Order extends BaseModel
      */
     protected $config = 'model.order.order';
 
+    protected $appends = ['status_desc'];       // 表里没有的字段
+
+    public function getStatusDescAttribute()
+    {
+        $status = $this->attributes['status'];
+        return trans('order.status.'.$status);
+    }
 }
