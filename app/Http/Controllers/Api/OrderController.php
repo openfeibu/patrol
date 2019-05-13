@@ -155,4 +155,19 @@ class OrderController extends BaseController
             'data' => $images_url
         ],200);
     }
+    public function getOrderCount(Request $request)
+    {
+
+        $status = $request->get('status','return');
+
+        $count = Order::where('user_id',$this->user->id)
+            ->where('status',$status)
+            ->count();
+
+        return response()->json([
+            'code' => '200',
+            'data' => $count
+        ],200);
+    }
+
 }

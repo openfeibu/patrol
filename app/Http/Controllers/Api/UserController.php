@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use Route,Auth,Hash,Input,Log;
+use Route,Auth,Hash,Input,Log,Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\JWTAuth;
@@ -70,5 +70,9 @@ class UserController extends BaseController
                 'message' => '服务器出错了'
             ],400);
         }
+    }
+    public function getWordCard()
+    {
+        var_dump(base_path('storage/uploads'));exit;
     }
 }
