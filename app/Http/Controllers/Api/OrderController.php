@@ -40,6 +40,14 @@ class OrderController extends BaseController
 
         $orders_data = $orders->toArray()['data'];
 
+        foreach ($orders_data as $key=> $order) {
+            if($order['status'] == 'return')
+            {
+                $orders_data[$key]['return_content'] = OrderRecord::where('order_id',$order['id'])->orderBy('id','desc')->value('return_content');
+            }else{
+                $orders_data[$key]['return_content'] = null;
+            }
+        }
         return response()->json([
             'code' => '200',
             'total' => $orders->total(),
@@ -137,6 +145,7 @@ class OrderController extends BaseController
                 $order_record_data['user_id'] = $this->user->id;
                 $order_record_data['status'] = 'working';
                 $order_record = OrderRecord::create($order_record_data);
+                Order::where('id',$order_record['order_id'])->update(['status' => 'working']);
             }
 
             $order_record = OrderRecord::where('id',$order_record['id'])->first();
