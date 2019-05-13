@@ -83,10 +83,16 @@ class OrderController extends BaseController
         }
         foreach ($order_record_fields as $key => $field)
         {
-            if(strpos($field,'image') && $data[$field])
+            if(strpos($field,'image'))
             {
-                $data[$field.'_thumb'] = handle_images_thumb('order',explode(',',$data[$field]));
-                $data[$field] = handle_images(explode(',',$data[$field]));
+                if($data[$field])
+                {
+                    $data[$field.'_thumb'] = handle_images_thumb('order',explode(',',$data[$field]));
+                    $data[$field] = handle_images(explode(',',$data[$field]));
+                }else{
+                    $data[$field.'_thumb'] = [];
+                    $data[$field] = [];
+                }
             }
         }
         $data = array_merge($order->toArray(),$data);
