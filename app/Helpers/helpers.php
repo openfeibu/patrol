@@ -561,7 +561,7 @@ if (!function_exists('handle_images')) {
         foreach ($images as $key => $image) {
             $images[$key] = handle_image_url($image, $host);
         }
-        return $images;
+        return count($images) ? $images : [];
     }
 }
 if (!function_exists('setting')) {

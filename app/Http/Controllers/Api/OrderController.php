@@ -83,7 +83,7 @@ class OrderController extends BaseController
         }
         foreach ($order_record_fields as $key => $field)
         {
-            if(strpos($field,'image'))
+            if(strpos($field,'image') && $data[$field])
             {
                 $data[$field.'_thumb'] = handle_images_thumb('order',explode(',',$data[$field]));
                 $data[$field] = handle_images(explode(',',$data[$field]));
