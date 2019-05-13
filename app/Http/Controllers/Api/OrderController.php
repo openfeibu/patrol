@@ -106,6 +106,13 @@ class OrderController extends BaseController
         $order_record_id = $request->input('order_record_id','');
         $order_id = $request->order_id;
 
+        if(!$order_id)
+        {
+            return response()->json([
+                'code' => '400',
+                'message' => 'order_id 不能为空',
+            ],400);
+        }
         $request_data = $request->all();
         $order_record_data = [];
         $order_record_fields = config('model.order.order_record.fillable');
