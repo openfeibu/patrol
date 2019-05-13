@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use Route,Auth,Hash,Input,Log,Image;
+use Route,Auth,Hash,Input,Log,Image,File;
+use Intervention\Image\ImageManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\JWTAuth;
@@ -74,26 +75,46 @@ class UserController extends BaseController
     }
     public function getWordCard()
     {
+        $save_image_path = base_path('storage/uploads').'/'.str_replace('..', '', 'avatar/'.$this->user->id.'/'.'work_card.jpg');
+        if(!file_exists($save_image_path))
+        {
+            $work_card_image_path = base_path('storage/uploads').'/'.str_replace('..', '', 'system/work_card.jpeg');
 
-        $word_card_image_path = base_path('storage/uploads').'/'.str_replace('..', '', 'system/word_card.jpeg');
+            $avatar_image_path = base_path('storage/uploads').'/'.str_replace('..', '', $this->user->avatar ?? config('common.default_avatar'));
 
-        $avatar_image_path = base_path('storage/uploads').'/'.str_replace('..', '', $this->user->avatar ?? config('common.default_avatar'));
+            $new_avatar_image_path = base_path('storage/uploads').'/'.str_replace('..', '', 'avatar/'.$this->user->id);
 
-        if (file_exists($avatar_image_path) && is_file($avatar_image_path)) {
-            // file found
-            return $avatar_image_path;
-        }else{
-            var_dump(1);exit;
+            if (!File::isDirectory($new_avatar_image_path)) {
+                File::makeDirectory($new_avatar_image_path, 0755, true);
+            }
+
+            $avatar_img = Image::make($avatar_image_path)->resize(214,302);
+
+            $avatar_img->save($new_avatar_image_path.'/'.'work_card_avatar.jpg');
+
+            $img = Image::make($work_card_image_path);
+
+            $img->insert($new_avatar_image_path.'/'.'work_card_avatar.jpg', 'top-left', 158, 317 );
+
+
+            $img->text($this->user->name, 220,660, function($font) {
+                $font->file(base_path('storage/uploads/font').'/'.'simsun.ttf');
+                $font->size(40);
+                $font->color('#000000');
+                $font->align('center');
+                $font->valign('top');
+                //$font->angle(45);
+            });
+
+            $img->save($save_image_path);
+
         }
 
-        $save_image_path = base_path('storage/uploads').'/'.str_replace('..', '', 'system/new_word_card.jpeg');
+        $word_card_url = handle_image_url('/avatar/'.$this->user->id.'/'.'work_card.jpg');
 
-        $img = Image::make($word_card_image_path);
-
-        $img->insert($avatar_image_path, 'bottom-right', 15, 10);
-
-        $img->save($save_image_path);
-
-        var_dump(1);exit;
+        return response([
+            'code' => 200,
+            'data' => $word_card_url
+        ],200);
     }
 }

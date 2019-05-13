@@ -795,3 +795,15 @@ if (!function_exists('avatar')) {
         return $avatar ? url('image/original'.$avatar) : url('image/original'.config('common.default_avatar'));
     }
 }
+
+function to_unicode($string)
+{
+    $str = mb_convert_encoding($string, 'UCS-2', 'UTF-8');
+    $arrstr = str_split($str, 2);
+    $unistr = '';
+    foreach ($arrstr as $n) {
+        $dec = hexdec(bin2hex($n));
+        $unistr .= '&#' . $dec . ';';
+    }
+    return $unistr;
+}
