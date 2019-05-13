@@ -15,6 +15,7 @@ class UserController extends BaseController
     {
         parent::__construct();
         $this->middleware('auth.api');
+        $this->user = User::getUser();
     }
     public function getUser(Request $request)
     {
@@ -73,6 +74,26 @@ class UserController extends BaseController
     }
     public function getWordCard()
     {
-        var_dump(base_path('storage/uploads'));exit;
+
+        $word_card_image_path = base_path('storage/uploads').'/'.str_replace('..', '', 'system/word_card.jpeg');
+
+        $avatar_image_path = base_path('storage/uploads').'/'.str_replace('..', '', $this->user->avatar ?? config('common.default_avatar'));
+
+        if (file_exists($avatar_image_path) && is_file($avatar_image_path)) {
+            // file found
+            return $avatar_image_path;
+        }else{
+            var_dump(1);exit;
+        }
+
+        $save_image_path = base_path('storage/uploads').'/'.str_replace('..', '', 'system/new_word_card.jpeg');
+
+        $img = Image::make($word_card_image_path);
+
+        $img->insert($avatar_image_path, 'bottom-right', 15, 10);
+
+        $img->save($save_image_path);
+
+        var_dump(1);exit;
     }
 }

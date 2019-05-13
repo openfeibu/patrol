@@ -25,6 +25,8 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $config = 'model.user.user.model';
 
+    protected $appends = ['avatar'];       // 表里没有的字段
+
     public static function checkPassword($phone, $password)
     {
 
@@ -86,5 +88,10 @@ class User extends Authenticatable implements JWTSubject
     public function getAvatarUrlAttribute($avatar_url)
     {
         return avatar($avatar_url);
+    }
+    public function getAvatarAttribute()
+    {
+        return $this->attributes['avatar_url'];
+
     }
 }

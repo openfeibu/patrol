@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\BaseController;
 use App\Models\Banner;
 use App\Models\User;
 use App\Models\Order;
+use App\Models\Merchant;
 use Tymon\JWTAuth\JWTAuth;
 use Log,Input;
 
@@ -48,10 +49,13 @@ class OrderController extends BaseController
     }
     public function getOrder(Request $request,$id)
     {
-        $order = Order::select("merchants.*","merchants.id as merchant_id","orders.*","payment_companies.auth_file")
-            ->join('merchants','merchants.id','=','orders.merchant_id')
-            ->join("payment_companies",'payment_companies.id','=',"orders.payment_company_id")
+        $order = Order::select("orders.*")
             ->where('orders.id',$id)
+            ->first();
+
+        $merchant = Merchant::select("merchants.*","payment_companies.auth_file")
+            ->join("payment_companies",'payment_companies.id','=',"merchants.payment_company_id")
+            ->where('merchants.id',$order->merchant_id)
             ->first();
 
         $order_record = OrderRecord::select("*",'id as order_record_id')->where('order_id',$order->id)->orderBy('id','desc')->first();
@@ -81,7 +85,10 @@ class OrderController extends BaseController
 
         return response()->json([
             'code' => '200',
-            'data' => $data,
+            'data' => [
+                'merchant' => $merchant,
+                'order' => $data
+            ],
         ]);
 
     }
