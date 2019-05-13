@@ -27,7 +27,7 @@ $api->version('v1', function ($api) {
     $api->get('/order/{id}','App\Http\Controllers\Api\OrderController@getOrder');
     $api->post('/save_order','App\Http\Controllers\Api\OrderController@saveOrder');
     $api->post('/upload_order_image','App\Http\Controllers\Api\OrderController@uploadImage');
-
+    $api->post('/change_password','App\Http\Controllers\Api\UserController@changePassword');
 
     $api->post('register', 'App\Http\Controllers\Api\Auth\RegisterController@register');
     $api->get('/page','App\Http\Controllers\Api\PageController@getPages');
