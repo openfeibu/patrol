@@ -558,6 +558,10 @@ if (!function_exists('image_url_absolute')) {
 if (!function_exists('handle_images')) {
     function handle_images($images, $host = '')
     {
+        if(!array_filter($images))
+        {
+            return [];
+        }
         foreach ($images as $key => $image) {
             $images[$key] = handle_image_url($image, $host);
         }

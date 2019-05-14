@@ -161,12 +161,9 @@ class OrderController extends BaseController
                 Order::where('id',$order_record['order_id'])->update(['status' => 'working']);
             }
 
-            $order_record = OrderRecord::where('id',$order_record['id'])->first();
-
             return response()->json([
                 'code' => '200',
                 'message' => '提交成功',
-                'data' => $order_record
             ],200);
         }
 
