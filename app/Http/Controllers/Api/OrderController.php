@@ -87,12 +87,15 @@ class OrderController extends BaseController
         {
             if(strpos($field,'image'))
             {
-                $data[$field.'_path'] = $data[$field];
+
                 if($data[$field])
                 {
+                    $data[$field.'_path'] = explode(',',$data[$field]);
                     $data[$field.'_thumb'] = handle_images_thumb('order',explode(',',$data[$field]));
                     $data[$field] = handle_images(explode(',',$data[$field]));
+
                 }else{
+                    $data[$field.'_path'] = [];
                     $data[$field.'_thumb'] = [];
                     $data[$field] = [];
                 }
