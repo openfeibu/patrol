@@ -73,7 +73,7 @@ class UserController extends BaseController
             ],400);
         }
     }
-    public function getWordCard()
+    public function getWorkCard()
     {
         $save_image_path = base_path('storage/uploads').'/'.str_replace('..', '', 'avatar/'.$this->user->id.'/'.'work_card.jpg');
         if(!file_exists($save_image_path))
