@@ -78,6 +78,8 @@ class OrderController extends BaseController
             {
                 $data[$field] = null;
             }
+            $data['status'] = $order->status;
+            $data['status_desc'] = $order->status_desc;
         }else{
             $data = $order_record->toArray();
         }

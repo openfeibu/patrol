@@ -20,11 +20,17 @@ class OrderRecord extends BaseModel
      */
     protected $config = 'model.order.order_record';
 
-    protected $appends = ['merchant_result_desc'];       // 表里没有的字段
+    protected $appends = ['merchant_result_desc','status_desc'];       // 表里没有的字段
 
     public function getMerchantResultDescAttribute()
     {
         $merchant_result = $this->attributes['merchant_result'];
         return trans('order_record.merchant_result.'.$merchant_result);
+    }
+
+    public function getStatusDescAttribute()
+    {
+        $status = $this->attributes['status'];
+        return trans('order.status.'.$status);
     }
 }
