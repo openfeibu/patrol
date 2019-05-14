@@ -33,4 +33,8 @@ class OrderRecord extends BaseModel
         $status = $this->attributes['status'];
         return trans('order.status.'.$status);
     }
+    public function getDateAttribute($date)
+    {
+        return date('Y/m/d',strtotime($date));
+    }
 }
