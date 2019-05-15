@@ -50,7 +50,7 @@ class OrderController extends BaseController
         foreach ($orders_data as $key=> $order) {
             if($order['status'] == 'return')
             {
-                $orders_data[$key]['return_content'] = OrderRecord::where('order_id',$order['id'])->orderBy('id','desc')->value('return_content');
+                $orders_data[$key]['return_content'] = OrderRecord::where('order_id',$order['id'])->where('status','return')->orderBy('id','desc')->value('return_content');
             }else{
                 $orders_data[$key]['return_content'] = '';
             }
@@ -85,13 +85,21 @@ class OrderController extends BaseController
             {
                 $data[$field] = null;
             }
-            $data['status'] = $order->status;
-            $data['status_desc'] = $order->status_desc;
-            $data['return_content'] = '';
-
         }else{
             $data = $order_record->toArray();
         }
+
+        $data['status'] = $order->status;
+        $data['status_desc'] = $order->status_desc;
+        
+        if($order['status'] == 'return')
+        {
+            $data['return_content'] = OrderRecord::where('order_id',$order['id'])->where('status','return')->orderBy('id','desc')->value('return_content');
+        }else{
+            $data['return_content'] = '';
+        }
+
+
         foreach ($order_record_fields as $key => $field)
         {
             if(strpos($field,'image'))
@@ -162,14 +170,23 @@ class OrderController extends BaseController
 
         if($order_record_data)
         {
-            if($order_record && $order_record['status'] == 'working')
+            if($order_record)
             {
-                if(isset($order_record_data['signature_image']))
+                if($order_record['status'] == 'working')
                 {
-                    $order_record_data['status'] = 'finish';
-                    Order::where('id',$order_record['order_id'])->update(['status' => 'finish']);
+                    if(isset($order_record_data['signature_image']))
+                    {
+                        $order_record_data['status'] = 'finish';
+                        Order::where('id',$order_record['order_id'])->update(['status' => 'finish']);
+                    }
+                    OrderRecord::where('id',$order_record['id'])->update($order_record_data);
                 }
-                OrderRecord::where('id',$order_record['id'])->update($order_record_data);
+                if($order_record['status'] == 'return')
+                {
+                    $order_record_data['user_id'] = $this->user->id;
+                    $order_record_data['status'] = 'working';
+                    $order_record = OrderRecord::create($order_record_data);
+                }
             }
             else{
                 $order_record_data['user_id'] = $this->user->id;
