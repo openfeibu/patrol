@@ -91,7 +91,7 @@ class OrderController extends BaseController
 
         $data['status'] = $order->status;
         $data['status_desc'] = $order->status_desc;
-        
+
         if($order['status'] == 'return')
         {
             $data['return_content'] = OrderRecord::where('order_id',$order['id'])->where('status','return')->orderBy('id','desc')->value('return_content');
@@ -159,7 +159,7 @@ class OrderController extends BaseController
         //存在工单巡检记录且非退回状态
         $is_update = 0;
 
-        $order_record = OrderRecord::where('order_id',$order_id)->first();
+        $order_record = OrderRecord::where('order_id',$order_id)->orderBy('id','desc')->first();
         if($order_record && ($order_record['status'] == 'finish' || $order_record['status'] == 'pass'))
         {
             return response()->json([
@@ -185,6 +185,9 @@ class OrderController extends BaseController
                 {
                     $order_record_data['user_id'] = $this->user->id;
                     $order_record_data['status'] = 'working';
+
+                    $order_record_data = array_merge($order_record->toArray(),$order_record_data);
+                    unset($order_record_data['id'],$order_record_data['return_content'],$order_record_data['signature_image']);
                     $order_record = OrderRecord::create($order_record_data);
                 }
             }
