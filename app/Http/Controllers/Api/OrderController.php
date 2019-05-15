@@ -52,7 +52,7 @@ class OrderController extends BaseController
             {
                 $orders_data[$key]['return_content'] = OrderRecord::where('order_id',$order['id'])->orderBy('id','desc')->value('return_content');
             }else{
-                $orders_data[$key]['return_content'] = null;
+                $orders_data[$key]['return_content'] = '';
             }
         }
         return response()->json([
@@ -87,6 +87,8 @@ class OrderController extends BaseController
             }
             $data['status'] = $order->status;
             $data['status_desc'] = $order->status_desc;
+            $data['return_content'] = '';
+
         }else{
             $data = $order_record->toArray();
         }
