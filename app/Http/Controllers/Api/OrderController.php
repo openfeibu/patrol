@@ -26,15 +26,22 @@ class OrderController extends BaseController
         $user = User::getUser();
 
         $status = $request->input('status','');
+        $search_key = $request->input('search_key','');
+
         $orders = Order::select("merchants.*","merchants.id as merchant_id","orders.*")
-            ->join('merchants','merchants.id','orders.merchant_id');
-
-        if($status)
-        {
-            $orders = $orders->where('orders.status',$status);
-        }
-
-        $orders = $orders->where('orders.user_id',$user->id)
+            ->join('merchants','merchants.id','orders.merchant_id')
+            ->when($status, function ($query) use ($status) {
+                return $query->where(function ($query) use ($status) {
+                    $query->where('orders.status',$status);
+                });
+            })
+            ->when($search_key, function ($query) use ($search_key) {
+                return $query->where(function ($query) use ($search_key) {
+                    $query->where('merchants.name','like','%'.$search_key.'%')
+                    ->orWhere('merchants.merchant_sn','like','%'.$search_key.'%');
+                });
+            })
+            ->where('orders.user_id',$user->id)
             ->orderBy('orders.id','desc')
             ->paginate(20);
 
@@ -102,6 +109,8 @@ class OrderController extends BaseController
             }
         }
         $data = array_merge($order->toArray(),$data);
+
+        $merchant->auth_file = handle_image_url($merchant->auth_file ?? config('common.auth_file'));
 
         return response()->json([
             'code' => '200',
