@@ -102,7 +102,7 @@ class OrderController extends BaseController
 
         foreach ($order_record_fields as $key => $field)
         {
-            if(strpos($field,'image'))
+            if(strpos($field,'image') !== false)
             {
 
                 if($data[$field])
@@ -154,6 +154,7 @@ class OrderController extends BaseController
                 $order_record_data[$field] = $request_data[$field];
             }
         }
+        $is_finish = isset($order_record_data['status']) && $order_record_data['status'] == 'finish' ? true :flase;
         unset($order_record_data['status'],$order_record_data['user_id']);
 
         //存在工单巡检记录且非退回状态
@@ -174,11 +175,11 @@ class OrderController extends BaseController
             {
                 if($order_record['status'] == 'working')
                 {
-                    if(isset($order_record_data['signature_image']))
-                    {
-                        $order_record_data['status'] = 'finish';
-                        Order::where('id',$order_record['order_id'])->update(['status' => 'finish']);
-                    }
+//                    if(isset($order_record_data['signature_image']))
+//                    {
+//                        $order_record_data['status'] = 'finish';
+//                        Order::where('id',$order_record['order_id'])->update(['status' => 'finish']);
+//                    }
                     OrderRecord::where('id',$order_record['id'])->update($order_record_data);
                 }
                 if($order_record['status'] == 'return')
@@ -189,6 +190,11 @@ class OrderController extends BaseController
                     $order_record_data = array_merge($order_record->toArray(),$order_record_data);
                     unset($order_record_data['id'],$order_record_data['return_content'],$order_record_data['signature_image']);
                     $order_record = OrderRecord::create($order_record_data);
+                }
+                if($is_finish)
+                {
+                    $order_record_data['status'] = 'finish';
+                    Order::where('id',$order_record['order_id'])->update(['status' => 'finish']);
                 }
             }
             else{
@@ -220,7 +226,6 @@ class OrderController extends BaseController
     }
     public function getOrderCount(Request $request)
     {
-
         $status = $request->get('status','return');
 
         $count = Order::where('user_id',$this->user->id)

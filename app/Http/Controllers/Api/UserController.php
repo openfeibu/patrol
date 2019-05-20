@@ -117,4 +117,8 @@ class UserController extends BaseController
             'data' => $word_card_url
         ],200);
     }
+    public function saveLocation(Request $request)
+    {
+
+    }
 }
