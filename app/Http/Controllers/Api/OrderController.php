@@ -180,6 +180,11 @@ class OrderController extends BaseController
 //                        $order_record_data['status'] = 'finish';
 //                        Order::where('id',$order_record['order_id'])->update(['status' => 'finish']);
 //                    }
+                    if($is_finish)
+                    {
+                        $order_record_data['status'] = 'finish';
+                        Order::where('id',$order_record['order_id'])->update(['status' => 'finish']);
+                    }
                     OrderRecord::where('id',$order_record['id'])->update($order_record_data);
                 }
                 if($order_record['status'] == 'return')
@@ -187,15 +192,17 @@ class OrderController extends BaseController
                     $order_record_data['user_id'] = $this->user->id;
                     $order_record_data['status'] = 'working';
 
+                    if($is_finish)
+                    {
+                        $order_record_data['status'] = 'finish';
+                        Order::where('id',$order_record['order_id'])->update(['status' => 'finish']);
+                    }
+
                     $order_record_data = array_merge($order_record->toArray(),$order_record_data);
                     unset($order_record_data['id'],$order_record_data['return_content'],$order_record_data['signature_image']);
                     $order_record = OrderRecord::create($order_record_data);
                 }
-                if($is_finish)
-                {
-                    $order_record_data['status'] = 'finish';
-                    Order::where('id',$order_record['order_id'])->update(['status' => 'finish']);
-                }
+
             }
             else{
                 $order_record_data['user_id'] = $this->user->id;
