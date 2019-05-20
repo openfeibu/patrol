@@ -154,7 +154,7 @@ class OrderController extends BaseController
                 $order_record_data[$field] = $request_data[$field];
             }
         }
-        $is_finish = isset($order_record_data['status']) && $order_record_data['status'] == 'finish' ? true :flase;
+        $is_finish = isset($order_record_data['status']) && $order_record_data['status'] == 'finish' ? true :false;
         unset($order_record_data['status'],$order_record_data['user_id']);
 
         //存在工单巡检记录且非退回状态
