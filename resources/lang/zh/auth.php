@@ -15,7 +15,7 @@ return [
     |
      */
 
-    'failed'                => '您所使用的凭证与记录不符。',
+    'failed'                => '账号或密码错误！',
     'throttle'              => '登录请求过多。请在 :seconds 秒后重试。',
 
     'activated'             => "激活成功。 <a href=':url' class='alert-link'>您现在可以登录</a>",

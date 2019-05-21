@@ -6,6 +6,7 @@ return [
     'label'       => [
         'name'             => '名称',
         'email' => '邮箱',
+        'phone' => '手机号码',
         'roles' => '角色',
         'password' => '密码',
         'new_password' => '新密码',
