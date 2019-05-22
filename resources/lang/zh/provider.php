@@ -5,7 +5,7 @@ return [
     'names'       => '服务商',
     'label'       => [
         'name' => '服务商名称',
-        'linkman' => '联系人',
+        'linkman' => '负责人',
         'phone' => '手机号码',
         'wechat' => '微信号',
     ],

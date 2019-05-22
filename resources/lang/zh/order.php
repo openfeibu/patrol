@@ -4,7 +4,7 @@ return [
     'status' => [
         'pending' => '待分配',
         'working' => '待巡检',
-        'finish' => '已完成',
+        'finish' => '已巡检',
         'return' => '退单',
         'pass' => '结案'
     ]
