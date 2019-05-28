@@ -2,7 +2,7 @@
 
 <div class="login layui-anim layui-anim-up">
 	<div class="login-con">
-		<div class="login-con-title">飞步科技管理后台--支付商</div>
+		<div class="login-con-title">海带巡检管理后台--支付商</div>
 		{!! Theme::partial('message') !!}
 		{!!Form::vertical_open()->id('login')->method('POST')->class('layui-form')->action(guard_url('login')) !!}
 			<div class="form-title">
