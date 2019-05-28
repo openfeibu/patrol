@@ -20,4 +20,9 @@ class Merchant extends BaseModel
      */
     protected $config = 'model.merchant.merchant';
 
+    public function payment_company()
+    {
+        return $this->belongsTo('App\Models\PaymentCompany');
+    }
+
 }

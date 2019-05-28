@@ -34,24 +34,8 @@ class RolesServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('roles.roles', function ($app) {
-            return $this->app->make('App\Roles');
-        });
+
         // Bind User to repository
-        $this->app->bind(
-            'App\Repositories\Eloquent\AdminUserRepositoryInterface',
-            \App\Repositories\Eloquent\AdminUserRepository::class
-        );
-        // Bind Role to repository
-        $this->app->bind(
-            'App\Repositories\Eloquent\RoleRepositoryInterface',
-            \App\Repositories\Eloquent\RoleRepository::class
-        );
-        // Bind Permission to repository
-        $this->app->bind(
-            'App\Repositories\Eloquent\PermissionRepositoryInterface',
-            \App\Repositories\Eloquent\PermissionRepository::class
-        );
 
         $this->registerBladeExtensions();
     }

@@ -11,26 +11,26 @@
                                 <li class="layui-col-xs3">
                                     @permission(home())
                                     <a lay-href="" class="fb-backlog-body">
-                                        <h3>会员量</h3>
+                                        <h3>支付商总量</h3>
                                         <p><cite>66</cite></p>
                                     </a>
                                     @endpermission
                                 </li>
                                 <li class="layui-col-xs3">
                                     <a lay-href="" class="fb-backlog-body">
-                                        <h3>待审帖子</h3>
+                                        <h3>服务商总量</h3>
                                         <p><cite>12</cite></p>
                                     </a>
                                 </li>
                                 <li class="layui-col-xs3">
                                     <a lay-href="" class="fb-backlog-body">
-                                        <h3>待审商品</h3>
+                                        <h3>巡检人员总量</h3>
                                         <p><cite>99</cite></p>
                                     </a>
                                 </li>
                                 <li class="layui-col-xs3">
                                     <a lay-href="" class="fb-backlog-body">
-                                        <h3>待发货</h3>
+                                        <h3>巡检任务总量</h3>
                                         <p><cite>20</cite></p>
                                     </a>
                                 </li>

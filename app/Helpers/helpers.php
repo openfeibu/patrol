@@ -278,16 +278,18 @@ if (!function_exists('set_route_guard')) {
     /**
      * Set local for the translation
      *
-     * @param string $locale
-     *
+     * @param string $sub
+     * @param string $guard
+     * @param string $theme
      * @return string
      */
-    function set_route_guard($sub = 'web', $guard=null,$theme=null)
+    function set_route_guard($sub='web', $guard=null,$theme=null)
     {
         $i = ($sub == 'web') ? 1 : 2;
         $theme ? set_theme($theme) : '';
         //check whether guard is the first parameter of the route
         $guard = is_null($guard) ? request()->segment($i) : $guard;
+
         if (!empty(config("auth.guards.$guard"))){
             putenv("guard={$guard}.{$sub}");
             app('auth')->shouldUse("{$guard}.{$sub}");
@@ -738,6 +740,31 @@ if (!function_exists('isVaildImage')) {
         }
     }
 }
+if (!function_exists('isVaildExcel')) {
+    function isVaildExcel($file)
+    {
+        $error = '';
+
+
+        $name = $file->getClientOriginalName();
+        if(!$file->isValid())
+        {
+            $error.= $name.$file->getErrorMessage().';';
+        }
+        if(!in_array( strtolower($file->extension()),config('common.excel_type'))){
+            $error.= $name."非Excel格式;";
+        }
+        if($file->getClientSize() > config('common.file_size')){
+            $file_size = config('common.file_size')/(1024*1024);
+            $error.= $name.'超过'.$file_size.'M';
+        }
+
+        if($error)
+        {
+            throw new \App\Exceptions\OutputServerMessageException($error);
+        }
+    }
+}
 if (!function_exists('image_png_size_add')) {
     function image_png_size_add($imgsrc, $imgdst)
     {
@@ -799,4 +826,10 @@ if (!function_exists('avatar')) {
         return $avatar ? url('image/original'.$avatar) : url('image/original'.config('common.default_avatar'));
     }
 }
-
+if (!function_exists('generate_order_sn')) {
+    function generate_order_sn()
+    {
+        $order_sn = date('Ymd') . substr(implode(NULL, array_map('ord', str_split(substr(uniqid(), 7, 13), 1))), 0, 8);
+        return $order_sn;
+    }
+}

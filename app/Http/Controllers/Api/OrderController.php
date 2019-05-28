@@ -30,6 +30,7 @@ class OrderController extends BaseController
 
         $orders = Order::select("merchants.*","merchants.id as merchant_id","orders.*")
             ->join('merchants','merchants.id','orders.merchant_id')
+            ->where('orders.user_id',$user->id)
             ->when($status, function ($query) use ($status) {
                 return $query->where(function ($query) use ($status) {
                     $query->where('orders.status',$status);
@@ -41,7 +42,6 @@ class OrderController extends BaseController
                     ->orWhere('merchants.merchant_sn','like','%'.$search_key.'%');
                 });
             })
-            ->where('orders.user_id',$user->id)
             ->orderBy('orders.id','desc')
             ->paginate(20);
 

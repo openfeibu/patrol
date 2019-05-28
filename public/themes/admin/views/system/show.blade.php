@@ -1,7 +1,7 @@
 <div class="main">
     <div class="layui-card fb-minNav">
         <div class="layui-breadcrumb" lay-filter="breadcrumb" style="visibility: visible;">
-            <a href="﻿{{ route('home') }}">主页</a><span lay-separator="">/</span>
+            <a href="{{ route('home') }}">主页</a><span lay-separator="">/</span>
             <a><cite>后台管理员</cite></a><span lay-separator="">/</span>
             <a><cite>添加系统文章</cite></a>
         </div>

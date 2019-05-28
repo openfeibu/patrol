@@ -1,7 +1,7 @@
 <div class="main">
     <div class="layui-card fb-minNav">
         <div class="layui-breadcrumb" lay-filter="breadcrumb" style="visibility: visible;">
-            <a href="﻿{{ route('home') }}">主页</a><span lay-separator="">/</span>
+            <a href="{{ route('home') }}">主页</a><span lay-separator="">/</span>
             <a><cite>轮播图</cite></a><span lay-separator="">/</span>
             <a><cite>添加轮播图</cite></a>
         </div>

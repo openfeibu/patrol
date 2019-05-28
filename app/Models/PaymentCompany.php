@@ -20,6 +20,12 @@ class PaymentCompany extends BaseModel
      */
     protected $config = 'model.payment_company.payment_company';
 
+    protected $appends = ['auth_file_path'];
+
+    public function getAuthFilePathAttribute()
+    {
+        return $this->attributes['auth_file'] ?? '';
+    }
 
     public function getAuthFileAttribute($auth_file)
     {

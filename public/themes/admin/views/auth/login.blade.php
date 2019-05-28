@@ -3,7 +3,7 @@
 <div class="login layui-anim layui-anim-up">
 	<div class="login-con">
 		<div class="login-con-title">飞步科技管理后台</div>
-		@include('notifications')
+		{!! Theme::partial('message') !!}
 		{!!Form::vertical_open()->id('login')->method('POST')->class('layui-form')->action(url('admin/login')) !!}
 			<div class="form-title">
 				<div class="form-title-item">账号密码登陆</div>

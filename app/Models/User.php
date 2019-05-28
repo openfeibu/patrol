@@ -27,6 +27,33 @@ class User extends Authenticatable implements JWTSubject
 
     protected $appends = ['avatar'];       // 表里没有的字段
 
+
+    public function __construct($attributes = [])
+    {
+        $config = config($this->config);
+
+        foreach ($config as $key => $val) {
+
+            if (property_exists(get_called_class(), $key)) {
+                $this->$key = $val;
+            }
+
+        }
+
+        parent::__construct($attributes);
+    }
+
+    public function setPasswordAttribute($val)
+    {
+
+        if (Hash::needsRehash($val)) {
+            $this->attributes['password'] = bcrypt($val);
+        } else {
+            $this->attributes['password'] = ($val);
+        }
+
+    }
+
     public static function checkPassword($phone, $password)
     {
 
@@ -91,7 +118,17 @@ class User extends Authenticatable implements JWTSubject
     }
     public function getAvatarAttribute()
     {
-        return $this->attributes['avatar_url'];
+        return isset($this->attributes['avatar_url']) ? $this->attributes['avatar_url'] : config('common.default_avatar');
 
+    }
+
+    public function payment_company()
+    {
+        return $this->belongsTo('App\Models\PaymentCompany');
+    }
+
+    public function provider()
+    {
+        return $this->belongsTo('App\Models\Provider');
     }
 }

@@ -18,6 +18,7 @@ return [
         'updated' => ':Module 已成功更新。',
         'deleted' => ':Module 已成功删除。',
         'changed' => ':Module 已被 :status。',
+        'submit' => '提交成功',
     ],
 
     'error'         => [
@@ -32,4 +33,8 @@ return [
         'success' => '成功',
         'error'   => '错误',
     ],
+    'excel' => [
+        'not_found_data' => "未发现任何数据，请重新选择文件提交",
+    ],
+
 ];

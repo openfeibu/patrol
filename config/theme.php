@@ -22,6 +22,14 @@ return array(
             'theme'  => 'admin',
             'view'   => 'admin',
         ],
+        'payment'   => [
+            'theme'  => 'payment',
+            'view'   => 'payment',
+        ],
+        'provider'   => [
+            'theme'  => 'provider',
+            'view'   => 'provider',
+        ],
         'public'  => [
             'theme'  => 'public',
             'view'   => 'public',

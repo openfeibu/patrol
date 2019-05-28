@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Shanghai',
 
     /*
     |--------------------------------------------------------------------------
@@ -167,6 +167,7 @@ return [
         App\Providers\FormServiceProvider::class,
         App\Providers\ThemeServiceProvider::class,
         App\Providers\MenuServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
         Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
@@ -244,6 +245,7 @@ return [
         'Active' => HieuLe\Active\Facades\Active::class,
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
         'UserVerification' => Jrean\UserVerification\Facades\UserVerification::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
     'allow_origin' =>[
         'http://192.168.0.3:1818',

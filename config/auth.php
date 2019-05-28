@@ -45,6 +45,30 @@ return [
             ],
 
         ],
+        'payment'  => [
+            'web' => [
+                'driver'   => 'session',
+                'provider' => 'payment_users',
+            ],
+
+            'api' => [
+                'driver'   => 'token',
+                'provider' => 'payment_users',
+            ],
+
+        ],
+        'provider'  => [
+            'web' => [
+                'driver'   => 'session',
+                'provider' => 'provider_users',
+            ],
+
+            'api' => [
+                'driver'   => 'token',
+                'provider' => 'provider_users',
+            ],
+
+        ],
         /*
         'client' => [
             'web' => [
@@ -86,6 +110,14 @@ return [
         'admins'   => [
             'driver' => 'eloquent',
             'model'  => App\Models\AdminUser::class,
+        ],
+        'payment_users' => [
+            'driver' => 'eloquent',
+            'model'  => App\Models\PaymentUser::class,
+        ],
+        'provider_users' => [
+            'driver' => 'eloquent',
+            'model'  => App\Models\ProviderUser::class,
         ],
         'clients' => [
             'driver' => 'eloquent',

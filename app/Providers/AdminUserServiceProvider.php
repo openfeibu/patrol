@@ -52,6 +52,39 @@ class AdminUserServiceProvider extends ServiceProvider
             'App\Repositories\Eloquent\PermissionRepositoryInterface',
             \App\Repositories\Eloquent\PermissionRepository::class
         );
+
+        $this->app->bind(
+            'App\Repositories\Eloquent\PaymentUserRepositoryInterface',
+            \App\Repositories\Eloquent\PaymentUserRepository::class
+        );
+
+        // Bind Role to repository
+        $this->app->bind(
+            'App\Repositories\Eloquent\PaymentRoleRepositoryInterface',
+            \App\Repositories\Eloquent\PaymentRoleRepository::class
+        );
+        // Bind Permission to repository
+        $this->app->bind(
+            'App\Repositories\Eloquent\PaymentPermissionRepositoryInterface',
+            \App\Repositories\Eloquent\PaymentPermissionRepository::class
+        );
+
+        $this->app->bind(
+            'App\Repositories\Eloquent\ProviderUserRepositoryInterface',
+            \App\Repositories\Eloquent\ProviderUserRepository::class
+        );
+
+        // Bind Role to repository
+        $this->app->bind(
+            'App\Repositories\Eloquent\ProviderRoleRepositoryInterface',
+            \App\Repositories\Eloquent\ProviderRoleRepository::class
+        );
+        // Bind Permission to repository
+        $this->app->bind(
+            'App\Repositories\Eloquent\ProviderPermissionRepositoryInterface',
+            \App\Repositories\Eloquent\ProviderPermissionRepository::class
+        );
+
         $this->app->register(\Laravel\Socialite\SocialiteServiceProvider::class);
     }
 

@@ -27,4 +27,20 @@ class Order extends BaseModel
         $status = $this->attributes['status'];
         return trans('order.status.'.$status);
     }
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+    public function provider()
+    {
+        return $this->belongsTo('App\Models\Provider');
+    }
+    public function payment_company()
+    {
+        return $this->belongsTo('App\Models\PaymentCompany');
+    }
+    public function merchant()
+    {
+        return $this->belongsTo('App\Models\Merchant');
+    }
 }

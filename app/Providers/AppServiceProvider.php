@@ -61,6 +61,33 @@ class AppServiceProvider extends ServiceProvider
             'App\Repositories\Eloquent\NavCategoryRepositoryInterface',
             \App\Repositories\Eloquent\NavCategoryRepository::class
         );
+        $this->app->bind(
+            'App\Repositories\Eloquent\PaymentCompanyRepositoryInterface',
+            \App\Repositories\Eloquent\PaymentCompanyRepository::class
+        );
+        $this->app->bind(
+            'App\Repositories\Eloquent\ProviderRepositoryInterface',
+            \App\Repositories\Eloquent\ProviderRepository::class
+        );
+
+        $this->app->bind(
+            'App\Repositories\Eloquent\MerchantRepositoryInterface',
+            \App\Repositories\Eloquent\MerchantRepository::class
+        );
+
+        $this->app->bind(
+            'App\Repositories\Eloquent\OrderRepositoryInterface',
+            \App\Repositories\Eloquent\OrderRepository::class
+        );
+        $this->app->bind(
+            'App\Repositories\Eloquent\OrderRecordRepositoryInterface',
+            \App\Repositories\Eloquent\OrderRecordRepository::class
+        );
+        $this->app->bind(
+            'App\Repositories\Eloquent\UserRepositoryInterface',
+            \App\Repositories\Eloquent\UserRepository::class
+        );
+
         $this->app->bind('filer', function ($app) {
             return new \App\Helpers\Filer\Filer();
         });
@@ -69,6 +96,9 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->bind('image_service', function ($app) {
             return new \App\Services\ImageService($app->request);
+        });
+        $this->app->bind('excel_service', function ($app) {
+            return new \App\Services\ExcelService($app->request);
         });
     }
 
