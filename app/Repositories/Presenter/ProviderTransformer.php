@@ -15,7 +15,6 @@ class ProviderTransformer extends TransformerAbstract
             'payment_company_id' => $provider->payment_company_id,
             'phone' => $provider->phone,
             'wechat' => $provider->wechat,
-            'payment_company_name' => $provider->payment_company->name,
         ];
     }
 }

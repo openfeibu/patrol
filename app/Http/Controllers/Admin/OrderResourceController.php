@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Payment;
+namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Payment\ResourceController as BaseController;
+use App\Http\Controllers\Admin\ResourceController as BaseController;
+use App\Models\PaymentCompany;
 use Auth;
 use Illuminate\Http\Request;
 use App\Models\Order;
@@ -48,12 +49,36 @@ class OrderResourceController extends BaseController
     {
         $limit = $request->input('limit',config('app.limit'));
 
+        $search = $request->input('search',[]);
+        $payment_company_id = isset($search['payment_company_id']) ? $search['payment_company_id'] : 0;
+        $search_address = isset($search['search_address']) ? $search['search_address'] : '';
+        $search_merchant_name = isset($search['search_merchant_name']) ? $search['search_merchant_name'] : '';
+
+        $payment_companies = PaymentCompany::orderBy('id','desc')->get();
+
         if ($this->response->typeIs('json')) {
-            $data = $this->repository
-                ->where(['status' => $status])
+            $data = $this->repository->join('merchants','merchants.id','=','orders.merchant_id')
+                ->where('orders.status',$status);
+            if($payment_company_id)
+            {
+                $data = $data->where('orders.payment_company_id',$payment_company_id);
+            }
+            if($search_address)
+            {
+                $data = $data->where(function ($query) use ($search_address){
+                    return $query->where('merchants.province','like','%'.$search_address.'%');
+                });
+            }
+            if($search_merchant_name)
+            {
+                $data = $data->where(function ($query) use ($search_merchant_name){
+                    return $query->where('merchants.name','like','%'.$search_merchant_name.'%');
+                });
+            }
+            $data = $data
                 ->setPresenter(\App\Repositories\Presenter\OrderPresenter::class)
-                ->orderBy('id','desc')
-                ->getDataTable($limit);
+                ->orderBy('orders.id','desc')
+                ->getDataTable($limit,['orders.*']);
 
             return $this->response
                 ->success()
@@ -62,10 +87,10 @@ class OrderResourceController extends BaseController
                 ->output();
 
         }
-
+        $providers = Provider::orderBy('id','desc')->get();
         return $this->response->title(trans('app.admin.panel'))
             ->view('order.'.$status)
-            ->data(compact('providers'))
+            ->data(compact('providers','payment_companies','payment_company_id','search_address','search_merchant_name'))
             ->output();
     }
     public function index(Request $request)
@@ -103,7 +128,7 @@ class OrderResourceController extends BaseController
     {
         try {
             $attributes = $request->all();
-
+            $attributes['payment_company_id'] = Auth::user()->payment_company_id;
             $order = $this->repository->create($attributes);
 
             return $this->response->message(trans('messages.success.created', ['Module' => trans('order.name')]))
@@ -193,7 +218,32 @@ class OrderResourceController extends BaseController
                 ->redirect();
         }
     }
+    public function pushProvider(Request $request)
+    {
+        try {
+            $data = $request->all();
+            $ids = $data['ids'];
+            $provider_id = $data['provider_id'];
 
+            Order::whereIn('id',$ids)->update([
+                'provider_id' =>  $provider_id,
+                'status' => 'pending_user',
+            ]);
+
+            return $this->response->message('分发成功')
+                ->status("success")
+                ->code(202)
+                ->url(guard_url('order'))
+                ->redirect();
+
+        } catch (Exception $e) {
+            return $this->response->message($e->getMessage())
+                ->status("error")
+                ->code(400)
+                ->url(guard_url('order'))
+                ->redirect();
+        }
+    }
     public function ReturnOrder(Request $request)
     {
         try {

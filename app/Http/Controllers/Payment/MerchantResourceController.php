@@ -244,8 +244,23 @@ class MerchantResourceController extends BaseController
                     'updated_at' => date('Y-m-d H:i:s'),
                     'payment_company_id' => $payment_company_id,
                 ];
+                $merchant = Merchant::create($excel_data[$k]);
+                $order_arr = [
+                    'order_sn' => generate_order_sn(),
+                    'merchant_id' => $merchant->id,
+                    'payment_company_id' => $payment_company_id,
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ];
+                Order::create($order_arr);
             }
         }
+        return $this->response->message("上传数据成功")
+            ->status("success")
+            ->code(200)
+            ->url(guard_url('order_pending_provider'))
+            ->redirect();
+        /*
         if(!count($excel_data))
         {
             return $this->response->message(trans("messages.excel.not_found_data"))
@@ -270,6 +285,7 @@ class MerchantResourceController extends BaseController
                 ->url(guard_url('merchant'))
                 ->redirect();
         }
+        */
         /*
         return $this->response->title(trans('merchant.name'))
             ->view('merchant.import')

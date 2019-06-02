@@ -21,7 +21,7 @@
 </div>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-sm" lay-event="edit">查看详情</a>
+    <a class="layui-btn layui-btn-sm" lay-event="edit">详情</a>
     <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="pass">通过</a>
     <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="return">退回</a>
     <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del">删除</a>
@@ -44,10 +44,13 @@
                 {checkbox: true, fixed: true}
                 ,{field:'id',title:'ID', width:80, sort: true}
                 ,{field:'merchant_name',title:"{{ trans('merchant.name') }}"}
-                ,{field:'provider_name',title:"{{ trans('provider.name') }}"}
-                ,{field:'user_name',title:"{{ trans('user.name') }}"}
-                ,{field:'status_desc',title:"{{ trans('order.label.status') }}"}
-                ,{field:'created_at',title:"{{ trans('app.created_at') }}"}
+                ,{field:'phone',title:"{{ trans('merchant.label.phone') }}",width:150}
+                ,{field:'address',title:"{{ trans('merchant.label.address') }}"}
+                ,{field:'province',title:"{{ trans('merchant.label.province') }}", width:75}
+                ,{field:'city',title:"{{ trans('merchant.label.city') }}", width:75}
+                ,{field:'provider_name',title:"{{ trans('provider.name') }}", width:80}
+                ,{field:'user_name',title:"{{ trans('user.name') }}", width:80}
+                ,{field:'created_at',title:"{{ trans('app.created_at') }}",width:120}
                 ,{field:'score',title:'操作', width:260, align: 'right',toolbar:'#barDemo'}
             ]]
             ,id: 'fb-table'

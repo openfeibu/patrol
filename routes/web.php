@@ -32,13 +32,27 @@ Route::group([
     Route::resource('payment_user', 'PaymentUserResourceController');
     Route::post('/payment_user/destroyAll', 'PaymentUserResourceController@destroyAll')->name('payment_user.destroy_all');
 
-    Route::resource('banner', 'BannerResourceController');
-    Route::post('/banner/destroyAll', 'BannerResourceController@destroyAll');
-    Route::resource('news', 'NewsResourceController');
-    Route::post('/news/destroyAll', 'NewsResourceController@destroyAll')->name('news.destroy_all');
-    Route::post('/news/updateRecommend', 'NewsResourceController@updateRecommend')->name('news.update_recommend');
-    Route::resource('system_page', 'SystemPageResourceController');
-    Route::post('/system_page/destroyAll', 'SystemPageResourceController@destroyAll')->name('system_page.destroy_all');
+    Route::resource('provider', 'ProviderResourceController');
+    Route::post('/provider/destroyAll', 'ProviderResourceController@destroyAll')->name('provider.destroy_all');
+    Route::get('provider_import', 'ProviderResourceController@import')->name('provider.import');
+    Route::post('/provider_submit_import', 'ProviderResourceController@submitImport')->name('provider.submit_import');
+
+    Route::resource('order', 'OrderResourceController');
+    Route::post('/order/destroyAll', 'OrderResourceController@destroyAll')->name('order.destroy_all');
+
+    Route::get('order_pending_provider','OrderResourceController@orderPendingProvider')->name('order.pending_provider');
+    Route::get('order_pending_user','OrderResourceController@orderPendingUser')->name('order.pending_user');
+    Route::get('order_working','OrderResourceController@orderWorking')->name('order.working');
+    Route::get('order_finish','OrderResourceController@orderFinish')->name('order.finish');
+    Route::get('order_return','OrderResourceController@orderReturn')->name('order.return');
+    Route::get('order_pass','OrderResourceController@orderPass')->name('order.pass');
+    Route::post('order_push_provider','OrderResourceController@pushProvider')->name('order.push_provider');
+    Route::post('return_order','OrderResourceController@ReturnOrder')->name('order.return_order');
+    Route::post('pass_order','OrderResourceController@PassOrder')->name('order.pass_order');
+    Route::resource('provider_user', 'ProviderUserResourceController');
+    Route::post('/provider_user/destroyAll', 'ProviderUserResourceController@destroyAll')->name('provider_user.destroy_all');
+
+
     Route::get('/setting/company', 'SettingResourceController@company')->name('setting.company.index');
     Route::post('/setting/updateCompany', 'SettingResourceController@updateCompany');
     Route::get('/setting/publicityVideo', 'SettingResourceController@publicityVideo')->name('setting.publicity_video.index');
@@ -46,17 +60,6 @@ Route::group([
     Route::get('/setting/station', 'SettingResourceController@station')->name('setting.station.index');
     Route::post('/setting/updateStation', 'SettingResourceController@updateStation');
 
-    Route::resource('link', 'LinkResourceController');
-    Route::post('/link/destroyAll', 'LinkResourceController@destroyAll')->name('link.destroy_all');
-    Route::resource('permission', 'PermissionResourceController');
-    Route::resource('role', 'RoleResourceController');
-
-    Route::group(['prefix' => 'case','as' => 'case.'], function ($router) {
-        Route::resource('case', 'CaseResourceController');
-        Route::post('/case/destroyAll', 'CaseResourceController@destroyAll')->name('case.destroy_all');
-        Route::resource('category', 'CaseCategoryResourceController');
-        Route::post('/category/destroyAll', 'CaseCategoryResourceController@destroyAll')->name('category.destroy_all');
-    });
 
     Route::group(['prefix' => 'page','as' => 'page.'], function ($router) {
         Route::resource('page', 'PageResourceController');

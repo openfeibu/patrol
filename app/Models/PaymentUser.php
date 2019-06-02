@@ -61,10 +61,15 @@ class PaymentUser extends AuthModel implements AdminUserPolicy
     public function setPasswordAttribute($val)
     {
 
-        if (Hash::needsRehash($val)) {
-            $this->attributes['password'] = bcrypt($val);
-        } else {
-            $this->attributes['password'] = ($val);
+        if(!$val)
+        {
+            unset($this->attributes['password']);
+        }else{
+            if (Hash::needsRehash($val)) {
+                $this->attributes['password'] = bcrypt($val);
+            } else {
+                $this->attributes['password'] = ($val);
+            }
         }
 
     }

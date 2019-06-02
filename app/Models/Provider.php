@@ -20,8 +20,4 @@ class Provider extends BaseModel
      */
     protected $config = 'model.provider.provider';
 
-    public function payment_company()
-    {
-        return $this->belongsTo('App\Models\PaymentCompany');
-    }
 }

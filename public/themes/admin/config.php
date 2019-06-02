@@ -60,6 +60,7 @@ return [
         'beforeRenderTheme'  => function ($theme) {
             $theme->asset()->add('layui_css', 'lib/layui/css/layui.css');
             $theme->asset()->usePath()->add('main_css', 'css/main.css');
+            $theme->asset()->add('common_css', 'css/admin/common.css');
             $theme->asset()->container('footer')->add('layui_js', 'lib/layui/layui.js');
             $theme->asset()->container('footer')->usePath()->add('main_js', 'js/main.js');
 

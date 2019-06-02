@@ -154,7 +154,7 @@ class AdminUserResourceController extends BaseController
             return $this->response->message(trans('messages.success.updated', ['Module' => trans('admin_user.name')]))
                 ->code(0)
                 ->status('success')
-                ->url(guard_url('admin_user/' . $admin_user->id))
+                ->url(guard_url('admin_user/'))
                 ->redirect();
         } catch (Exception $e) {
             return $this->response->message($e->getMessage())

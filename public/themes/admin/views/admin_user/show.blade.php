@@ -6,12 +6,20 @@
     </div>
     <div class="main_full">
         <div class="layui-col-md12">
+            {!! Theme::partial('message') !!}
             <div class="fb-main-table">
                 <form class="layui-form" action="{{guard_url('admin_user/'.$admin_user->id)}}" method="post" lay-filter="fb-form">
                     <div class="layui-form-item">
                         <label class="layui-form-label">{{ trans("admin_user.label.email") }}</label>
                         <div class="layui-input-inline">
                             <input type="text" name="email" value="{{ $admin_user->email }}" lay-verify="title" autocomplete="off" placeholder="请输入{{ trans("admin_user.label.email") }}" class="layui-input" disabled>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">{{ trans("admin_user.label.name") }}</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="name" value="{{ $admin_user->name }}" lay-verify="required" autocomplete="off" placeholder="请输入{{ trans("admin_user.label.name") }}" class="layui-input" >
                         </div>
                     </div>
 

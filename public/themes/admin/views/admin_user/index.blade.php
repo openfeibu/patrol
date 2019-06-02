@@ -45,6 +45,7 @@
                 {checkbox: true, fixed: true}
                 ,{field:'id',title:'ID', width:80, sort: true}
                 ,{field:'email',title:'{!! trans('admin_user.label.email')!!}'}
+                ,{field:'name',title:'{!! trans('admin_user.label.name')!!}'}
                 ,{field:'role_names',title:'{!! trans('admin_user.label.roles')!!}'}
                 ,{field:'score',title:'操作', width:200, align: 'right',toolbar:'#barDemo'}
             ]]

@@ -4,7 +4,7 @@ return [
     'name'        => '服务商管理员',
     'names'       => '服务商管理员',
     'label'       => [
-        'name'             => '名称',
+        'name'             => '姓名',
         'email' => '邮箱',
         'phone' => '手机号码',
         'roles' => '角色',

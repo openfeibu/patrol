@@ -2,18 +2,18 @@
     <div class="layui-card fb-minNav">
         <div class="layui-breadcrumb" lay-filter="breadcrumb" style="visibility: visible;">
             <a href="{{ guard_url('home') }}">主页</a><span lay-separator="">/</span>
-            <a><cite>{{ trans("payment_user.name") }}管理</cite></a>
+            <a><cite>{{ trans("provider_user.name") }}管理</cite></a>
         </div>
     </div>
     <div class="main_full">
         <div class="layui-col-md12">
             <div class="tabel-message">
                 <div class="layui-inline tabel-btn">
-                    <button class="layui-btn layui-btn-warm "><a href="{{guard_url('payment_user/create')}}">添加{{ trans("payment_user.name") }}</a></button>
+                    <button class="layui-btn layui-btn-warm "><a href="{{guard_url('provider_user/create')}}">添加{{ trans("provider_user.name") }}</a></button>
                     <button class="layui-btn layui-btn-primary " data-type="del" data-events="del">删除</button>
                 </div>
                 <div class="layui-inline">
-                    <input class="layui-input search_key" name="email" id="demoReload" placeholder="手机/名称" autocomplete="off">
+                    <input class="layui-input search_key" name="email" id="demoReload" placeholder="邮箱" autocomplete="off">
                 </div>
                 <button class="layui-btn" data-type="reload">搜索</button>
             </div>
@@ -32,22 +32,22 @@
 
 
 <script>
-    var main_url = "{{guard_url('payment_user')}}";
-    var delete_all_url = "{{guard_url('payment_user/destroyAll')}}";
+    var main_url = "{{guard_url('provider_user')}}";
+    var delete_all_url = "{{guard_url('provider_user/destroyAll')}}";
     layui.use(['jquery','element','table'], function(){
         var table = layui.table;
         var form = layui.form;
         var $ = layui.$;
         table.render({
             elem: '#fb-table'
-            ,url: '{{guard_url('payment_user')}}'
+            ,url: '{{guard_url('provider_user')}}'
             ,cols: [[
                 {checkbox: true, fixed: true}
                 ,{field:'id',title:'ID', width:80, sort: true}
-                ,{field:'payment_company_name',title:'{!! trans('payment_company.name')!!}'}
-                ,{field:'phone',title:'{!! trans('payment_user.label.phone')!!}'}
+                ,{field:'provider_name',title:'{!! trans('provider.label.name')!!}'}
+                ,{field:'phone',title:'{!! trans('provider_user.label.phone')!!}'}
                 ,{field:'name',title:'{!! trans('provider_user.label.name')!!}'}
-                ,{field:'role_names',title:'{!! trans('payment_user.label.roles')!!}'}
+                ,{field:'role_names',title:'{!! trans('provider_user.label.roles')!!}'}
                 ,{field:'score',title:'操作', width:200, align: 'right',toolbar:'#barDemo'}
             ]]
             ,id: 'fb-table'

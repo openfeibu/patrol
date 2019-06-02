@@ -20,7 +20,6 @@ class ProviderUserTransformer extends TransformerAbstract
             'photo'             => $user->photo,
             'permissions'       => $user->permissions,
             'status'            => $user->status,
-            'payment_company_name' => $user->payment_company->name,
             'provider_name'     => $user->provider->name,
             'roles'             => $user->roles,
             'role_names' => implode('，',$user->roles->pluck('name')->all()),

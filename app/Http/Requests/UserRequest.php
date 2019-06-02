@@ -34,7 +34,7 @@ class UserRequest extends FormRequest
                         return $query->where('id','<>',$input['id']);
                     })
                 ],
-                'password' => 'required|string|min:6',
+                'password' => 'nullable|string|min:6',
             ];
         }
     }

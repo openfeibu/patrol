@@ -9,6 +9,7 @@ class OrderTransformer extends TransformerAbstract
 {
     public function transform(\App\Models\Order $order)
     {
+        $merchant = $order->merchant;
         return [
             'id' => $order->id,
             'order_sn' => $order->order_sn,
@@ -21,6 +22,10 @@ class OrderTransformer extends TransformerAbstract
             'payment_company_name' => $order->payment_company->name,
             'merchant_id' => $order->merchant_id,
             'merchant_name' => $order->merchant->name ,
+            'address' => $merchant->address,
+            'province' => $merchant->province,
+            'city' => $merchant->city,
+            'phone' => $merchant->phone,
             'status' => $order->status,
             'status_desc' => $order->status_desc,
             'created_at' => $order->created_at->format('Y-m-d H:i:s') ,
