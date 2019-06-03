@@ -220,3 +220,16 @@ button[data-type="del"]:hover{color:#fff;}
 	padding:20px 0;
 }
 .layui-btn-box a{margin:0 20px;}
+.user_content .layui-form{
+	padding:10px 5px;
+	min-height:210px;
+	background:#eee;
+	border-radius:5px;
+	margin:5px 10px;
+	
+}
+.user_content .layui-form .layui-form-radio{
+	width:100%;
+	
+	
+}

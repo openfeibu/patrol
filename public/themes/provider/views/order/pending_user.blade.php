@@ -84,7 +84,7 @@
                             type: 1,
                             shade: false,
                             title: '服务商',
-                            area: ['420px', '240px'], //宽高
+                            area: ['420px', '340px'], //宽高
                             content: $('.user_content'),
                             btn: ['确定'],
                             yes: function(index){
