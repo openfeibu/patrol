@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Order;
 use App\Models\Merchant;
 use Tymon\JWTAuth\JWTAuth;
+use App\Services\AmapService;
 use Log,Input;
 
 class OrderController extends BaseController
@@ -224,7 +225,19 @@ class OrderController extends BaseController
     }
     public function uploadImage(Request $request)
     {
-        $images_url = app('image_service')->uploadImages(Input::all(), 'order',1);
+        $order = Order::where('orders.id',$request->order_id)->first();
+        $merchant_name = $order->merchant->name;
+        $longitude = $request->input('longitude','');
+        $latitude =  $request->input('latitude','');
+        $address = '无法获取地理位置';
+        if($longitude)
+        {
+            $amap_service = new AmapService();
+            $amap_data = $amap_service->geocode_regeo($longitude.','.$latitude);
+            $address = $amap_data['status'] ? $amap_data['regeocode']['formatted_address'] : $address;
+        }
+
+        $images_url = app('image_service')->uploadOrderImages(Input::all(), $merchant_name,$address,1);
 
         return response()->json([
             'code' => '200',

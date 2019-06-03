@@ -833,3 +833,11 @@ if (!function_exists('generate_order_sn')) {
         return $order_sn;
     }
 }
+function is_status_desc($val)
+{
+    if(!$val)
+    {
+        $val = 0;
+    }
+    return config('common.is_status.'.$val);
+}

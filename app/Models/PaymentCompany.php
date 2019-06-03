@@ -24,7 +24,7 @@ class PaymentCompany extends BaseModel
 
     public function getAuthFilePathAttribute()
     {
-        return $this->attributes['auth_file'] ?? '';
+        return $this->attributes['auth_file'] ?? config('common.auth_file');
     }
 
     public function getAuthFileAttribute($auth_file)

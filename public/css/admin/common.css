@@ -6,3 +6,8 @@
     /*overflow: auto;*/
     /*white-space: normal;*/
 }
+.fb-main-table .layui-form-item img {width:300px;}
+.fb-main-table .layui-form-item ul li {float: left; margin-left: 10px;}
+.input-p{
+    line-height: 37px;
+}

@@ -10,7 +10,7 @@ return [
     'status' => [
         'pending_provider' => '待分配服务商',
         'pending_user' => '待分配巡检员',
-        'working' => '待巡检',
+        'working' => '巡检中',
         'finish' => '已巡检',
         'return' => '退单',
         'pass' => '结案'

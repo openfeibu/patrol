@@ -152,8 +152,37 @@ class OrderResourceController extends BaseController
             $view = 'order.create';
         }
 
+        $merchant = $order->merchant;
+
+        $order_record_fields = config('model.order.order_record.fillable');
+
+        $order_record = OrderRecord::select("*",'id as order_record_id')->where('order_id',$order->id)->orderBy('id','desc')->first();
+
+        if($order_record)
+        {
+            $order_record = $order_record->toArray();
+            foreach ($order_record_fields as $key => $field)
+            {
+                if(strpos($field,'image') !== false)
+                {
+
+                    if($order_record[$field])
+                    {
+                        $order_record[$field.'_path'] = explode(',',$order_record[$field]);
+                        $order_record[$field.'_thumb'] = handle_images_thumb('order',explode(',',$order_record[$field]));
+                        $order_record[$field] = handle_images(explode(',',$order_record[$field]));
+
+                    }else{
+                        $order_record[$field.'_path'] = [];
+                        $order_record[$field.'_thumb'] = [];
+                        $order_record[$field] = [];
+                    }
+                }
+            }
+        }
+
         return $this->response->title(trans('app.view') . ' ' . trans('order.name'))
-            ->data(compact('order'))
+            ->data(compact('order','order_record','merchant'))
             ->view($view)
             ->output();
     }
