@@ -130,23 +130,23 @@ class ImageService
 
             $img = Image::make($image_path);
 
-            $img->text($merchant_name, 0, $height-60,function($font) {
+            $img->text($merchant_name, 0, $height-120,function($font) {
                 $font->file(base_path('storage/uploads/font').'/'.'simsun.ttf');
-                $font->size(20);
+                $font->size(40);
                 $font->color('#ffffff');
                 $font->valign('top');
                 //$font->angle(45);
             });
-            $img->text($address, 0, $height-40,function($font) {
+            $img->text($address, 0, $height-80,function($font) {
                 $font->file(base_path('storage/uploads/font').'/'.'simsun.ttf');
-                $font->size(20);
+                $font->size(40);
                 $font->color('#ffffff');
                 $font->valign('top');
                 //$font->angle(45);
             });
-            $img->text(date('Y-m-d H:i:s'), 0, $height-20,function($font) {
+            $img->text(date('Y-m-d H:i:s'), 0, $height-40,function($font) {
                 $font->file(base_path('storage/uploads/font').'/'.'simsun.ttf');
-                $font->size(20);
+                $font->size(40);
                 $font->color('#ffffff');
                 $font->valign('top');
                 //$font->angle(45);

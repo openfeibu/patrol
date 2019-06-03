@@ -259,5 +259,33 @@ class OrderResourceController extends BaseController
                 ->redirect();
         }
     }
+    public function ReturnOrder(Request $request)
+    {
+        try {
+            $data = $request->all();
+            $id = $data['id'];
+            $return_content = $data['return_content'];
 
+            Order::where('id',$id)->update([
+                'status' => 'return',
+            ]);
+            $order_record = OrderRecord::where('order_id',$id)->orderBy('id','desc')->first();
+            OrderRecord::where('id',$order_record->id)->update([
+                'status' => 'return',
+                'return_content' => $return_content,
+            ]);
+            return $this->response->message('退单成功')
+                ->status("success")
+                ->code(202)
+                ->url(guard_url('order_finish'))
+                ->redirect();
+
+        } catch (Exception $e) {
+            return $this->response->message($e->getMessage())
+                ->status("error")
+                ->code(400)
+                ->url(guard_url('order_finish'))
+                ->redirect();
+        }
+    }
 }

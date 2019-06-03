@@ -471,11 +471,13 @@
                             </div>
                             @endif
                         </fieldset>
-						<div class="layui-btn-box"> 
-							
-							<a class="layui-btn layui-btn-lg layui-btn-danger " tag="return">退回</a> 
+                        @if($order_record['status'] == 'finish')
+                            <div class="layui-btn-box">
 
-						</div>
+                                <a class="layui-btn layui-btn-lg layui-btn-danger " tag="return">退回</a>
+
+                            </div>
+                        @endif
                     @endif
                     {!!Form::token()!!}
                     <input type="hidden" name="_method" value="PUT">

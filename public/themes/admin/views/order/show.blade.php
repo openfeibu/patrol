@@ -471,6 +471,13 @@
                             </div>
                             @endif
                         </fieldset>
+                        @if($order_record['status'] == 'finish')
+                        <div class="layui-btn-box">
+
+                            <a class="layui-btn layui-btn-lg layui-btn-danger " tag="return">退回</a>
+
+                        </div>
+                        @endif
                     @endif
                     {!!Form::token()!!}
                     <input type="hidden" name="_method" value="PUT">
@@ -509,7 +516,39 @@
 				photos: json
 				,anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
 			  });
-		})
+		});
+     $(".layui-btn-box .layui-btn").on('click', function(){
+         var data = {};
+         data['_token'] = "{!! csrf_token() !!}";
+         data.id="{{$order->id}}";
+         var tag = $(this).attr("tag");
+         if(tag === 'return'){
+             layer.prompt({
+                 formType: 2,
+                 value: '',
+                 title: '请填写退单理由',
+                 area: ['400px', '200px'] //自定义文本域宽高
+             }, function(value, index, elem){
+                 var load = layer.load();
+                 $.ajax({
+                     url : "{{ guard_url('return_order') }}",
+                     data : {'id':data.id,'return_content':value,'_token':"{!! csrf_token() !!}"},
+                     type : 'post',
+                     success : function (data) {
+
+                         layer.msg(data.msg);
+                         layer.close(load);
+                         layer.close(index);
+                         window.location.reload();
+                     },
+                     error : function (jqXHR, textStatus, errorThrown) {
+                         layer.close(load);
+                         layer.msg('服务器出错');
+                     }
+                 });
+             });
+         }
+     });
  })
 </script>
 {!! Theme::asset()->container('ueditor')->scripts() !!}
