@@ -22,7 +22,7 @@
         </div>
     </div>
 </div>
-<div class="user_content">
+<div class="user_content" style="display: none;">
     <form class="layui-form" action="">
         <div class="layui-form-item">
             <div class="layui-input-inline">
