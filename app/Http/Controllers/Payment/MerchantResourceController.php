@@ -23,9 +23,39 @@ class MerchantResourceController extends BaseController
     {
         $limit = $request->input('limit',config('app.limit'));
 
+        $search = $request->input('search',[]);
+        $search_name = isset($search['search_name']) ? $search['search_name'] : '';
+        $search_address = isset($search['search_address']) ? $search['search_address'] : '';
+        $search_province = isset($search['search_province']) ? $search['search_province'] : '';
+        $search_city = isset($search['search_city']) ? $search['search_city'] : '';
+
         if ($this->response->typeIs('json')) {
-            $data = $this->repository
-                ->setPresenter(\App\Repositories\Presenter\MerchantPresenter::class)
+            $data = $this->repository;
+            if(!empty($search_name))
+            {
+                $data = $data->where(function ($query) use ($search_name){
+                    return $query->where('name','like','%'.$search_name.'%')->orWhere('merchant_sn','like','%'.$search_name.'%');
+                });
+            }
+            if($search_address)
+            {
+                $data = $data->where(function ($query) use ($search_address){
+                    return $query->where('merchants.address','like','%'.$search_address.'%');
+                });
+            }
+            if($search_province)
+            {
+                $data = $data->where(function ($query) use ($search_province){
+                    return $query->where('merchants.province','like','%'.$search_province.'%');
+                });
+            }
+            if($search_city)
+            {
+                $data = $data->where(function ($query) use ($search_city){
+                    return $query->where('merchants.city','like','%'.$search_city.'%');
+                });
+            }
+            $data = $data->setPresenter(\App\Repositories\Presenter\MerchantPresenter::class)
                 ->orderBy('id','desc')
                 ->getDataTable($limit);
 
@@ -38,6 +68,7 @@ class MerchantResourceController extends BaseController
         }
         return $this->response->title(trans('app.admin.panel'))
             ->view('merchant.index')
+            ->data(compact('search_address','search_province','search_city','search_name'))
             ->output();
 
     }

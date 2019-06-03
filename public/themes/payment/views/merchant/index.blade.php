@@ -13,6 +13,21 @@
                     <!--<button class="layui-btn layui-btn-normal create_order" data-type="create_order" data-events="create_order">批量发起巡检</button>
                     <button class="layui-btn layui-btn-normal create_order_no_record" data-type="create_order_no_record" data-events="create_order_no_record">全部未巡检商户发起巡检</button>-->
                     <button class="layui-btn layui-btn-primary " data-type="del" data-events="del">删除</button>
+                    <div class="layui-inline mt10">
+                        <input class="layui-input layui-input-inline search_key" name="search_province" id="demoReload" placeholder="省份" autocomplete="off" value="{{ $search_province }}">
+                    </div>
+
+                    <div class="layui-inline mt10">
+                        <input class="layui-input layui-input-inline search_key" name="search_city" id="demoReload" placeholder="城市" autocomplete="off" value="{{ $search_city }}">
+                    </div>
+
+                    <div class="layui-inline mt10">
+                        <input class="layui-input layui-input-inline search_key" name="search_address" id="demoReload" placeholder="地址" autocomplete="off" value="{{ $search_address }}">
+                    </div>
+                    <div class="layui-inline mt10">
+                        <input class="layui-input layui-input-inline search_key" name="search_name" id="demoReload" placeholder="商户名/商户号" autocomplete="off" value="{{ $search_name }}">
+                    </div>
+                    <button class="layui-btn mt10" data-type="reload">搜索</button>
                 </div>
             </div>
 
@@ -49,11 +64,11 @@
                 ,{field:'phone',title:"{{ trans('merchant.label.phone') }}",edit:'text'}
                 ,{field:'merchant_sn',title:"{{ trans('merchant.label.merchant_sn') }}",edit:'text'}
                 ,{field:'model',title:"{{ trans('merchant.label.model') }}",edit:'text'}
-                ,{field:'pn',title:"{{ trans('merchant.label.pn') }}",edit:'text'}
-                ,{field:'sn',title:"{{ trans('merchant.label.sn') }}",edit:'text'}
+                ,{field:'province',title:"{{ trans('merchant.label.province') }}",edit:'text'}
+                ,{field:'city',title:"{{ trans('merchant.label.city') }}",edit:'text'}
                 ,{field:'last_order_date',title:"上次巡检"}
                 //,{field:'address',title:"{{ trans('merchant.label.address') }}",edit:'text'}
-                ,{field:'score',title:'操作', width:200, align: 'right',toolbar:'#barDemo'}
+                ,{field:'score',title:'操作', width:150, align: 'right',toolbar:'#barDemo'}
             ]]
             ,id: 'fb-table'
             ,page: true
