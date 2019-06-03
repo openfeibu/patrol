@@ -153,6 +153,7 @@ Route::group([
     Route::get('order_return','OrderResourceController@orderReturn')->name('order.return');
     Route::get('order_pass','OrderResourceController@orderPass')->name('order.pass');
     Route::post('order_push_user','OrderResourceController@pushUser')->name('order.push_user');
+    Route::post('return_order','OrderResourceController@ReturnOrder')->name('order.return_order');
 
     Route::resource('user', 'UserResourceController');
     Route::post('/user/destroyAll', 'UserResourceController@destroyAll')->name('user.destroy_all');
