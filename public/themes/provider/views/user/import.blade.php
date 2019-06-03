@@ -22,7 +22,7 @@
 						</div>
                          <label class="fileText">未选中文件</label>
                         <button type="button" class="layui-btn layui-btn-normal user_submit_import_btn">确定</button>
-                        <span class="layui-word-aux">（注意：请严格按照模板格式；提交后将直接录入数据库，请谨慎操作！）</span>
+                        <span class="layui-word-aux des_content">（注意：巡检人员帐号为手机号码。默认密码为：123456;请严格按照模板格式；提交后将直接录入数据库，请谨慎操作！）</span>
                     </div>
 
                 </form>

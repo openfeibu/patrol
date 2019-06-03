@@ -233,3 +233,8 @@ button[data-type="del"]:hover{color:#fff;}
 	
 	
 }
+.des_content{
+	display:block;
+	font-size:14px;
+	line-height:40px;
+}
