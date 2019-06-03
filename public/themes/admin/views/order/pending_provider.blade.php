@@ -47,7 +47,7 @@
 </div>
 
 <div class="provider_content">
-    <form class="layui-form" action="">
+    <form class="layui-form">
         <div class="layui-form-item">
             @foreach($providers as $key => $provider)
                 <input type="radio" name="provider_id" value="{{ $provider->id }}" title="{{ $provider->name }}">

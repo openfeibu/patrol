@@ -10,16 +10,22 @@
             {!! Theme::partial('message') !!}
             <div class="tabel-message">
                 <form class="form-horizontal" method="POST" action="{{ guard_url('provider_submit_import') }}" enctype="multipart/form-data"  id="provider_submit_import_form">
-                    <div class="layui-inline tabel-btn">
+                    <div class=" tabel-btn">
                         <button class="layui-btn layui-btn-warm "><a href="{{url('image/original/system/provider/provider_muban.xlsx')}}">下载模板</a></button>
                     </div>
-                    <div class="layui-inline tabel-btn">
+					 <div class=" tabel-btn mt20">
                         {{ csrf_field() }}
-                        <label for="file">选择文件</label>
-                        <input id="file" type="file" class="form-control" name="file" required>
-                        <button type="button" class="layui-btn layui-btn-normal provider_submit_import_btn">确定</button>
+                       
+						<div class="input-file" >
+							选择文件
+							<input id="file" type="file" class="form-control" name="file" required>
+						</div>
+                         <label class="fileText">未选中文件</label>
+                        <button type="button" class="layui-btn layui-btn-normal merchant_submit_import_btn">确定</button>
                         <span class="layui-word-aux">（注意：请严格按照模板格式；提交后将直接录入数据库，请谨慎操作！）</span>
                     </div>
+
+                 
 
                 </form>
             </div>
@@ -56,6 +62,11 @@
             });
             $("#provider_submit_import_form").submit();
         });
+		$(".input-file input").on('change', function( e ){
+				//e.currentTarget.files 是一个数组，如果支持多个文件，则需要遍历
+				var name = e.currentTarget.files[0].name;
+				$(".fileText").text(name)
+			});
 
     });
 </script>

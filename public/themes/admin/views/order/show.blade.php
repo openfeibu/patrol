@@ -10,7 +10,7 @@
             {!! Theme::partial('message') !!}
             <fieldset class="fb-main-table">
                 <form class="layui-form" action="{{guard_url('order/'.$order->id)}}" method="post" method="post" lay-filter="fb-form">
-                    <fieldset class="layui-elem-field" >
+                    <fieldset class="layui-elem-field order-des" >
                         <legend>商户详情</legend>
                         <div class="layui-form-item">
                             <label class="layui-form-label">{{ trans('merchant.name') }}</label>
@@ -76,7 +76,7 @@
                         </div>
                     </fieldset>
                     @if($order_record)
-                        <fieldset class="layui-elem-field" >
+                        <fieldset class="layui-elem-field  order-des" >
                             <legend>巡检详情</legend>
                             <div class="layui-form-item">
                                 <label class="layui-form-label">{{ trans('order.label.status') }}</label>
@@ -166,7 +166,7 @@
                                 <label class="layui-form-label">{{ trans('order_record.label.door_images') }}</label>
                                 <div class="layui-input-block">
                                     @foreach($order_record['door_images'] as $image)
-                                        <ul>
+                                        <ul >
                                             <li>
                                                 <img src="{{ $image }}">
                                             </li>
@@ -480,4 +480,34 @@
     </div>
 </div>
 </div>
+<script>
+ layui.use(['jquery','element','table'], function(){
+        var table = layui.table;
+        var form = layui.form;
+        var $ = layui.$;
+		
+		$(".layui-form-item img").on("click",function(){
+			var that = $(this);
+	
+			var json = {};
+			json.title="";
+			json.id="";
+			json.start=0;
+			json.data=[
+				{
+					"alt":"",
+					"pid":"",
+					"src":that.attr("src"),
+					"thumb":"",
+				}
+			];
+
+			 
+			layer.photos({
+				photos: json
+				,anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+			  });
+		})
+ })
+</script>
 {!! Theme::asset()->container('ueditor')->scripts() !!}

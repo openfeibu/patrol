@@ -124,10 +124,64 @@ button.layui-close{
     -webkit-appearance: none;
 }
 
+.order-des{
+	
+}
+.order-des .layui-form-item{
+	margin: 5px 0 !important;
+}
+.order-des .layui-form-item .layui-form-label{
+	width:120px;
+	color:#aaa;
+	margin-right:20px;
+}
+.order-des .layui-form-item ul li{
+	width:20% !important;
+	margin-right:1%;
+	margin-left:0 !important
+}
+.order-des .layui-form-item ul li img{width:100%;cursor:pointer}
 
 
-
-
-
-
-
+.input-file{
+	display:inline-block;*display:inline;
+	position:relative;
+	height: 38px;
+    line-height: 38px;
+    padding: 0 18px;
+    background-color: #1E9FFF;
+    color: #fff;
+    white-space: nowrap;
+    text-align: center;
+    font-size: 14px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.input-file input{
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	opacity:0;
+}
+.fileText{
+	margin-right:20px;
+}
+.mt20{
+	margin-top:20px;
+}
+.provider_content .layui-form{
+	padding:10px 5px;
+	min-height:210px;
+	background:#eee;
+	border-radius:5px;
+	margin:5px 10px;
+	
+}
+.provider_content .layui-form .layui-form-radio{
+	width:28%;
+	margin: 5px 1% !important
+	
+}
