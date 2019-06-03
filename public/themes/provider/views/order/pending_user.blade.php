@@ -12,15 +12,6 @@
                     <div class="layui-inline tabel-btn">
                         <button class="layui-btn layui-btn-warm push_user" data-type="push_user" data-events="push_user">批量分发巡检员</button>
                     </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">{{ trans("payment_company.name") }}：</label>
-                        <select name="payment_company_id" class="search_key layui-select" lay-verify="">
-                            <option value="0">全部</option>
-                            @foreach($payment_companies as $key => $payment_company)
-                                <option value="{{ $payment_company->id }}" @if($payment_company->id == $payment_company_id) selected @endif>{{ $payment_company->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
                     @include('order.order_search')
                 </div>
             </div>
