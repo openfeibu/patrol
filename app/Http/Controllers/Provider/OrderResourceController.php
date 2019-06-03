@@ -10,6 +10,7 @@ use App\Models\Provider;
 use App\Models\Merchant;
 use App\Models\OrderRecord;
 use App\Models\User;
+use App\Models\PaymentCompany;
 use App\Repositories\Eloquent\OrderRepositoryInterface;
 
 class OrderResourceController extends BaseController
@@ -47,7 +48,6 @@ class OrderResourceController extends BaseController
 
         $search = $request->input('search',[]);
         $payment_company_id = isset($search['payment_company_id']) ? $search['payment_company_id'] : 0;
-
         $search_name = isset($search['search_name']) ? $search['search_name'] : '';
         $search_address = isset($search['search_address']) ? $search['search_address'] : '';
         $search_province = isset($search['search_province']) ? $search['search_province'] : '';
@@ -104,11 +104,12 @@ class OrderResourceController extends BaseController
                 ->output();
 
         }
-        $providers = Provider::orderBy('id','desc')->get();
         $payment_companies = PaymentCompany::orderBy('id','desc')->get();
+        $users = User::where('provider_id', Auth::user()->provider_id)->orderBy('id','desc')->get();
+
         return $this->response->title(trans('app.admin.panel'))
             ->view('order.'.$status)
-            ->data(compact('providers','payment_companies','payment_company_id','provider_id','search_address','search_province','search_city','search_merchant_name','search_name'))
+            ->data(compact('providers','payment_companies','users','payment_company_id','provider_id','search_address','search_province','search_city','search_merchant_name','search_name'))
             ->output();
     }
     public function index(Request $request)

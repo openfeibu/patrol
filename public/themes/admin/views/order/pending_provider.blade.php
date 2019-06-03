@@ -7,7 +7,7 @@
     </div>
     <div class="main_full">
         <div class="layui-col-md12">
-            <div class="tabel-message">
+            <div class="tabel-message order_search">
                 <div class="layui-form-item order_search">
                     <div class="layui-inline tabel-btn">
                         <button class="layui-btn layui-btn-warm push_provider" data-type="push_provider" data-events="push_provider">批量分发服务商</button>

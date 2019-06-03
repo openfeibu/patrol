@@ -7,8 +7,10 @@
     </div>
     <div class="main_full">
         <div class="layui-col-md12">
-            <div class="tabel-message">
-
+            <div class="tabel-message order_search">
+                <div class="layui-form-item">
+                    @include('order.order_search')
+                </div>
             </div>
 
             <table id="fb-table" class="layui-table"  lay-filter="fb-table">

@@ -7,7 +7,7 @@
     </div>
     <div class="main_full">
         <div class="layui-col-md12">
-            <div class="tabel-message">
+            <div class="tabel-message order_search">
                 <div class="layui-inline tabel-btn">
                     <button class="layui-btn layui-btn-warm "><a href="{{guard_url('order/create')}}">添加{{ trans('order.name') }}</a></button>
                     <button class="layui-btn layui-btn-primary " data-type="del" data-events="del">删除</button>

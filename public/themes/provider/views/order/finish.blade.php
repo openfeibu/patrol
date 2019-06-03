@@ -7,8 +7,10 @@
     </div>
     <div class="main_full">
         <div class="layui-col-md12">
-            <div class="tabel-message">
-
+            <div class="tabel-message order_search">
+                <div class="layui-form-item">
+                    @include('order.order_search')
+                </div>
             </div>
 
             <table id="fb-table" class="layui-table"  lay-filter="fb-table">
@@ -38,12 +40,15 @@
             ,cols: [[
                 {checkbox: true, fixed: true}
                 ,{field:'id',title:'ID', width:80, sort: true}
+                ,{field:'payment_company_name',title:"{{ trans('payment_company.name') }}"}
                 ,{field:'merchant_name',title:"{{ trans('merchant.name') }}"}
-                ,{field:'provider_name',title:"{{ trans('provider.name') }}"}
-                ,{field:'user_name',title:"{{ trans('user.name') }}"}
-                ,{field:'status_desc',title:"{{ trans('order.label.status') }}"}
-                ,{field:'created_at',title:"{{ trans('app.created_at') }}"}
-                ,{field:'score',title:'操作', width:200, align: 'right',toolbar:'#barDemo'}
+                ,{field:'phone',title:"{{ trans('merchant.label.phone') }}",width:150}
+                ,{field:'address',title:"{{ trans('merchant.label.address') }}"}
+                ,{field:'province',title:"{{ trans('merchant.label.province') }}", width:75}
+                ,{field:'city',title:"{{ trans('merchant.label.city') }}", width:75}
+                ,{field:'user_name',title:"{{ trans('user.name') }}", width:80}
+                ,{field:'created_at',title:"{{ trans('app.created_at') }}",width:120}
+                ,{field:'score',title:'操作', width:150, align: 'right',toolbar:'#barDemo'}
             ]]
             ,id: 'fb-table'
             ,page: true
