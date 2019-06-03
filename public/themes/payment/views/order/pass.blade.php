@@ -34,6 +34,15 @@
         </div>
     </form>
 </div>
+<div class="fields_content layui_open_content" style="display:none;">
+    <form class="layui-form">
+        <div class="layui-form-item">
+            @foreach(config('model.order.order_record.excel_fields') as $key => $field)
+                <input type="checkbox" name="fields[]" value="{{ $field }}" title="{{ trans('order_record.label.'.$field)  }}">
+            @endforeach
+        </div>
+    </form>
+</div>
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-sm" lay-event="edit">详情</a>
     <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del">删除</a>
@@ -77,18 +86,40 @@
                             shade: false,
                             title: '选择进行处理的字段',
                             area: ['420px', '340px'], //宽高
-                            content: $('.provider_content'),
+                            content: $('.fields_content'),
                             btn: ['脱敏处理','隐藏处理'],
                             yes: function(index){
-                                alert("脱敏")
-                                //layer.close(index);
+                                var url = "{{ guard_url('export_order') }}?_token={!! csrf_token() !!}&type=encrypt"
+                                $(".search_key").each(function(){
+                                    var name = $(this).attr('name');
+                                    url += "&search["+name+"]="+$(this).val();
+                                });
+                                $("input[name='fields[]']:checked").each(function(){
+                                    url += "&fields[]="+$(this).val();
+                                });
+                                var load =layer.load();
+                                window.location.href = url;
+
+                                console.log(url);
+                                layer.close(load);
+                                layer.close(index);
 
                             },btn2: function(index, layero){
-								 alert("隐藏")
-								//按钮【按钮二】的回调
-								
-								//return false 开启该代码可禁止点击该按钮关闭
-							  }
+                                var url = "{{ guard_url('export_order') }}?_token={!! csrf_token() !!}&type=hidden"
+                                $(".search_key").each(function(){
+                                    var name = $(this).attr('name');
+                                    url += "&search["+name+"]="+$(this).val();
+                                });
+                                $("input[name='fields[]']:checked").each(function(){
+                                    url += "&fields[]="+$(this).val();
+                                });
+                                var load =layer.load();
+                                window.location.href = url;
+
+                                console.log(url);
+                                layer.close(load);
+                                layer.close(index);
+                            }
                         });
                 
 		})

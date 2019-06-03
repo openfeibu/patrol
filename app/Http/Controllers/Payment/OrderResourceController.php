@@ -3,21 +3,23 @@
 namespace App\Http\Controllers\Payment;
 
 use App\Http\Controllers\Payment\ResourceController as BaseController;
-use Auth;
+use Auth,Excel;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Provider;
 use App\Models\Merchant;
 use App\Models\OrderRecord;
 use App\Models\OrderLog;
+use App\Repositories\Eloquent\OrderRecordRepositoryInterface;
 use App\Repositories\Eloquent\OrderRepositoryInterface;
 
 class OrderResourceController extends BaseController
 {
-    public function __construct(OrderRepositoryInterface $order)
+    public function __construct(OrderRepositoryInterface $order,OrderRecordRepositoryInterface $order_record)
     {
         parent::__construct();
         $this->repository = $order;
+        $this->order_record_repository = $order_record;
         $this->repository
             ->pushCriteria(\App\Repositories\Criteria\RequestCriteria::class);
     }
@@ -351,5 +353,117 @@ class OrderResourceController extends BaseController
                 ->url(guard_url('order_finish'))
                 ->redirect();
         }
+    }
+    public function exportOrder(Request $request)
+    {
+
+        $search = $request->input('search',[]);
+        $handle_fields = $request->input('fields',[]);
+        $type = $request->input('type','encrypt');
+        $provider_id = isset($search['provider_id']) ? $search['provider_id'] : 0;
+        $search_address = isset($search['search_address']) ? $search['search_address'] : '';
+        $search_province = isset($search['search_province']) ? $search['search_province'] : '';
+        $search_city = isset($search['search_city']) ? $search['search_city'] : '';
+        $search_merchant_name = isset($search['search_merchant_name']) ? $search['search_merchant_name'] : '';
+
+        $data = $this->repository->join('merchants','merchants.id','=','orders.merchant_id')
+            ->where('orders.status','pass')
+            ->where('orders.payment_company_id',Auth::user()->payment_company_id);;
+
+        if($provider_id)
+        {
+            $data = $data->where('orders.provider_id',$provider_id);
+        }
+        if($search_address)
+        {
+            $data = $data->where(function ($query) use ($search_address){
+                return $query->where('merchants.address','like','%'.$search_address.'%');
+            });
+        }
+        if($search_province)
+        {
+            $data = $data->where(function ($query) use ($search_province){
+                return $query->where('merchants.province','like','%'.$search_province.'%');
+            });
+        }
+        if($search_city)
+        {
+            $data = $data->where(function ($query) use ($search_city){
+                return $query->where('merchants.city','like','%'.$search_city.'%');
+            });
+        }
+        if($search_merchant_name)
+        {
+            $data = $data->where(function ($query) use ($search_merchant_name){
+                return $query->where('merchants.name','like','%'.$search_merchant_name.'%');
+            });
+        }
+        $data = $data->orderBy('orders.id','desc')->all(['orders.id as order_id','merchants.*']);
+
+        $export_fields = config('model.order.order_record.excel_fields');
+
+        $export_data = [];
+        $export_data[0] = ["商户名称","商户编号"];
+        $field_i = 2;
+        foreach ($export_fields as $key => $field)
+        {
+            if(in_array($field,$handle_fields)) {
+                if ($type == 'encrypt') {
+                    $export_data[0][$field_i] = trans('order_record.label.'.$field);
+                    $field_i++;
+                }
+            }else{
+                $export_data[0][$field_i] = trans('order_record.label.'.$field);
+                $field_i++;
+            }
+
+        }
+        $excel_without_image_fields = config('model.order.order_record.excel_without_image_fields');
+        foreach ($excel_without_image_fields as $key => $field)
+        {
+            $export_data[0][$field_i] = trans('order_record.label.'.$field);
+            $field_i++;
+        }
+        $i = 1;
+        foreach ($data as $key => $val)
+        {
+            $order_record = $this->order_record_repository->getOrderRecordByOrderId($val['order_id']);
+            $export_data[$i] = [$val['name'],$val['merchant_sn']."\t"];
+            $field_i = 2;
+            foreach($export_fields as $key => $field)
+            {
+                if(in_array($field,$handle_fields))
+                {
+                    if($type == 'encrypt')
+                    {
+                        $export_data[$i][$field_i] = '****';
+                        $field_i++;
+                    }
+                }else{
+                    $export_data[$i][$field_i] = $order_record[$field];
+                    $field_i++;
+                }
+
+            }
+            foreach ($excel_without_image_fields as $key => $field)
+            {
+                if(strpos($field,'_content') === false && strpos($field,'is_') !== false || $field == 'cashier_mobility' || $field == 'cashier_band_card_operation_skills')
+                {
+                    $export_data[$i][$field_i] = is_status_desc($order_record[$field]);
+                }else{
+                    $export_data[$i][$field_i] = $order_record[$field];
+                }
+                $field_i++;
+            }
+            $i++;
+        }
+
+        Excel::create('巡检单'.date("YmdHis"),function($excel) use ($export_data){
+            $excel->sheet('巡检单', function($sheet) use ($export_data){
+                $sheet->rows($export_data);
+            });
+        })->store('xls')->export('xls');
+
+
     }
 }

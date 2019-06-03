@@ -38,7 +38,7 @@
     <form class="layui-form">
         <div class="layui-form-item">
             @foreach(config('model.order.order_record.excel_fields') as $key => $field)
-                <input type="checkbox" name="field[]" value="{{ $field }}" title="{{ trans('order_record.label.'.$field)  }}">
+                <input type="checkbox" name="fields[]" value="{{ $field }}" title="{{ trans('order_record.label.'.$field)  }}">
             @endforeach
         </div>
     </form>
@@ -89,28 +89,40 @@
                 shade: false,
                 title: '选择进行处理的字段',
                 area: ['420px', '340px'], //宽高
-                content: $('.provider_content'),
+                content: $('.fields_content'),
                 btn: ['脱敏处理','隐藏处理'],
                 yes: function(index){
                     var url = "{{ guard_url('export_order') }}?_token={!! csrf_token() !!}&type=encrypt"
                     $(".search_key").each(function(){
                         var name = $(this).attr('name');
-                        where["search["+name+"]"] = $(this).val();
-                        url += "&"+name+"="+$(this).val();
+                        url += "&search["+name+"]="+$(this).val();
                     });
-                    $("input[name='field[]']").each(function(){
-                        url += "&field[]="+$(this).val();
+                    $("input[name='fields[]']:checked").each(function(){
+                        url += "&fields[]="+$(this).val();
                     });
+                    var load =layer.load();
+                    window.location.href = url;
+
                     console.log(url);
-                    alert("脱敏")
-                    //layer.close(index);
+                    layer.close(load);
+                    layer.close(index);
 
                 },btn2: function(index, layero){
-                     alert("隐藏")
-                    //按钮【按钮二】的回调
+                   var url = "{{ guard_url('export_order') }}?_token={!! csrf_token() !!}&type=hidden"
+                   $(".search_key").each(function(){
+                       var name = $(this).attr('name');
+                       url += "&search["+name+"]="+$(this).val();
+                   });
+                   $("input[name='fields[]']:checked").each(function(){
+                       url += "&fields[]="+$(this).val();
+                   });
+                   var load =layer.load();
+                   window.location.href = url;
 
-                    //return false 开启该代码可禁止点击该按钮关闭
-                  }
+                   console.log(url);
+                   layer.close(load);
+                   layer.close(index);
+                }
             });
                 
 		})
