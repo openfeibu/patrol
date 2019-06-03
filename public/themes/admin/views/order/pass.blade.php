@@ -74,24 +74,29 @@
         });
 		$(".export-order").on("click",function(){
 	
-                       layer.open({
-                            type: 1,
-                            shade: false,
-                            title: '选择进行处理的字段',
-                            area: ['420px', '340px'], //宽高
-                            content: $('.provider_content'),
-                            btn: ['脱敏处理','隐藏处理'],
-                            yes: function(index){
-                                alert("脱敏")
-                                //layer.close(index);
+           layer.open({
+                type: 1,
+                shade: false,
+                title: '选择进行处理的字段',
+                area: ['420px', '340px'], //宽高
+                content: $('.provider_content'),
+                btn: ['脱敏处理','隐藏处理'],
+                yes: function(index){
+                    var url = "{{ guard_url('') }}"
+                    $(".search_key").each(function(){
+                        var name = $(this).attr('name');
+                        where["search["+name+"]"] = $(this).val();
+                    });
+                    alert("脱敏")
+                    //layer.close(index);
 
-                            },btn2: function(index, layero){
-								 alert("隐藏")
-								//按钮【按钮二】的回调
-								
-								//return false 开启该代码可禁止点击该按钮关闭
-							  }
-                        });
+                },btn2: function(index, layero){
+                     alert("隐藏")
+                    //按钮【按钮二】的回调
+
+                    //return false 开启该代码可禁止点击该按钮关闭
+                  }
+            });
                 
 		})
 

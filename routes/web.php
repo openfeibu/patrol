@@ -52,7 +52,7 @@ Route::group([
     Route::resource('provider_user', 'ProviderUserResourceController');
     Route::post('/provider_user/destroyAll', 'ProviderUserResourceController@destroyAll')->name('provider_user.destroy_all');
     Route::post('note_order','OrderResourceController@noteOrder')->name('order.note_order');
-
+    Route::get('order_export','OrderResourceController@orderExport')->name('order.explo');
 
     Route::get('/setting/company', 'SettingResourceController@company')->name('setting.company.index');
     Route::post('/setting/updateCompany', 'SettingResourceController@updateCompany');
