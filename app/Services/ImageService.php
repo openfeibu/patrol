@@ -106,10 +106,10 @@ class ImageService
 
     private function uploadOrderImagesHandle($files, $merchant_name,$address)
     {
-        $usage = 'merchant'.DIRECTORY_SEPARATOR.'original';
-        $watermark_usage = 'merchant'.DIRECTORY_SEPARATOR.'watermark';
-        $directory = storage_path('uploads') . DIRECTORY_SEPARATOR . $usage;
-        $watermark_directory = storage_path('uploads') . DIRECTORY_SEPARATOR . $watermark_usage;
+        $usage = 'merchant/original';
+        $watermark_usage = 'merchant/watermark';
+        $directory = storage_path('uploads') . DIRECTORY_SEPARATOR . 'merchant'.DIRECTORY_SEPARATOR.'original';
+        $watermark_directory = storage_path('uploads') . DIRECTORY_SEPARATOR . 'merchant'.DIRECTORY_SEPARATOR.'watermark';
         $url = '/uploads/'.$usage;
 
 
