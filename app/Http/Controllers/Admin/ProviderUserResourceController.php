@@ -172,15 +172,15 @@ class ProviderUserResourceController extends BaseController
     }
 
     /**
-     * @param ProviderUserRequest $request
+     * @param Request $request
      * @param ProviderUser $provider_user
      * @return mixed
      */
-    public function destroy(ProviderUserRequest $request, ProviderUser $provider_user)
+    public function destroy(Request $request, ProviderUser $provider_user)
     {
         try {
-
             $provider_user->forceDelete();
+
             return $this->response->message(trans('messages.success.deleted', ['Module' => trans('provider_user.name')]))
                 ->code(202)
                 ->status('success')
@@ -199,10 +199,10 @@ class ProviderUserResourceController extends BaseController
     }
 
     /**
-     * @param ProviderUserRequest $request
+     * @param Request $request
      * @return mixed
      */
-    public function destroyAll(ProviderUserRequest $request)
+    public function destroyAll(Request $request)
     {
         try {
             $data = $request->all();

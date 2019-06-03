@@ -34,7 +34,7 @@ class MerchantResourceController extends BaseController
             if(!empty($search_name))
             {
                 $data = $data->where(function ($query) use ($search_name){
-                    return $query->where('name','like','%'.$search_name.'%')->orWhere('merchant_sn','like','%'.$search_name.'%');
+                    return $query->where('name','like','%'.$search_name.'%')->orWhere('linkman','like','%'.$search_name.'%')->orWhere('phone','like','%'.$search_name.'%')->orWhere('merchant_sn','like','%'.$search_name.'%');
                 });
             }
             if($search_address)

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\ResourceController as BaseController;
+use App\Models\ProviderRole;
+use App\Models\ProviderUser;
 use Auth;
 use Illuminate\Http\Request;
 use App\Models\Provider;
@@ -164,36 +166,32 @@ class ProviderResourceController extends BaseController
 
         foreach ( $res as $k => $v ) {
             $excel_data[$k] = [
-                'name' => isset($v['服务商名称']) ? $v['服务商名称'] : '',
-                'linkman' => isset($v['服务商负责人']) ? $v['服务商负责人'] : '',
-                'phone' => isset($v['服务商联系电话']) ? $v['服务商联系电话'] : '',
-                'wechat' => isset($v['服务商负责人微信']) ? $v['服务商负责人微信'] : '',
+                'name' => isset($v['服务商名称']) ? trim($v['服务商名称']) : '',
+                'linkman' => isset($v['服务商负责人']) ? trim($v['服务商负责人']) : '',
+                'phone' => isset($v['服务商联系电话']) ? trim($v['服务商联系电话']) : '',
+                'wechat' => isset($v['服务商负责人微信']) ? trim($v['服务商负责人微信']) : '',
             ];
+            $provider = Provider::create($excel_data[$k]);
+            $phone = ProviderUser::where('phone',$excel_data[$k]['phone'])->value('id');
+            if(!$phone && $provider)
+            {
+                $provider_user = ProviderUser::create([
+                    'phone' => $excel_data[$k]['phone'],
+                    'name' => $excel_data[$k]['name'],
+                    'provider_id' => $provider->id,
+                    'password' => '123456'
+                ]);
+                $role_id = ProviderRole::where('slug','superuser')->value('id');
+                $provider_user->roles()->sync([$role_id]);
+            }
         }
 
-        if(!count($excel_data))
-        {
-            return $this->response->message(trans("messages.excel.not_found_data"))
-                ->status("success")
-                ->code(400)
-                ->url(guard_url('provider_import'))
-                ->redirect();
-        }
-        $res = Provider::insert($excel_data);
-        if($res)
-        {
-            return $this->response->message("上传数据成功")
-                ->status("success")
-                ->code(200)
-                ->url(guard_url('provider'))
-                ->redirect();
-        }else{
-            return $this->response->message("上传数据失败")
-                ->status("success")
-                ->code(400)
-                ->url(guard_url('provider'))
-                ->redirect();
-        }
+
+        return $this->response->message("上传数据成功")
+            ->status("success")
+            ->code(200)
+            ->url(guard_url('provider'))
+            ->redirect();
 
     }
 
