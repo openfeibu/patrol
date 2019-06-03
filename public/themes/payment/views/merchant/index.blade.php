@@ -75,11 +75,7 @@
             ,limit: 10
             ,height: 'full-200'
         });
-        table.on('tool(fb-table)', function(obj) {
-            var data = obj.data;
-            data['_token'] = "{!! csrf_token() !!}";
 
-        });
         $(".create_order").click(function(){
             var checkStatus = table.checkStatus('fb-table')
                     ,data = checkStatus.data;
