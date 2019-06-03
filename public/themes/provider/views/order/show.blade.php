@@ -10,6 +10,20 @@
             {!! Theme::partial('message') !!}
             <fieldset class="fb-main-table">
                 <form class="layui-form" action="{{guard_url('order/'.$order->id)}}" method="post" method="post" lay-filter="fb-form">
+                    @if($order_logs->count())
+                        <fieldset class="layui-elem-field order-des" >
+                            <legend>备注</legend>
+                            @foreach($order_logs as $key => $order_log)
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">{{ $order_log->name }}（{{ trans('order_log.admin_type.'.$order_log->admin_type) }}）:</label>
+                                    <div class="layui-input-inline">
+                                        <p class="input-p">{{ $order_log->content }}</p>
+                                    </div>
+                                    <div class="layui-form-mid layui-word-aux">{{ $order_log->created_at }}</div>
+                                </div>
+                            @endforeach
+                        </fieldset>
+                    @endif
                     <fieldset class="layui-elem-field order-des" >
                         <legend>商户详情</legend>
                         <div class="layui-form-item">

@@ -48,4 +48,21 @@ return [
             'title'  => 'like',
         ],
     ],
+    'order_log'     => [
+        'model'        => 'App\Models\OrderLog',
+        'table'        => 'order_logs',
+        'primaryKey'   => 'id',
+        'hidden'       => [],
+        'visible'      => [],
+        'guarded'      => ['*'],
+        'fillable'     => ['id','order_id', 'admin_id','admin_type', 'name', 'content', 'type','created_at', 'updated_at'],
+        //'translate'    => ['name', 'image', 'order'],
+        'upload_folder' => '/page/link',
+        'encrypt'      => ['id'],
+        'revision'     => ['name'],
+        'perPage'      => '20',
+        'search'        => [
+            'title'  => 'like',
+        ],
+    ],
 ];

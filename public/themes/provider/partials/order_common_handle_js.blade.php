@@ -64,21 +64,20 @@
                     area: ['400px', '100px'] //自定义文本域宽高
                 }, function(value, index, elem){
                     var load = layer.load();
-                    // $.ajax({
-                        // url : "{{ guard_url('return_order') }}",
-                        // data : {'id':data.id,'return_content':value,'_token':"{!! csrf_token() !!}"},
-                        // type : 'post',
-                        // success : function (data) {
-                            // obj.del();
-                            // layer.msg(data.msg);
-                            // layer.close(load);
-                            // layer.close(index);
-                        // },
-                        // error : function (jqXHR, textStatus, errorThrown) {
-                            // layer.close(load);
-                            // layer.msg('服务器出错');
-                        // }
-                    // });
+                    $.ajax({
+                        url : "{{ guard_url('note_order') }}",
+                        data : {'id':data.id,'content':value,'_token':"{!! csrf_token() !!}"},
+                        type : 'post',
+                        success : function (data) {
+                            layer.msg(data.msg);
+                            layer.close(load);
+                            layer.close(index);
+                        },
+                        error : function (jqXHR, textStatus, errorThrown) {
+                            layer.close(load);
+                            layer.msg('服务器出错');
+                        }
+                    });
                 });
             }
         });

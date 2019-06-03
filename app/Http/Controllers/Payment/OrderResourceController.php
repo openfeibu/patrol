@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\Provider;
 use App\Models\Merchant;
 use App\Models\OrderRecord;
+use App\Models\OrderLog;
 use App\Repositories\Eloquent\OrderRepositoryInterface;
 
 class OrderResourceController extends BaseController
@@ -198,9 +199,9 @@ class OrderResourceController extends BaseController
                 }
             }
         }
-
+        $order_logs = OrderLog::where('order_id',$order->id)->where('type','note')->orderBy('id','desc')->get();
         return $this->response->title(trans('app.view') . ' ' . trans('order.name'))
-            ->data(compact('order','order_record','merchant'))
+            ->data(compact('order','order_record','merchant','order_logs'))
             ->view($view)
             ->output();
     }
@@ -311,6 +312,33 @@ class OrderResourceController extends BaseController
             ]);
 
             return $this->response->message('审核成功')
+                ->status("success")
+                ->code(202)
+                ->url(guard_url('order_finish'))
+                ->redirect();
+
+        } catch (Exception $e) {
+            return $this->response->message($e->getMessage())
+                ->status("error")
+                ->code(400)
+                ->url(guard_url('order_finish'))
+                ->redirect();
+        }
+    }
+    public function noteOrder(Request $request)
+    {
+        try {
+            $data = $request->all();
+            $id = $data['id'];
+            unset($data['id']);
+            $data['order_id'] = $id;
+            $data['admin_id'] = Auth::user()->id;
+            $data['admin_type'] = 'payment';
+            $data['name'] = Auth::user()->name;
+
+            OrderLog::create($data);
+
+            return $this->response->message('备注成功')
                 ->status("success")
                 ->code(202)
                 ->url(guard_url('order_finish'))

@@ -51,6 +51,7 @@ Route::group([
     Route::post('pass_order','OrderResourceController@PassOrder')->name('order.pass_order');
     Route::resource('provider_user', 'ProviderUserResourceController');
     Route::post('/provider_user/destroyAll', 'ProviderUserResourceController@destroyAll')->name('provider_user.destroy_all');
+    Route::post('note_order','OrderResourceController@noteOrder')->name('order.note_order');
 
 
     Route::get('/setting/company', 'SettingResourceController@company')->name('setting.company.index');
@@ -123,6 +124,7 @@ Route::group([
     Route::post('pass_order','OrderResourceController@PassOrder')->name('order.pass_order');
     Route::resource('provider_user', 'ProviderUserResourceController');
     Route::post('/provider_user/destroyAll', 'ProviderUserResourceController@destroyAll')->name('provider_user.destroy_all');
+    Route::post('note_order','OrderResourceController@NoteOrder')->name('order.note_order');
 
     Route::resource('payment_user', 'PaymentUserResourceController');
     Route::post('/payment_user/destroyAll', 'PaymentUserResourceController@destroyAll')->name('payment_user.destroy_all');
@@ -154,6 +156,7 @@ Route::group([
     Route::get('order_pass','OrderResourceController@orderPass')->name('order.pass');
     Route::post('order_push_user','OrderResourceController@pushUser')->name('order.push_user');
     Route::post('return_order','OrderResourceController@ReturnOrder')->name('order.return_order');
+    Route::post('note_order','OrderResourceController@NoteOrder')->name('order.note_order');
 
     Route::resource('user', 'UserResourceController');
     Route::post('/user/destroyAll', 'UserResourceController@destroyAll')->name('user.destroy_all');
