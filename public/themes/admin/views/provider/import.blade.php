@@ -21,7 +21,7 @@
 							<input id="file" type="file" class="form-control" name="file" required>
 						</div>
                          <label class="fileText">未选中文件</label>
-                        <button type="button" class="layui-btn layui-btn-normal merchant_submit_import_btn">确定</button>
+                        <button type="button" class="layui-btn layui-btn-normal provider_submit_import_btn">确定</button>
                         <span class="layui-word-aux">（注意：请严格按照模板格式；提交后将直接录入数据库，请谨慎操作！）</span>
                     </div>
 

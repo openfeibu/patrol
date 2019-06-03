@@ -8,12 +8,14 @@
     <div class="main_full">
         <div class="layui-col-md12">
             <div class="tabel-message">
-                <div class="layui-inline tabel-btn">
+                <div class=" tabel-btn">
                     <button class="layui-btn layui-btn-warm "><a href="{{guard_url('merchant/create')}}">添加{{ trans('merchant.name') }}</a></button>
                     <!--<button class="layui-btn layui-btn-normal create_order" data-type="create_order" data-events="create_order">批量发起巡检</button>
                     <button class="layui-btn layui-btn-normal create_order_no_record" data-type="create_order_no_record" data-events="create_order_no_record">全部未巡检商户发起巡检</button>-->
                     <button class="layui-btn layui-btn-primary " data-type="del" data-events="del">删除</button>
-                    <div class="layui-inline mt10">
+                    
+                </div>
+					<div class="layui-inline mt10">
                         <input class="layui-input layui-input-inline search_key" name="search_province" id="demoReload" placeholder="省份" autocomplete="off" value="{{ $search_province }}">
                     </div>
 
@@ -28,7 +30,6 @@
                         <input class="layui-input layui-input-inline search_key" name="search_name" id="demoReload" placeholder="商户名/商户号" autocomplete="off" value="{{ $search_name }}">
                     </div>
                     <button class="layui-btn mt10" data-type="reload">搜索</button>
-                </div>
             </div>
 
             <table id="fb-table" class="layui-table"  lay-filter="fb-table">
