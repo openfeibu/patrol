@@ -73,6 +73,31 @@
                         }
                     });
                 });
+            }else if(obj.event === 'remark'){
+				//点击了备注
+                layer.prompt({
+                    formType: 2,
+                    value: '',
+                    title: '请填写备注',
+                    area: ['400px', '100px'] //自定义文本域宽高
+                }, function(value, index, elem){
+                    var load = layer.load();
+                    // $.ajax({
+                        // url : "{{ guard_url('return_order') }}",
+                        // data : {'id':data.id,'return_content':value,'_token':"{!! csrf_token() !!}"},
+                        // type : 'post',
+                        // success : function (data) {
+                            // obj.del();
+                            // layer.msg(data.msg);
+                            // layer.close(load);
+                            // layer.close(index);
+                        // },
+                        // error : function (jqXHR, textStatus, errorThrown) {
+                            // layer.close(load);
+                            // layer.msg('服务器出错');
+                        // }
+                    // });
+                });
             }
         });
         table.on('edit(fb-table)', function(obj){

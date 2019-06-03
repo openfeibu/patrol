@@ -456,7 +456,7 @@
                                     @foreach($order_record['signature_image'] as $image)
                                         <ul>
                                             <li>
-                                                <img src="{{ $image }}">
+                                                <img class="range90" src="{{ $image }}">
                                             </li>
                                         </ul>
                                     @endforeach
@@ -488,7 +488,9 @@
 		
 		$(".layui-form-item img").on("click",function(){
 			var that = $(this);
-	
+			if(that.hasClass("range90")){
+				return false;
+			}
 			var json = {};
 			json.title="";
 			json.id="";

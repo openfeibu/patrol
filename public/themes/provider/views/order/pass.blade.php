@@ -7,8 +7,14 @@
     </div>
     <div class="main_full">
         <div class="layui-col-md12">
-            <div class="tabel-message order_search">
+            <div class="tabel-message order_search layui-form">
                 <div class="layui-form-item">
+				 <div class="layui-inline tabel-btn">
+					
+					<button class="layui-btn layui-btn-normal export-order">
+					  <i class="layui-icon">&#xe601;</i> 导出巡检单
+					</button>
+				</div>
                     @include('order.order_search')
                 </div>
             </div>
@@ -19,9 +25,18 @@
         </div>
     </div>
 </div>
-
+<div class="provider_content" style="display:none;">
+    <form class="layui-form">
+        <div class="layui-form-item">
+            
+                <input type="checkbox" name="provider_id" value="123" title="12">
+          
+        </div>
+    </form>
+</div>
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-sm" lay-event="edit">查看详情</a>
+
 </script>
 <script type="text/html" id="imageTEM">
     <img src="@{{d.image}}" alt="" height="28">
@@ -56,7 +71,28 @@
             ,height: 'full-200'
         });
 
+				$(".export-order").on("click",function(){
+	
+                        layer.open({
+                            type: 1,
+                            shade: false,
+                            title: '选择进行处理的字段',
+                            area: ['420px', '340px'], //宽高
+                            content: $('.provider_content'),
+                            btn: ['脱敏处理','隐藏处理'],
+                            yes: function(index){
+                                alert("脱敏")
+                                //layer.close(index);
 
+                            },btn2: function(index, layero){
+								 alert("隐藏")
+								//按钮【按钮二】的回调
+								
+								//return false 开启该代码可禁止点击该按钮关闭
+							  }
+                        });
+                
+		})
     });
 </script>
-{!! Theme::partial('common_handle_js') !!}
+{!! Theme::partial('order_common_handle_js') !!}

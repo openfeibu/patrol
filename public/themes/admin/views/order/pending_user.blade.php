@@ -8,7 +8,7 @@
     <div class="main_full">
         <div class="layui-col-md12">
             <div class="tabel-message order_search">
-                <div class="layui-form-item">
+                <div class="layui-form-item layui-form">
                     <div class="layui-inline tabel-btn">
                         <button class="layui-btn layui-btn-primary " data-type="del" data-events="del">删除</button>
                     </div>
@@ -25,7 +25,7 @@
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-sm" lay-event="edit">详情</a>
-    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="remark">备注</a>
 </script>
 <script type="text/html" id="imageTEM">
     <img src="@{{d.image}}" alt="" height="28">

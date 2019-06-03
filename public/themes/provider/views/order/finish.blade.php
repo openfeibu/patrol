@@ -7,7 +7,7 @@
     </div>
     <div class="main_full">
         <div class="layui-col-md12">
-            <div class="tabel-message order_search">
+            <div class="tabel-message order_search layui-form">
                 <div class="layui-form-item">
                     @include('order.order_search')
                 </div>
@@ -22,6 +22,8 @@
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-sm" lay-event="edit">查看详情</a>
+    <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="remark">备注</a>
+	<a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="return">退回</a>
 </script>
 <script type="text/html" id="imageTEM">
     <img src="@{{d.image}}" alt="" height="28">
@@ -48,7 +50,7 @@
                 ,{field:'city',title:"{{ trans('merchant.label.city') }}", width:75}
                 ,{field:'user_name',title:"{{ trans('user.name') }}", width:80}
                 ,{field:'created_at',title:"{{ trans('app.created_at') }}",width:120}
-                ,{field:'score',title:'操作', width:150, align: 'right',toolbar:'#barDemo'}
+                ,{field:'score',title:'操作', width:220, align: 'right',toolbar:'#barDemo'}
             ]]
             ,id: 'fb-table'
             ,page: true

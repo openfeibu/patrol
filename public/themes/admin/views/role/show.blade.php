@@ -24,18 +24,16 @@
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">权限</label>
-                        <div class="layui-col-md10">
+                        <div class="layui-col-md10" style="margin-left:110px;">
                             @foreach($permissions as $f_key => $father)
                                 <div class="top-permission layui-col-md10">
-                                    <a href="javascript:;" class="display-sub-permission-toggle">
-                                        <i class="layui-icon layui-icon-down"></i>
-                                    </a>
+                                    	
                                     <input type="checkbox" name="permissions[]" value="{{ $father->id }}" class="top-permission-checkbox" lay-skin="primary" title="{{ $father->name }}" lay-filter="top-permission-checkbox" {{ (!$role->hasPermission($father->id)) ? : 'checked'}}>
                                 </div>
-                                <div class="sub-permissions layui-col-md9 layui-col-md-offset1">
+                                <div class="sub-permissions layui-col-md9 layui-col-xs-offset1">
                                     @if(isset($father->sub))
                                         @foreach($father->sub as $key => $item)
-                                            <div class="layui-col-sm3">
+                                            <div class="layui-col-xs6 layui-col-sm6 layui-col-md4">
                                                 <input type="checkbox" name="permissions[]" value="{{ $item->id }}" class="sub-permission-checkbox" lay-skin="primary" title="{{ $item->name }}" lay-filter="sub-permission-checkbox" {{ (!$role->hasPermission($item->id)) ? : 'checked'}}>
                                             </div>
                                         @endforeach

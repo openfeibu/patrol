@@ -7,28 +7,29 @@
     </div>
     <div class="main_full">
         <div class="layui-col-md12">
-            <div class="tabel-message order_search">
+            <div class="tabel-message order_search layui-form">
                 <div class="layui-form-item">
                     <div class="layui-inline tabel-btn">
                         <button class="layui-btn layui-btn-primary " data-type="del" data-events="del">删除</button>
                     </div>
-                    <div class="layui-inline">
+					<br>
+                    <div class="layui-inline mt10">
                         <input class="layui-input layui-input-inline search_key" name="search_province" id="demoReload" placeholder="省份" autocomplete="off" value="{{ $search_province }}">
                     </div>
 
-                    <div class="layui-inline">
+                    <div class="layui-inline mt10">
                         <input class="layui-input layui-input-inline search_key" name="search_city" id="demoReload" placeholder="城市" autocomplete="off" value="{{ $search_city }}">
                     </div>
 
-                    <div class="layui-inline">
+                    <div class="layui-inline mt10">
                         <input class="layui-input layui-input-inline search_key" name="search_address" id="demoReload" placeholder="地址" autocomplete="off" value="{{ $search_address }}">
                     </div>
 
-                    <div class="layui-inline">
+                    <div class="layui-inline mt10">
                         <input class="layui-input layui-input-inline search_key" name="search_merchant_name" id="demoReload" placeholder="商户名" autocomplete="off" value="{{ $search_merchant_name }}">
                     </div>
 
-                    <button class="layui-btn" data-type="reload">搜索</button>
+                    <button class="layui-btn mt10" data-type="reload">搜索</button>
                 </div>
             </div>
 
@@ -42,7 +43,7 @@
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-sm" lay-event="edit">详情</a>
-    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del">删除</a>
+     <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="remark">备注</a>
 </script>
 <script type="text/html" id="imageTEM">
     <img src="@{{d.image}}" alt="" height="28">

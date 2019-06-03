@@ -10,8 +10,8 @@
             <div class="tabel-message">
                 <div class="layui-inline tabel-btn">
                     <button class="layui-btn layui-btn-warm "><a href="{{guard_url('merchant/create')}}">添加{{ trans('merchant.name') }}</a></button>
-                    <button class="layui-btn layui-btn-normal create_order" data-type="create_order" data-events="create_order">批量发起巡检</button>
-                    <button class="layui-btn layui-btn-normal create_order_no_record" data-type="create_order_no_record" data-events="create_order_no_record">全部未巡检商户发起巡检</button>
+                    <!--<button class="layui-btn layui-btn-normal create_order" data-type="create_order" data-events="create_order">批量发起巡检</button>
+                    <button class="layui-btn layui-btn-normal create_order_no_record" data-type="create_order_no_record" data-events="create_order_no_record">全部未巡检商户发起巡检</button>-->
                     <button class="layui-btn layui-btn-primary " data-type="del" data-events="del">删除</button>
                 </div>
             </div>

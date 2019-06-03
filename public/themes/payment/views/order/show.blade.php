@@ -456,7 +456,7 @@
                                     @foreach($order_record['signature_image'] as $image)
                                         <ul>
                                             <li>
-                                                <img src="{{ $image }}">
+                                                <img class="range90" src="{{ $image }}">
                                             </li>
                                         </ul>
                                     @endforeach
@@ -471,6 +471,11 @@
                             </div>
                             @endif
                         </fieldset>
+						<div class="layui-btn-box"> 
+						<a class="layui-btn layui-btn-lg layui-btn-normal " tag="pass">通过</a>
+						<a class="layui-btn layui-btn-lg layui-btn-danger " tag="return">退回</a> 
+
+						</div>
                     @endif
                     {!!Form::token()!!}
                     <input type="hidden" name="_method" value="PUT">
@@ -488,7 +493,9 @@
 		
 		$(".layui-form-item img").on("click",function(){
 			var that = $(this);
-	
+			if(that.hasClass("range90")){
+				return false;
+			}
 			var json = {};
 			json.title="";
 			json.id="";
@@ -508,6 +515,79 @@
 				,anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
 			  });
 		})
+		
+	   $(".layui-btn-box .layui-btn").on('click', function(){
+            var data = {};
+            data['_token'] = "{!! csrf_token() !!}";
+			data.id="{{$order->id}}";
+			var tag = $(this).attr("tag");
+            if(tag === 'detail'){
+                layer.msg('ID：'+ data.id + ' 的查看操作');
+            } else if(tag === 'del'){
+                layer.confirm('真的删除行么', function(index){
+                    layer.close(index);
+                    var load = layer.load();
+                    $.ajax({
+                        url : main_url+'/'+data.id,
+                        data : data,
+                        type : 'delete',
+                        success : function (data) {
+                            obj.del();
+                            layer.close(load);
+                        },
+                        error : function (jqXHR, textStatus, errorThrown) {
+                            layer.close(load);
+                            layer.msg('服务器出错');
+                        }
+                    });
+                });
+            }else if(tag === 'return'){
+                layer.prompt({
+                    formType: 2,
+                    value: '',
+                    title: '请填写退单理由',
+                    area: ['400px', '200px'] //自定义文本域宽高
+                }, function(value, index, elem){
+                    var load = layer.load();
+                    $.ajax({
+                        url : "{{ guard_url('return_order') }}",
+                        data : {'id':data.id,'return_content':value,'_token':"{!! csrf_token() !!}"},
+                        type : 'post',
+                        success : function (data) {
+                            
+                            layer.msg(data.msg);
+                            layer.close(load);
+                            layer.close(index);
+							window.location.reload();
+                        },
+                        error : function (jqXHR, textStatus, errorThrown) {
+                            layer.close(load);
+                            layer.msg('服务器出错');
+                        }
+                    });
+                });
+            }else if(tag === 'pass'){
+                layer.confirm('确定通过审核么？', function(index){
+                    layer.close(index);
+                    var load = layer.load();
+                    $.ajax({
+                        url : "{{ guard_url('pass_order') }}",
+                        data : {'id':data.id,'_token':"{!! csrf_token() !!}"},
+                        type : 'post',
+                        success : function (data) {
+                            window.location.reload();
+                            layer.close(load);
+                        },
+                        error : function (jqXHR, textStatus, errorThrown) {
+                            layer.close(load);
+                            layer.msg('服务器出错');
+                        }
+                    });
+                });
+            }
+        });
+		
  })
 </script>
+
 {!! Theme::asset()->container('ueditor')->scripts() !!}
