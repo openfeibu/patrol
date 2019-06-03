@@ -51,10 +51,12 @@ class OrderResourceController extends BaseController
 
         $search = $request->input('search',[]);
         $payment_company_id = isset($search['payment_company_id']) ? $search['payment_company_id'] : 0;
+        $provider_id = isset($search['provider_id']) ? $search['provider_id'] : 0;
+        $search_name = isset($search['search_name']) ? $search['search_name'] : '';
         $search_address = isset($search['search_address']) ? $search['search_address'] : '';
+        $search_province = isset($search['search_province']) ? $search['search_province'] : '';
+        $search_city = isset($search['search_city']) ? $search['search_city'] : '';
         $search_merchant_name = isset($search['search_merchant_name']) ? $search['search_merchant_name'] : '';
-
-        $payment_companies = PaymentCompany::orderBy('id','desc')->get();
 
         if ($this->response->typeIs('json')) {
             $data = $this->repository->join('merchants','merchants.id','=','orders.merchant_id')
@@ -63,16 +65,38 @@ class OrderResourceController extends BaseController
             {
                 $data = $data->where('orders.payment_company_id',$payment_company_id);
             }
+            if($provider_id)
+            {
+                $data = $data->where('orders.provider_id',$provider_id);
+            }
             if($search_address)
             {
                 $data = $data->where(function ($query) use ($search_address){
-                    return $query->where('merchants.province','like','%'.$search_address.'%');
+                    return $query->where('merchants.address','like','%'.$search_address.'%');
+                });
+            }
+            if($search_province)
+            {
+                $data = $data->where(function ($query) use ($search_province){
+                    return $query->where('merchants.province','like','%'.$search_province.'%');
+                });
+            }
+            if($search_city)
+            {
+                $data = $data->where(function ($query) use ($search_city){
+                    return $query->where('merchants.city','like','%'.$search_city.'%');
                 });
             }
             if($search_merchant_name)
             {
                 $data = $data->where(function ($query) use ($search_merchant_name){
                     return $query->where('merchants.name','like','%'.$search_merchant_name.'%');
+                });
+            }
+            if($search_name)
+            {
+                $data = $data->where(function ($query) use ($search_name){
+                    return $query->where('merchants.address','like','%'.$search_name.'%')->orWhere('merchants.province','like','%'.$search_name.'%')->orWhere('merchants.city','like','%'.$search_name.'%')->orWhere('merchants.name','like','%'.$search_name.'%');
                 });
             }
             $data = $data
@@ -88,9 +112,10 @@ class OrderResourceController extends BaseController
 
         }
         $providers = Provider::orderBy('id','desc')->get();
+        $payment_companies = PaymentCompany::orderBy('id','desc')->get();
         return $this->response->title(trans('app.admin.panel'))
             ->view('order.'.$status)
-            ->data(compact('providers','payment_companies','payment_company_id','search_address','search_merchant_name'))
+            ->data(compact('providers','payment_companies','payment_company_id','provider_id','search_address','search_province','search_city','search_merchant_name','search_name'))
             ->output();
     }
     public function index(Request $request)

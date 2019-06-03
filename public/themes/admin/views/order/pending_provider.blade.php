@@ -8,7 +8,7 @@
     <div class="main_full">
         <div class="layui-col-md12">
             <div class="tabel-message">
-                <div class="layui-form-item">
+                <div class="layui-form-item order_search">
                     <div class="layui-inline tabel-btn">
                         <button class="layui-btn layui-btn-warm push_provider" data-type="push_provider" data-events="push_provider">批量分发服务商</button>
                         <button class="layui-btn layui-btn-primary " data-type="del" data-events="del">删除</button>
@@ -23,7 +23,12 @@
                             @endforeach
                         </select>
                     </div>
-
+                    <div class="layui-inline">
+                        <input class="layui-input layui-input-inline search_key" name="search_province" id="demoReload" placeholder="省份" autocomplete="off" value="{{ $search_province }}">
+                    </div>
+                    <div class="layui-inline">
+                        <input class="layui-input layui-input-inline search_key" name="search_city" id="demoReload" placeholder="城市" autocomplete="off" value="{{ $search_city }}">
+                    </div>
                     <div class="layui-inline">
                         <input class="layui-input layui-input-inline search_key" name="search_address" id="demoReload" placeholder="地址" autocomplete="off" value="{{ $search_address }}">
                     </div>
@@ -103,7 +108,7 @@
                             type: 1,
                             shade: false,
                             title: '服务商',
-                            area: ['420px', '240px'], //宽高
+                            area: ['420px', '340px'], //宽高
                             content: $('.provider_content'),
                             btn: ['确定'],
                             yes: function(index){
