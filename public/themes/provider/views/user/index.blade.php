@@ -51,7 +51,6 @@
                 ,{field:'avatar_url',title:'{!! trans('user.label.avatar_url')!!}',toolbar:'#imageTEM'}
                 ,{field:'phone',title:'{!! trans('user.label.phone')!!}',edit:'text'}
                 ,{field:'wechat',title:'{!! trans('user.label.wechat')!!}',edit:'text'}
-                ,{field:'payment_company_name',title:'{!! trans('payment_company.label.name')!!}'}
                 ,{field:'score',title:'操作', width:200, align: 'right',toolbar:'#barDemo'}
             ]]
             ,id: 'fb-table'

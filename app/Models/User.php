@@ -126,11 +126,6 @@ class User extends Authenticatable implements JWTSubject
 
     }
 
-    public function payment_company()
-    {
-        return $this->belongsTo('App\Models\PaymentCompany');
-    }
-
     public function provider()
     {
         return $this->belongsTo('App\Models\Provider');

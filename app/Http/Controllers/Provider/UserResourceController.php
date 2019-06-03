@@ -101,7 +101,6 @@ class UserResourceController extends BaseController
     {
         try {
             $attributes              = $request->all();
-            $attributes['payment_company_id'] = Auth::user()->payment_company_id;
             $attributes['provider_id'] = Auth::user()->provider_id;
 
             $user = $this->repository->create($attributes);

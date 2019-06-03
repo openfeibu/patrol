@@ -19,7 +19,6 @@ class UserTransformer extends TransformerAbstract
             'phone'             => $user->phone,
             'avatar_url'        => $user->avatar_url,
             'wechat'            => $user->wechat,
-            'payment_company_name' => $user->payment_company->name,
             'provider_name'     => $user->provider->name,
             'created_at'        => format_date($user->created_at),
             'updated_at'        => format_date($user->updated_at),

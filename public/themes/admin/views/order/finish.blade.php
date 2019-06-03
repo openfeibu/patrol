@@ -26,6 +26,7 @@
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-sm" lay-event="edit">详情</a>
 	<a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="remark">备注</a>
+    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="return">退回</a>
     <!--<a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del">删除</a>-->
 </script>
 <script type="text/html" id="imageTEM">
@@ -55,7 +56,7 @@
                 ,{field:'provider_name',title:"{{ trans('provider.name') }}", width:80}
                 ,{field:'user_name',title:"{{ trans('user.name') }}", width:80}
                 ,{field:'created_at',title:"{{ trans('app.created_at') }}",width:120}
-                ,{field:'score',title:'操作', width:150, align: 'right',toolbar:'#barDemo'}
+                ,{field:'score',title:'操作', width:200, align: 'right',toolbar:'#barDemo'}
             ]]
             ,id: 'fb-table'
             ,page: true
