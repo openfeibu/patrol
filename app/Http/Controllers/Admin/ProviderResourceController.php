@@ -21,9 +21,18 @@ class ProviderResourceController extends BaseController
     {
         $limit = $request->input('limit',config('app.limit'));
 
+        $search = $request->input('search',[]);
+        $search_name = isset($search['search_name']) ? $search['search_name'] : '';
+
         if ($this->response->typeIs('json')) {
-            $data = $this->repository
-                ->setPresenter(\App\Repositories\Presenter\ProviderPresenter::class)
+            $data = $this->repository;
+            if(!empty($search_name))
+            {
+                $data = $data->where(function ($query) use ($search_name){
+                    return $query->where('name','like','%'.$search_name.'%')->orWhere('linkman','like','%'.$search_name.'%')->orWhere('phone','like','%'.$search_name.'%');
+                });
+            }
+            $data = $data->setPresenter(\App\Repositories\Presenter\ProviderPresenter::class)
                 ->orderBy('id','desc')
                 ->getDataTable($limit);
 

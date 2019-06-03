@@ -213,7 +213,6 @@ class UserResourceController extends BaseController
         $res = app('excel_service')->uploadExcel();
 
         $excel_data = [];
-        $payment_company_id = Auth::user()->payment_company_id;
         $provider_id = Auth::user()->provider_id;
 
         foreach ( $res as $k => $v ) {
@@ -223,7 +222,6 @@ class UserResourceController extends BaseController
                     'name' => isset($v['姓名']) ? $v['姓名'] : '',
                     'phone' => isset($v['电话']) ? trim($v['电话']) : '',
                     'wechat' => isset($v['微信']) ? $v['微信'] : '',
-                    'payment_company_id' => $payment_company_id,
                     'provider_id' => $provider_id,
                     'password' => '123456'
                 ];
