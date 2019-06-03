@@ -34,6 +34,16 @@
         </div>
     </form>
 </div>
+<div class="fields_content layui_open_content" style="display:none;">
+    <form class="layui-form">
+        <div class="layui-form-item">
+            @foreach(config('model.order.order_record.excel_fields') as $key => $field)
+                <input type="checkbox" name="field[]" value="{{ $field }}" title="{{ trans('order_record.label.'.$field)  }}">
+            @endforeach
+        </div>
+    </form>
+</div>
+
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-sm" lay-event="edit">详情</a>
     <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del">删除</a>
@@ -82,11 +92,16 @@
                 content: $('.provider_content'),
                 btn: ['脱敏处理','隐藏处理'],
                 yes: function(index){
-                    var url = "{{ guard_url('') }}"
+                    var url = "{{ guard_url('export_order') }}?_token={!! csrf_token() !!}&type=encrypt"
                     $(".search_key").each(function(){
                         var name = $(this).attr('name');
                         where["search["+name+"]"] = $(this).val();
+                        url += "&"+name+"="+$(this).val();
                     });
+                    $("input[name='field[]']").each(function(){
+                        url += "&field[]="+$(this).val();
+                    });
+                    console.log(url);
                     alert("脱敏")
                     //layer.close(index);
 
@@ -102,4 +117,4 @@
 
     });
 </script>
-{!! Theme::partial('common_handle_js') !!}
+{!! Theme::partial('order_common_handle_js') !!}

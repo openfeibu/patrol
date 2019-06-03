@@ -188,6 +188,19 @@ button.layui-close{
 	margin: 5px 1% !important
 	
 }
+.layui_open_content .layui-form{
+	padding:10px 5px;
+	min-height:210px;
+	background:#eee;
+	border-radius:5px;
+	margin:5px 10px;
+
+}
+.layui_open_content .layui-form .layui-form-radio{
+	width:28%;
+	margin: 5px 1% !important
+
+}
 .dataBox li{
 	margin-top:10px 
 }

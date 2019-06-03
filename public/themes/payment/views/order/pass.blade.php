@@ -95,4 +95,4 @@
 
     });
 </script>
-{!! Theme::partial('common_handle_js') !!}
+{!! Theme::partial('order_common_handle_js') !!}
