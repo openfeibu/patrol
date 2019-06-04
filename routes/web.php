@@ -24,6 +24,7 @@ Route::group([
     Route::get('password', 'AdminUserController@getPassword');
     Route::post('password', 'AdminUserController@postPassword');
     Route::get('/', 'ResourceController@home')->name('home');
+    Route::get('/home', 'ResourceController@home');
     Route::get('/dashboard', 'ResourceController@dashboard')->name('dashboard');
 
     Route::resource('payment_company', 'PaymentCompanyResourceController');

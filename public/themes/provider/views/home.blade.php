@@ -9,35 +9,33 @@
                         <div carousel-item="">
                             <ul class="layui-row fb-clearfix dataBox layui-col-space5">
                                 <li class="layui-col-xs3">
-                                    @permission(home())
                                     <a lay-href="" class="fb-backlog-body">
                                         <h3>巡检员总数</h3>
-                                        <p><cite>66</cite></p>
+                                        <p><cite>{{ $user_count }}</cite></p>
                                     </a>
-                                    @endpermission
                                 </li>
                                 <li class="layui-col-xs3">
                                     <a lay-href="" class="fb-backlog-body">
                                         <h3>巡检任务总数</h3>
-                                        <p><cite>12</cite></p>
+                                        <p><cite>{{ $order_count }}</cite></p>
                                     </a>
                                 </li>
                                 <li class="layui-col-xs3">
                                     <a lay-href="" class="fb-backlog-body">
-                                        <h3>巡检完成总数</h3>
-                                        <p><cite>99</cite></p>
+                                        <h3>已审核任务总数</h3>
+                                        <p><cite>{{ $pass_order_count }}</cite></p>
                                     </a>
                                 </li>
                                 <li class="layui-col-xs3">
                                     <a lay-href="" class="fb-backlog-body">
-                                        <h3>巡检退单总数</h3>
-                                        <p><cite>20</cite></p>
+                                        <h3>退单巡检任务总数</h3>
+                                        <p><cite >{{ $return_order_count }}</cite></p>
                                     </a>
                                 </li>
-								<li class="layui-col-xs3">
+                                <li class="layui-col-xs3">
                                     <a lay-href="" class="fb-backlog-body">
-                                        <h3>当日巡检总数</h3>
-                                        <p><cite>20</cite></p>
+                                        <h3>当日巡检完成任务总数</h3>
+                                        <p><cite>{{ $today_finish_order_count }}</cite></p>
                                     </a>
                                 </li>
                             </ul>
