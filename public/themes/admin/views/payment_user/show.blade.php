@@ -12,7 +12,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">{{ trans("payment_user.name") }}</label>
                         <div class="layui-input-inline">
-                            <select name="provider_id">
+                            <select name="payment_company_id">
                                 @foreach($payment_companies as $key => $payment_company)
                                     <option value="{{ $payment_company->id }}" @if($payment_company->id == $payment_user->payment_company_id) selected @endif disabled>{{ $payment_company->name }}</option>
                                 @endforeach
