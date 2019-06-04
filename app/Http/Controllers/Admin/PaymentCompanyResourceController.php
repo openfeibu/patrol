@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\ResourceController as BaseController;
+use App\Models\PaymentRole;
+use App\Models\PaymentUser;
 use Auth;
 use Illuminate\Http\Request;
 use App\Models\PaymentCompany;
@@ -54,6 +56,15 @@ class PaymentCompanyResourceController extends BaseController
             $attributes = $request->all();
 
             $payment_company = $this->repository->create($attributes);
+
+            $provider_user = PaymentUser::create([
+                'phone' => $attributes['phone'],
+                'name' => $attributes['name'],
+                'payment_company_id' => $payment_company->id,
+                'password' => '123456'
+            ]);
+            $role_id = PaymentRole::where('slug','superuser')->value('id');
+            $provider_user->roles()->sync([$role_id]);
 
             return $this->response->message(trans('messages.success.created', ['Module' => trans('payment_company.name')]))
                 ->code(0)
