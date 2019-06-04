@@ -180,8 +180,8 @@ trait HasRoleAndPermission
             ->join('payment_permission_payment_role', 'payment_permission_payment_role.payment_permission_id', '=', 'payment_permissions.id')
             ->join('payment_roles', 'payment_roles.id', '=', 'payment_permission_payment_role.payment_role_id')
             ->whereIn('payment_roles.id', $this->getRoles()->pluck('id')->toArray())
-            ->orWhere('payment_roles.level', '<', $this->level())
-            ->groupBy(['payment_permissions.slug']);
+            ->orWhere('payment_roles.level', '<', $this->level());
+            //->groupBy(['payment_permissions.slug']);
     }
 
     public function menus($parent_id = 0)
@@ -196,14 +196,14 @@ trait HasRoleAndPermission
         {
             return $permissionModel::where('parent_id', $parent_id)->where('is_menu', 1)->orderBy('order', 'asc')->orderBy('id', 'asc')->get();
         }
-        return $permissionModel::select(['payment_permissions.slug', 'payment_permissions.name','payment_permissions.icon'])
+        return $permissionModel::select(['payment_permissions.id','payment_permissions.slug', 'payment_permissions.name','payment_permissions.icon'])
             ->join('payment_permission_payment_role', 'payment_permission_payment_role.payment_permission_id', '=', 'payment_permissions.id')
             ->join('payment_roles', 'payment_roles.id', '=', 'payment_permission_payment_role.payment_role_id')
             ->where('is_menu', 1)
             ->where('parent_id', $parent_id)
             ->whereIn('payment_roles.id', $this->getRoles()->pluck('id')->toArray())
             ->orWhere('payment_roles.level', '<', $this->level())
-            ->groupBy(['payment_permissions.slug'])
+            //->groupBy(['provider_permissions.slug'])
             ->get();
     }
 
