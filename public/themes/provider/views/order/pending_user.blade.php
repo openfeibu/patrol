@@ -83,7 +83,7 @@
                         layer.open({
                             type: 1,
                             shade: false,
-                            title: '服务商',
+                            title: '巡检员',
                             area: ['420px', '340px'], //宽高
                             content: $('.user_content'),
                             btn: ['确定'],
@@ -113,7 +113,7 @@
                                         }
                                     });
                                 }else{
-                                    layer.msg('请选择服务商');
+                                    layer.msg('请选择巡检员');
                                 }
                                 //layer.close(index);
 
