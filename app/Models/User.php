@@ -67,14 +67,14 @@ class User extends Authenticatable implements JWTSubject
     }
     public static function getUserByToken($token)
     {
-        return User::select("users.id","users.name","users.avatar_url","users.phone","users.token","users.payment_company_id","users.payment_company_id","users.provider_id","users.token","providers.name as provider_name")
+        return User::select("users.id","users.name","users.avatar_url","users.phone","users.token","users.provider_id","users.token","providers.name as provider_name")
             ->join("providers",'providers.id','=','users.provider_id')
             ->where('users.token',$token)
             ->first();
     }
     public static function getUserByPhone($phone)
     {
-        return User::select("users.id","users.name","users.avatar_url","users.phone","users.token","users.payment_company_id","users.payment_company_id","users.provider_id","users.token","providers.name as provider_name")
+        return User::select("users.id","users.name","users.avatar_url","users.phone","users.token","users.provider_id","users.token","providers.name as provider_name")
             ->join("providers",'providers.id','=','users.provider_id')
             ->where('users.phone',$phone)
             ->first();
@@ -82,7 +82,7 @@ class User extends Authenticatable implements JWTSubject
     public static function getUser()
     {
         $token = RequestFacades::input('token','');
-        $user = User::select("users.id","users.name","users.avatar_url","users.phone","users.token","users.payment_company_id","users.payment_company_id","users.provider_id","users.token","providers.name as provider_name")
+        $user = User::select("users.id","users.name","users.avatar_url","users.phone","users.token","users.provider_id","users.token","providers.name as provider_name")
             ->join("providers",'providers.id','=','users.provider_id')
             ->where('users.token',$token)
             ->first();
