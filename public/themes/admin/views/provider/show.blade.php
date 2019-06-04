@@ -13,19 +13,19 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">{{ trans('provider.label.name') }}</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="name" autocomplete="off" placeholder="请输入{{ trans('provider.label.name') }}" class="layui-input" value="{{ $provider->name }}">
+                            <input type="text" name="name" autocomplete="off" placeholder="请输入{{ trans('provider.label.name') }}" class="layui-input" value="{{ $provider->name }}" lay-verify="required" >
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">{{ trans('provider.label.linkman') }}</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="linkman" autocomplete="off" placeholder="请输入{{ trans('provider.label.linkman') }}" class="layui-input" value="{{ $provider->linkman }}">
+                            <input type="text" name="linkman" autocomplete="off" placeholder="请输入{{ trans('provider.label.linkman') }}" class="layui-input" value="{{ $provider->linkman }}" lay-verify="required" >
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">{{ trans('provider.label.phone') }}</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="phone" autocomplete="off" placeholder="请输入{{ trans('provider.label.phone') }}" class="layui-input" value="{{ $provider->phone }}">
+                            <input type="text" name="phone" autocomplete="off" placeholder="请输入{{ trans('provider.label.phone') }}" class="layui-input" value="{{ $provider->phone }}" lay-verify="required" >
                         </div>
                     </div>
                     <div class="layui-form-item">
