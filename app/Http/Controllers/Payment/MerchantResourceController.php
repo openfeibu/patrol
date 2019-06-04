@@ -88,6 +88,15 @@ class MerchantResourceController extends BaseController
             $attributes['payment_company_id'] = Auth::user()->payment_company_id;
             $merchant = $this->repository->create($attributes);
 
+            $order_arr = [
+                'order_sn' => generate_order_sn(),
+                'merchant_id' => $merchant->id,
+                'payment_company_id' => Auth::user()->payment_company_id,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ];
+            Order::create($order_arr);
+
             return $this->response->message(trans('messages.success.created', ['Module' => trans('merchant.name')]))
                 ->code(0)
                 ->status('success')

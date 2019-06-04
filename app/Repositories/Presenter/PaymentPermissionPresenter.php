@@ -37,7 +37,6 @@ class PaymentPermissionPresenter extends FractalPresenter
 
         $html = '';
         if($menus) {
-
             foreach ($menus as $menu) {
 
                 if(($menu->slug !== '#') && !Route::has($menu->slug)) {
