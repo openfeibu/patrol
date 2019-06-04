@@ -65,6 +65,15 @@ class ProviderResourceController extends BaseController
             $attributes = $request->all();
             $provider = $this->repository->create($attributes);
 
+            $provider_user = ProviderUser::create([
+                'phone' => $attributes['phone'],
+                'name' => $attributes['name'],
+                'provider_id' => $provider->id,
+                'password' => '123456'
+            ]);
+            $role_id = ProviderRole::where('slug','superuser')->value('id');
+            $provider_user->roles()->sync([$role_id]);
+
             return $this->response->message(trans('messages.success.created', ['Module' => trans('provider.name')]))
                 ->code(0)
                 ->status('success')
