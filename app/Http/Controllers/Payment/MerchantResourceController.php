@@ -262,9 +262,11 @@ class MerchantResourceController extends BaseController
     }
     public function submitImport(Request $request)
     {
+        set_time_limit(0);
         $res = app('excel_service')->uploadExcel();
         $count = count($res);
         $success_count = 0;
+        $empty_count = 0;
         $excel_data = [];
         $payment_company_id = Auth::user()->payment_company_id;
         foreach ( $res as $k => $v ) {
@@ -295,6 +297,12 @@ class MerchantResourceController extends BaseController
                     'updated_at' => date('Y-m-d H:i:s'),
                 ];
                 Order::create($order_arr);
+            }else{
+                $empty_count++;
+                if($empty_count >=3)
+                {
+                    break;
+                }
             }
         }
         return $this->response->message("共发现".$count."条数据，排除空行及重复数据后共成功上传".$success_count."条")

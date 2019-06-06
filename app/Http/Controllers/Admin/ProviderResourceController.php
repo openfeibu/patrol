@@ -169,11 +169,12 @@ class ProviderResourceController extends BaseController
     }
     public function submitImport(Request $request)
     {
+        set_time_limit(0);
         $res = app('excel_service')->uploadExcel();
         $count = count($res);
-        $excel_data = [];
         $success_count = 0;
-
+        $empty_count = 0;
+        $excel_data = [];
         foreach ( $res as $k => $v ) {
             $excel_data[$k] = [
                 'name' => isset($v['服务商名称']) ? trim($v['服务商名称']) : '',
@@ -200,6 +201,12 @@ class ProviderResourceController extends BaseController
                         $role_id = ProviderRole::where('slug','superuser')->value('id');
                         $provider_user->roles()->sync([$role_id]);
                     }
+                }
+            }else{
+                $empty_count++;
+                if($empty_count >=3)
+                {
+                    break;
                 }
             }
         }

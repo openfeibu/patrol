@@ -209,27 +209,38 @@ class UserResourceController extends BaseController
 
     public function submitImport(Request $request)
     {
+        set_time_limit(0);
         $res = app('excel_service')->uploadExcel();
 
+        $success_count = 0;
+        $empty_count = 0;
+        $count = count($res);
         $excel_data = [];
         $provider_id = Auth::user()->provider_id;
 
         foreach ( $res as $k => $v ) {
-            if($v['电话'])
+            if(trim($v['姓名']))
             {
+                $success_count++;
                 $excel_data[$k] = [
-                    'name' => isset($v['姓名']) ? $v['姓名'] : '',
+                    'name' => isset($v['姓名']) ? trim($v['姓名']) : '',
                     'phone' => isset($v['电话']) ? trim($v['电话']) : '',
-                    'wechat' => isset($v['微信']) ? $v['微信'] : '',
+                    'wechat' => isset($v['微信']) ? trim($v['微信']) : '',
                     'provider_id' => $provider_id,
                     'password' => '123456'
                 ];
 
                 $this->repository->create($excel_data[$k]);
+            }else{
+                $empty_count++;
+                if($empty_count >=3)
+                {
+                    break;
+                }
             }
         }
 
-        return $this->response->message("上传数据成功")
+        return $this->response->message("共发现".$count."条数据，排除空行及重复数据后共成功上传".$success_count."条")
             ->status("success")
             ->code(200)
             ->url(guard_url('user'))
