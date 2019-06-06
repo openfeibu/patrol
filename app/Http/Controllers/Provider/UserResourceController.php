@@ -219,18 +219,21 @@ class UserResourceController extends BaseController
         $provider_id = Auth::user()->provider_id;
 
         foreach ( $res as $k => $v ) {
-            if(trim($v['姓名']))
+            if(trim($v['电话']))
             {
-                $success_count++;
-                $excel_data[$k] = [
-                    'name' => isset($v['姓名']) ? trim($v['姓名']) : '',
-                    'phone' => isset($v['电话']) ? trim($v['电话']) : '',
-                    'wechat' => isset($v['微信']) ? trim($v['微信']) : '',
-                    'provider_id' => $provider_id,
-                    'password' => '123456'
-                ];
-
-                $this->repository->create($excel_data[$k]);
+                $user = User::where('phone',trim($v['电话']))->first();
+                if(!$user)
+                {
+                    $success_count++;
+                    $excel_data[$k] = [
+                        'name' => isset($v['姓名']) ? trim($v['姓名']) : '',
+                        'phone' => isset($v['电话']) ? trim($v['电话']) : '',
+                        'wechat' => isset($v['微信']) ? trim($v['微信']) : '',
+                        'provider_id' => $provider_id,
+                        'password' => '123456'
+                    ];
+                    $this->repository->create($excel_data[$k]);
+                }
             }else{
                 $empty_count++;
                 if($empty_count >=3)
