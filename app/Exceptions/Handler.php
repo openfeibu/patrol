@@ -61,7 +61,7 @@ class Handler extends ExceptionHandler
             case ($exception instanceof \App\Exceptions\OutputServerMessageException):
                 $resposeJson = [
                     'code' => 400,
-                    'detail' => $exception->getMessage(),
+                    'message' => $exception->getMessage(),
                 ];
                 break;
             case ($exception instanceof \App\Exceptions\Roles\PermissionDeniedException):

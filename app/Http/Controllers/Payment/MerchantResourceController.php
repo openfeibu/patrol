@@ -263,23 +263,25 @@ class MerchantResourceController extends BaseController
     public function submitImport(Request $request)
     {
         $res = app('excel_service')->uploadExcel();
-
+        $count = count($res);
+        $success_count = 0;
         $excel_data = [];
         $payment_company_id = Auth::user()->payment_company_id;
         foreach ( $res as $k => $v ) {
-            if($v['全称'])
+            if(trim($v['全称']))
             {
+                $success_count++;
                 $excel_data[$k] = [
-                    'model' => isset($v['机型']) ? $v['机型'] : '',
-                    'merchant_sn' => isset($v['商户号']) ? $v['商户号'] : '',
-                    'pn' => isset($v['pn']) ? $v['pn'] : '',
-                    'sn' => isset($v['sn']) ? $v['sn'] : '',
-                    'name' => isset($v['全称']) ? $v['全称'] : '',
-                    'address' => isset($v['经营地址']) ? $v['经营地址'] : '',
-                    'linkman' => isset($v['联系人']) ? $v['联系人'] : '',
-                    'phone' => isset($v['联系电话']) ? $v['联系电话'] : '',
-                    'province' => isset($v['所属省']) ? $v['所属省'] : '',
-                    'city' => isset($v['所属市']) ? $v['所属市'] : '',
+                    'model' => isset($v['机型']) ? trim($v['机型']) : '',
+                    'merchant_sn' => isset($v['商户号']) ? trim($v['商户号']) : '',
+                    'pn' => isset($v['pn']) ? trim($v['pn']) : '',
+                    'sn' => isset($v['sn']) ? trim($v['sn']) : '',
+                    'name' => isset($v['全称']) ? trim($v['全称']) : '',
+                    'address' => isset($v['经营地址']) ? trim($v['经营地址']) : '',
+                    'linkman' => isset($v['联系人']) ? trim($v['联系人']) : '',
+                    'phone' => isset($v['联系电话']) ? trim($v['联系电话']) : '',
+                    'province' => isset($v['所属省']) ? trim($v['所属省']) : '',
+                    'city' => isset($v['所属市']) ? trim($v['所属市']) : '',
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),
                     'payment_company_id' => $payment_company_id,
@@ -295,7 +297,7 @@ class MerchantResourceController extends BaseController
                 Order::create($order_arr);
             }
         }
-        return $this->response->message("上传数据成功")
+        return $this->response->message("共发现".$count."条数据，排除空行及重复数据后共成功上传".$success_count."条")
             ->status("success")
             ->code(200)
             ->url(guard_url('order_pending_provider'))

@@ -170,8 +170,9 @@ class ProviderResourceController extends BaseController
     public function submitImport(Request $request)
     {
         $res = app('excel_service')->uploadExcel();
-
+        $count = count($res);
         $excel_data = [];
+        $success_count = 0;
 
         foreach ( $res as $k => $v ) {
             $excel_data[$k] = [
@@ -180,23 +181,30 @@ class ProviderResourceController extends BaseController
                 'phone' => isset($v['服务商联系电话']) ? trim($v['服务商联系电话']) : '',
                 'wechat' => isset($v['服务商负责人微信']) ? trim($v['服务商负责人微信']) : '',
             ];
-            $provider = Provider::create($excel_data[$k]);
-            $phone = ProviderUser::where('phone',$excel_data[$k]['phone'])->value('id');
-            if(!$phone && $provider)
+            if($excel_data[$k]['name'])
             {
-                $provider_user = ProviderUser::create([
-                    'phone' => $excel_data[$k]['phone'],
-                    'name' => $excel_data[$k]['name'],
-                    'provider_id' => $provider->id,
-                    'password' => '123456'
-                ]);
-                $role_id = ProviderRole::where('slug','superuser')->value('id');
-                $provider_user->roles()->sync([$role_id]);
+                $provider = Provider::where('name',$excel_data[$k]['name'])->first();
+                if(!$provider)
+                {
+                    $success_count++;
+                    $provider = Provider::create($excel_data[$k]);
+                    $phone = ProviderUser::where('phone',$excel_data[$k]['phone'])->value('id');
+                    if(!$phone && $provider)
+                    {
+                        $provider_user = ProviderUser::create([
+                            'phone' => $excel_data[$k]['phone'],
+                            'name' => $excel_data[$k]['name'],
+                            'provider_id' => $provider->id,
+                            'password' => '123456'
+                        ]);
+                        $role_id = ProviderRole::where('slug','superuser')->value('id');
+                        $provider_user->roles()->sync([$role_id]);
+                    }
+                }
             }
         }
 
-
-        return $this->response->message("上传数据成功")
+        return $this->response->message("共发现".$count."条数据，排除空行及重复数据后共成功上传".$success_count."条")
             ->status("success")
             ->code(200)
             ->url(guard_url('provider'))

@@ -5,7 +5,7 @@ return [
 		'jpeg','jpg','gif','gpeg','png'
 	],
     'excel_type' => [
-        'xls','xlsx'
+        'xls','xlsx','bin'
     ],
 	'img_size' => 1024 * 1024 * 10,
     'file_size' => 1024 * 1024 * 10,
