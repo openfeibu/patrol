@@ -7,6 +7,7 @@
     </div>
     <div class="main_full">
         <div class="layui-col-md12">
+            {!! Theme::partial('message') !!}
             <div class="tabel-message">
                 <div class=" tabel-btn">
                     <button class="layui-btn layui-btn-warm "><a href="{{guard_url('merchant/create')}}">添加{{ trans('merchant.name') }}</a></button>

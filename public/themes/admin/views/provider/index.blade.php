@@ -7,6 +7,7 @@
     </div>
     <div class="main_full">
         <div class="layui-col-md12">
+            {!! Theme::partial('message') !!}
             <div class="tabel-message">
                 <div class="layui-inline tabel-btn">
                     <button class="layui-btn layui-btn-warm "><a href="{{guard_url('provider/create')}}">添加{{ trans('provider.name') }}</a></button>
