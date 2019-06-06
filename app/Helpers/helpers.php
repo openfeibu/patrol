@@ -751,9 +751,9 @@ if (!function_exists('isVaildExcel')) {
         {
             $error.= $name.$file->getErrorMessage().';';
         }
-        if(!in_array( strtolower($file->extension()),config('common.excel_type'))){
-            $error.= $name."为".strtolower($file->extension())."格式，非Excel格式;";
-        }
+//        if(!in_array( strtolower($file->extension()),config('common.excel_type'))){
+//            $error.= $name."为".strtolower($file->extension())."格式，非Excel格式;";
+//        }
         if($file->getClientSize() > config('common.file_size')){
             $file_size = config('common.file_size')/(1024*1024);
             $error.= $name.'超过'.$file_size.'M';
