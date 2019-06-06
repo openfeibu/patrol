@@ -3,6 +3,7 @@
         var table = layui.table;
         var form = layui.form;
         var $ = layui.$;
+        form.render();
         //监听工具条
         table.on('tool(fb-table)', function(obj){
             var data = obj.data;
