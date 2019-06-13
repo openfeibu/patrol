@@ -473,9 +473,9 @@ class OrderResourceController extends BaseController
         $pdf = new \TCPDF($orientation='P', $unit='px',array(900,2500));
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor("Gouweiba");
-        $pdf->SetTitle("pdf test");
-        $pdf->SetSubject('TCPDF Tutorial');
-        $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
+        $pdf->SetTitle("巡检单");
+        $pdf->SetSubject('巡检单');
+        $pdf->SetKeywords('巡检单');
         $pdf->setPrintHeader(false);
         $pdf->setPrintFooter(false);
         $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
@@ -603,9 +603,7 @@ class OrderResourceController extends BaseController
             $pdf->AddPage();
         }
         $pdf->lastPage();
-        $pdf->Output("test" . '.pdf', 'I');
+        $pdf->Output(time() . '.pdf', 'I');
         exit;
     }
-
-
 }
