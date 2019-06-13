@@ -151,6 +151,7 @@ class ImageService
                 $font->valign('top');
                 //$font->angle(45);
             });
+            $img->rotate(90);
             $img->save($new_image_path);
 
             $imgs_url[$i] = $this->request->getBasePath().'/'.$watermark_usage.'/'.$imageName;
@@ -161,6 +162,10 @@ class ImageService
         return [
             'image_url' => implode(',',$imgs_url),
         ];
+
+    }
+    public function rotate($image_path)
+    {
 
     }
 

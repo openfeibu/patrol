@@ -5,7 +5,7 @@
 }
  .line_table  tr{bordr:1px solid #333;}
  .line_table  tr td { bordr:1px solid #333;border-bottom:0; }
- .line_table { line-height: 25px; text-align: center; border-collapse:collapse;border:1px solid #333}   
+ .line_table { line-height: 25px; text-align: center; border-collapse:collapse;border:1px solid #333}
 .content{
     text-align: center;
     font-family: 仿宋;
@@ -33,7 +33,7 @@
 	position:relative;
 	height:30px;
 	line-height:30px;
-	
+
 }
 .line-table-height td{
 	height:100%;
@@ -46,8 +46,8 @@
 }
 .line-table-c{
 	text-align:center;
-	
-	
+
+
 }
 .line-table-t{
 	text-indent:1em;
@@ -97,8 +97,8 @@
 
 <table width="1000" class="k-w-table line_table member_table">
     <tbody>
- 
-  
+
+
     <tr class="line-table-height line-table-t">
         <td class="k-s-content layui-col-md6" >商户编号：依据商户明细如实填写</td>
         <td class="k-s-content layui-col-md6">商户名称：依据商户明细如实填写</td>
@@ -226,7 +226,7 @@
 	<tr class="line-table-height line-table-t">
         <td class="k-s-content layui-col-md12" >
 			<span>POS机具被移至他处使用或被改造或加装了其他设备： </span>
-		
+
 		</td>
 		<td class="k-s-content layui-col-md12 td-img" >
 		<img style="width:150px" src="http://patrolapi.feibu.info/image/original/merchant/watermark/%E6%98%86%E6%98%8E%E5%B8%82%E7%9B%98%E9%BE%99%E5%8C%BA%E5%90%9B%E4%B8%BD%E5%89%AF%E9%A3%9F%E5%BA%97-20190611141239356271.jpg">
@@ -238,61 +238,61 @@
 	<tr class="line-table-height line-table-t">
         <td class="k-s-content layui-col-md12" >
 			<span>商户门头照: </span>
-		
+
 		</td>
 		<td class="k-s-content layui-col-md12 td-img" >
 		<img style="width:150px" src="http://patrolapi.feibu.info/image/original/merchant/watermark/%E6%98%86%E6%98%8E%E5%B8%82%E7%9B%98%E9%BE%99%E5%8C%BA%E5%90%9B%E4%B8%BD%E5%89%AF%E9%A3%9F%E5%BA%97-20190611141239356271.jpg">
-		
+
 		</td>
     </tr>
 	<tr class="line-table-height line-table-t">
         <td class="k-s-content layui-col-md12" >
 			<span>地址门牌照: </span>
-		
+
 		</td>
 		<td class="k-s-content layui-col-md12 td-img" >
 		<img style="width:150px" src="http://patrolapi.feibu.info/image/original/merchant/watermark/%E6%98%86%E6%98%8E%E5%B8%82%E7%9B%98%E9%BE%99%E5%8C%BA%E5%90%9B%E4%B8%BD%E5%89%AF%E9%A3%9F%E5%BA%97-20190611141239356271.jpg">
-		
+
 		</td>
     </tr>
 	<tr class="line-table-height line-table-t">
         <td class="k-s-content layui-col-md12"  >
 			<span>内部经营场所照: </span>
-		
+
 		</td>
 		<td class="k-s-content layui-col-md12 td-img" >
 		<img style="width:150px" src="http://patrolapi.feibu.info/image/original/merchant/watermark/%E6%98%86%E6%98%8E%E5%B8%82%E7%9B%98%E9%BE%99%E5%8C%BA%E5%90%9B%E4%B8%BD%E5%89%AF%E9%A3%9F%E5%BA%97-20190611141239356271.jpg">
-		
+
 		</td>
     </tr>
 	<tr class="line-table-height line-table-t">
         <td class="k-s-content layui-col-md12" >
 			<span>POS机背面SN/PN号照片: </span>
-		
+
 		</td>
 		<td class="k-s-content layui-col-md12 td-img" >
 		<img style="width:150px" src="http://patrolapi.feibu.info/image/original/merchant/watermark/%E6%98%86%E6%98%8E%E5%B8%82%E7%9B%98%E9%BE%99%E5%8C%BA%E5%90%9B%E4%B8%BD%E5%89%AF%E9%A3%9F%E5%BA%97-20190611141239356271.jpg">
-		
+
 		</td>
     </tr>
 	<tr class="line-table-height line-table-t">
         <td class="k-s-content layui-col-md12" >
 			<span>收银台照片: </span>
-		
+
 		</td>
 		<td class="k-s-content layui-col-md12 td-img" >
 		<img style="width:150px" src="http://patrolapi.feibu.info/image/original/merchant/watermark/%E6%98%86%E6%98%8E%E5%B8%82%E7%9B%98%E9%BE%99%E5%8C%BA%E5%90%9B%E4%B8%BD%E5%89%AF%E9%A3%9F%E5%BA%97-20190611141239356271.jpg">
-		
+
 		</td>
     </tr>
 	<tr class="line-table-height line-table-t">
         <td class="k-s-content layui-col-md12" >
 			<span>测试单: </span>
-		
+
 		</td>
 		<td class="k-s-content layui-col-md12 td-img" >
 		<img style="width:150px" src="http://patrolapi.feibu.info/image/original/merchant/watermark/%E6%98%86%E6%98%8E%E5%B8%82%E7%9B%98%E9%BE%99%E5%8C%BA%E5%90%9B%E4%B8%BD%E5%89%AF%E9%A3%9F%E5%BA%97-20190611141239356271.jpg">
-		
+
 		</td>
     </tr>
 	<tr class="line-table-height line-table-t">
@@ -300,6 +300,17 @@
 		<span>商户签名： </span>
 		<img class="range90" style="width:100px;float:right;margin:-50px 150px -50px 0" src="http://patrolapi.feibu.info/image/original/merchant/watermark/昆明市盘龙区君丽副食店-20190611141503375670.jpg">
 		</td>
+    </tr>
+    <tr class="line-table-height line-table-t">
+        <td class="k-s-content layui-col-md12" >
+            <span>备注: </span>
+
+        </td>
+        <td class="k-s-content layui-col-md12 td-img" >
+            @foreach($order_logs as $key => $order_log)
+            <p class="input-p">{{ $order_log->name }}（{{ trans('order_log.admin_type.'.$order_log->admin_type) }}）:{{ $order_log->content }}({{ $order_log->created_at }})</p>
+            @endforeach
+        </td>
     </tr>
     </tbody>
 </table>
@@ -311,7 +322,7 @@
                 <form class="layui-form" action="{{guard_url('order/'.$order->id)}}" method="post" method="post" lay-filter="fb-form">
                     @if($order_logs->count())
                         <fieldset class="layui-elem-field order-des" >
-                            <legend>备注</legend>
+                            <legend>管理员备注</legend>
                             @foreach($order_logs as $key => $order_log)
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">{{ $order_log->name }}（{{ trans('order_log.admin_type.'.$order_log->admin_type) }}）:</label>

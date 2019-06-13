@@ -14,8 +14,8 @@ return [
         'template' => '模板类型',
         'leader_phone' => '绑定电话（负责人电话）',
         'patrol_mode' => '巡检方式',
-        'sn' => 'sn',
-        'pn' => 'pn',
+        'sn' => '机具/SN号',
+        'pn' => '机具/PN号',
         'door_images' => '商户门头照',
         'address_images' => '地址门牌照',
         'inside_images' => '内部经营场所照',
@@ -63,7 +63,7 @@ return [
     ],
     'merchant_result' => [
         'normal' => '正常商户',
-        'risk' => '风险险商户',
+        'risk' => '风险商户',
         'abnormal' => '异常商户',
     ],
 ];
