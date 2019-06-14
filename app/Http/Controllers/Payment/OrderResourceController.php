@@ -470,7 +470,7 @@ class OrderResourceController extends BaseController
     public function exportOrderPdf(Request $request)
     {
         set_time_limit(0);
-        $pdf = new \TCPDF($orientation='P', $unit='px',array(900,2500));
+        $pdf = new \TCPDF($orientation='P', $unit='px',array(900,2600));
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor("Gouweiba");
         $pdf->SetTitle("巡检单");
@@ -581,7 +581,7 @@ class OrderResourceController extends BaseController
                 }
             }
             $order_logs = OrderLog::where('order_id',$order['id'])->where('type','note')->orderBy('id','desc')->get();
-            $content = view('order_table',compact('order','order_record','order_logs','merchant'));
+             $content = view('order_table',compact('order','order_record','order_logs','merchant'));
             /*
               $content = $this->response->title(trans('app.view') . ' ' . trans('order.name'))
                 ->data(compact('order','order_record','order_logs','merchant'))
@@ -603,7 +603,7 @@ class OrderResourceController extends BaseController
             $pdf->AddPage();
         }
         $pdf->lastPage();
-        $pdf->Output(time() . '.pdf', 'I');
+        $pdf->Output(date('YmdHis') . '.pdf', 'D');
         exit;
     }
 }
