@@ -14,6 +14,7 @@ use App\Models\PaymentCompany;
 use App\Models\OrderLog;
 use App\Repositories\Eloquent\OrderRecordRepositoryInterface;
 use App\Repositories\Eloquent\OrderRepositoryInterface;
+use App\Services\ExportPdfService;
 
 class OrderResourceController extends BaseController
 {
@@ -427,5 +428,51 @@ class OrderResourceController extends BaseController
         })->store('xls')->export('xls');
 
 
+    }
+    public function exportOrderPdf(Request $request)
+    {
+        $search = $request->input('search',[]);
+        $handle_fields = $request->input('fields',[]);
+        $type = $request->input('type','encrypt');
+        $payment_company_id = isset($search['payment_company_id']) ? $search['payment_company_id'] : 0;
+        $search_address = isset($search['search_address']) ? $search['search_address'] : '';
+        $search_province = isset($search['search_province']) ? $search['search_province'] : '';
+        $search_city = isset($search['search_city']) ? $search['search_city'] : '';
+        $search_merchant_name = isset($search['search_merchant_name']) ? $search['search_merchant_name'] : '';
+
+        $data = $this->repository->join('merchants','merchants.id','=','orders.merchant_id')
+            ->where('orders.status','pass')
+            ->where('orders.provider_id',Auth::user()->provider_id);
+        if($payment_company_id)
+        {
+            $data = $data->where('orders.payment_company_id',$payment_company_id);
+        }
+        if($search_address)
+        {
+            $data = $data->where(function ($query) use ($search_address){
+                return $query->where('merchants.address','like','%'.$search_address.'%');
+            });
+        }
+        if($search_province)
+        {
+            $data = $data->where(function ($query) use ($search_province){
+                return $query->where('merchants.province','like','%'.$search_province.'%');
+            });
+        }
+        if($search_city)
+        {
+            $data = $data->where(function ($query) use ($search_city){
+                return $query->where('merchants.city','like','%'.$search_city.'%');
+            });
+        }
+        if($search_merchant_name)
+        {
+            $data = $data->where(function ($query) use ($search_merchant_name){
+                return $query->where('merchants.name','like','%'.$search_merchant_name.'%');
+            });
+        }
+        $orders = $data->orderBy('orders.id','desc')->all(['orders.*']);
+        $export_pdf = new ExportPdfService();
+        return $export_pdf->export_orders($orders);
     }
 }

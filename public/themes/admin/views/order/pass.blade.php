@@ -11,7 +11,7 @@
                 <div class="layui-form-item">
                     <div class="layui-inline tabel-btn">
                         <button class="layui-btn layui-btn-primary " data-type="del" data-events="del">删除</button>
-						<button class="layui-btn layui-btn-normal export-order">
+						<button class="layui-btn layui-btn-normal export-order-pdf">
 						  <i class="layui-icon">&#xe601;</i> 导出巡检单
 						</button>
                     </div>
@@ -126,6 +126,12 @@
             });
                 
 		})
+        $(".export-order-pdf").on("click",function(){
+            var url = "{{ guard_url('export_order_pdf') }}?_token={!! csrf_token() !!}"
+            var load =layer.load();
+            window.location.href = url;
+            layer.close(load);
+        })
 
     });
 </script>

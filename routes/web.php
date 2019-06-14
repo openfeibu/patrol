@@ -54,6 +54,7 @@ Route::group([
     Route::post('/provider_user/destroyAll', 'ProviderUserResourceController@destroyAll')->name('provider_user.destroy_all');
     Route::post('note_order','OrderResourceController@noteOrder')->name('order.note_order');
     Route::get('export_order','OrderResourceController@exportOrder')->name('order.export');
+    Route::get('export_order_pdf','OrderResourceController@exportOrderPdf')->name('order.export.pdf');
 
     Route::get('/setting/company', 'SettingResourceController@company')->name('setting.company.index');
     Route::post('/setting/updateCompany', 'SettingResourceController@updateCompany');
@@ -161,6 +162,7 @@ Route::group([
     Route::post('return_order','OrderResourceController@ReturnOrder')->name('order.return_order');
     Route::post('note_order','OrderResourceController@NoteOrder')->name('order.note_order');
     Route::get('export_order','OrderResourceController@exportOrder')->name('order.export');
+    Route::get('export_order_pdf','OrderResourceController@exportOrderPdf')->name('order.export.pdf');
 
     Route::resource('user', 'UserResourceController');
     Route::post('/user/destroyAll', 'UserResourceController@destroyAll')->name('user.destroy_all');
