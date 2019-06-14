@@ -24,7 +24,7 @@ return [
         'test_images' => '测试单',
         'pos_is_transformational' => 'POS机是否被移至其他处或被改造或加装',
         'pos_is_transformational_content' => '备注',
-        'pos_is_transformational_images' => '备注',
+        'pos_is_transformational_images' => 'POS机具被移至他处使用或被改造或加装了其他设备',
         'pos_is_normal' => 'POS是否正常使用',
         'pos_is_normal_content' => '备注',
         'pos_is_signed' => 'POS是否被粘贴其他标志',

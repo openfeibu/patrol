@@ -127,6 +127,7 @@
             var url = "{{ guard_url('export_order_pdf') }}?_token={!! csrf_token() !!}"
             var load =layer.load();
             window.location.href = url;
+            layer.close(load);
         })
     });
 </script>

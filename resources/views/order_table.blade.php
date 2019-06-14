@@ -3,7 +3,6 @@
         width:1000px;
         background:#fff
     }
-
     .content{
         text-align: center;
         font-family: 仿宋;
@@ -36,7 +35,7 @@
     .line-table-height td{
         height:100%;
         vertical-align:middle;
-        display:table;
+        /*display:table;*/
     }
     .line-table-height td span{
         vertical-align:middle;
@@ -74,7 +73,7 @@
         border-top:none;
     }
     .td-img img{
-        margin:5px;
+        /*margin:5px;*/
     }
     .ex-table-p{
         font-size:30px;
@@ -83,7 +82,14 @@
     }
     .no_bottom_border{
         border-bottom: none;
-        border-bottom-width: 0px;
+    }
+    .no_bottom_border td{
+        border-bottom: none;
+    }
+    p{
+        margin: 0px;
+        height: 15px;
+        line-height: 15px;
     }
 </style>
 <div class="ex-table">
@@ -306,32 +312,31 @@
         <tr class="line-table-height line-table-t no_bottom_border">
             <td class="k-s-content layui-col-md12"  colspan="4">
                 <span>{{ trans('order_record.label.pos_is_transformational_images') }}: </span>
-
             </td>
         </tr>
         <tr class="line-table-height line-table-t">
-            <td class="k-s-content layui-col-md12 td-img"  colspan="4">
-                @foreach($order_record['pos_is_transformational_images'] as $image)
-                    <img style="width:300px" src="{{ $image }}">
-                @endforeach
+            @for($i=0;$i<4;$i++)
+            <td class="k-s-content layui-col-md12 td-img" width="25%">
+                @if(isset($order_record['pos_is_transformational_images'][$i]))
+                    <img style="width:240px;" src="{{ $order_record['pos_is_transformational_images'][$i] }}">
+                @endif
             </td>
+            @endfor
         </tr>
 
-        <tr class="line-table-height line-table-t no_bottom_border">
+        <tr class="line-table-height line-table-t">
             <td class="k-s-content layui-col-md12 " colspan="4">
-                <span>{{ trans('order_record.label.signature_image') }}： </span>
+                <p>{{ trans('order_record.label.signature_image') }}： </p>
                 @foreach($order_record['signature_image'] as $image)
                     <img style="width:300px" src="{{ $image }}">
                 @endforeach
             </td>
         </tr>
-        <tr class="line-table-height line-table-t no_bottom_border">
-            <td class="k-s-content layui-col-md12"  colspan="4">
-                <span>管理员备注: </span>
-            </td>
-        </tr>
+
         <tr class="line-table-height line-table-t">
-            <td class="k-s-content layui-col-md12" colspan="4">@foreach($order_logs as $key => $order_log)<span>{{ $order_log->name }}（{{ trans('order_log.admin_type.'.$order_log->admin_type) }}）:{{ $order_log->content }}({{ $order_log->created_at }})</span><br/>@endforeach
+            <td class="k-s-content layui-col-md12 td-img" colspan="4">
+                <p>管理员备注: </p>
+                @foreach($order_logs as $key => $order_log)<span>{{ $order_log->name }}（{{ trans('order_log.admin_type.'.$order_log->admin_type) }}）:{{ $order_log->content }}({{ $order_log->created_at }})</span><br/>@endforeach
             </td>
         </tr>
         </tbody>
