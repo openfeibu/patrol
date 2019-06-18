@@ -18,7 +18,7 @@ class ExportPdfService
     public function export_orders($orders)
     {
         set_time_limit(0);
-        $pdf = new \TCPDF($orientation='P', $unit='px',array(900,3200));
+        $pdf = new \TCPDF($orientation='P', $unit='px',array(900,3600));
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor("Gouweiba");
         $pdf->SetTitle("巡检单");
