@@ -62,7 +62,7 @@ class AdminUserRequest extends FormRequest
         if ($this->isStore()) {
             return [
                 'name' => 'required|string',
-                'phone' => 'required|unique:provider_users',
+                'email' => 'required|unique:admin_users',
                 'password' => 'required|string|min:6',
             ];
         }
@@ -72,9 +72,9 @@ class AdminUserRequest extends FormRequest
             $input = Input::all();
             return [
                 'name' => 'required|string',
-                'phone' => [
+                'email' => [
                     'filled',
-                    Rule::unique('provider_users')->where(function($query)use($input){
+                    Rule::unique('admin_users')->where(function($query)use($input){
                         return $query->where('id','<>',$input['id']);
                     })
                 ],
@@ -90,8 +90,8 @@ class AdminUserRequest extends FormRequest
     public function messages(){
         return [
             'name.require' => '姓名不能为空',
-            'phone.require' => '手机号码不能为空',
-            'phone.unique' => '该手机号码已被注册',
+            'email.require' => '邮箱不能为空',
+            'email.unique' => '该邮箱已被注册',
             'password.require' => '密码不能为空',
             'password.min' => '密码不能少于六个字符串',
         ];

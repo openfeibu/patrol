@@ -45,6 +45,7 @@
                 {checkbox: true, fixed: true}
                 ,{field:'id',title:'ID', width:80, sort: true}
                 ,{field:'phone',title:'{!! trans('provider_user.label.phone')!!}'}
+                ,{field:'name',title:'{!! trans('provider_user.label.name')!!}'}
                 ,{field:'role_names',title:'{!! trans('provider_user.label.roles')!!}'}
                 ,{field:'payment_company_name',title:'{!! trans('payment_company.label.name')!!}'}
                 ,{field:'score',title:'操作', width:200, align: 'right',toolbar:'#barDemo'}

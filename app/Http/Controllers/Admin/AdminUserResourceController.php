@@ -7,6 +7,7 @@ use App\Repositories\Eloquent\PermissionRepositoryInterface;
 use App\Repositories\Eloquent\RoleRepositoryInterface;
 use App\Http\Requests\AdminUserRequest;
 use App\Repositories\Eloquent\AdminUserRepositoryInterface;
+use Illuminate\Http\Request;
 
 /**
  * Resource controller class for user.
@@ -46,7 +47,7 @@ class AdminUserResourceController extends BaseController
             ->pushCriteria(\App\Repositories\Criteria\RequestCriteria::class)
             ->pushCriteria(\App\Repositories\Criteria\AdminUserResourceCriteria::class);
     }
-    public function index(AdminUserRequest $request)
+    public function index(Request $request)
     {
         $limit = $request->input('limit',config('app.limit'));
         $search = $request->input('search_name','');
@@ -72,7 +73,7 @@ class AdminUserResourceController extends BaseController
             ->output();
     }
 
-    public function show(AdminUserRequest $request,AdminUser $admin_user)
+    public function show(Request $request,AdminUser $admin_user)
     {
         if ($admin_user->exists) {
             $view = 'admin_user.show';
@@ -89,11 +90,11 @@ class AdminUserResourceController extends BaseController
     /**
      * Show the form for creating a new user.
      *
-     * @param AdminUserRequest $request
+     * @param Request $request
      *
      * @return Response
      */
-    public function create(AdminUserRequest $request)
+    public function create(Request $request)
     {
 
         $admin_user = $this->repository->newInstance([]);
@@ -166,11 +167,11 @@ class AdminUserResourceController extends BaseController
     }
 
     /**
-     * @param AdminUserRequest $request
+     * @param Request $request
      * @param AdminUser $admin_user
      * @return mixed
      */
-    public function destroy(AdminUserRequest $request, AdminUser $admin_user)
+    public function destroy(Request $request, AdminUser $admin_user)
     {
         try {
 
@@ -193,10 +194,10 @@ class AdminUserResourceController extends BaseController
     }
 
     /**
-     * @param AdminUserRequest $request
+     * @param Request $request
      * @return mixed
      */
-    public function destroyAll(AdminUserRequest $request)
+    public function destroyAll(Request $request)
     {
         try {
             $data = $request->all();

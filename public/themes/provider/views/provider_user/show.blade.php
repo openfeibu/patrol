@@ -15,7 +15,12 @@
                             <input type="text" name="phone" value="{{ $provider_user->phone }}" lay-verify="title" autocomplete="off" placeholder="请输入{{ trans("admin_user.label.phone") }}" class="layui-input" disabled>
                         </div>
                     </div>
-
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">{{ trans("provider_user.label.name") }}</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="name" value="{{ $provider_user->name }}" lay-verify="required" autocomplete="off" placeholder="请输入{{ trans("provider_user.label.name") }}" class="layui-input" >
+                        </div>
+                    </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">{{ trans("admin_user.label.new_password") }}</label>
                         <div class="layui-input-inline">
