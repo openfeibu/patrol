@@ -308,7 +308,7 @@ class MerchantResourceController extends BaseController
         return $this->response->message("共发现".$count."条数据，排除空行及重复数据后共成功上传".$success_count."条")
             ->status("success")
             ->code(200)
-            ->url(guard_url('order_pending_provider'))
+            ->url(guard_url('merchant'))
             ->redirect();
         /*
         if(!count($excel_data))

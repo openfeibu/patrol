@@ -486,11 +486,10 @@
                             @endif
                         </fieldset>
                         @if($order_record['status'] == 'finish')
-                        <div class="layui-btn-box">
-
-                            <a class="layui-btn layui-btn-lg layui-btn-danger " tag="return">退回</a>
-
-                        </div>
+                            <div class="layui-btn-box">
+                                <a class="layui-btn layui-btn-lg layui-btn-normal " tag="pass">通过</a>
+                                <a class="layui-btn layui-btn-lg layui-btn-danger " tag="return">退回</a>
+                            </div>
                         @endif
                     @endif
                     {!!Form::token()!!}
@@ -554,6 +553,24 @@
                          layer.close(load);
                          layer.close(index);
                          window.location.reload();
+                     },
+                     error : function (jqXHR, textStatus, errorThrown) {
+                         layer.close(load);
+                         layer.msg('服务器出错');
+                     }
+                 });
+             });
+         }else if(tag === 'pass'){
+             layer.confirm('确定通过审核么？', function(index){
+                 layer.close(index);
+                 var load = layer.load();
+                 $.ajax({
+                     url : "{{ guard_url('pass_order') }}",
+                     data : {'id':data.id,'_token':"{!! csrf_token() !!}"},
+                     type : 'post',
+                     success : function (data) {
+                         window.location.reload();
+                         layer.close(load);
                      },
                      error : function (jqXHR, textStatus, errorThrown) {
                          layer.close(load);
