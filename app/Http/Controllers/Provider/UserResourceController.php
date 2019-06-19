@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Provider;
 
 use App\Http\Controllers\Provider\ResourceController as BaseController;
+use App\Models\Order;
 use Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
@@ -155,6 +156,14 @@ class UserResourceController extends BaseController
     public function destroy(Request $request, User $user)
     {
         try {
+            $order_count = Order::where('user_id',$user->id)->count();
+            if($order_count)
+            {
+                return $this->response->message('该巡检员已分配巡检单，请勿删除或重新分配该巡检员下巡检单')
+                    ->status('error')
+                    ->url(guard_url('user'))
+                    ->redirect();
+            }
             $user->forceDelete();
             return $this->response->message(trans('messages.success.deleted', ['Module' => trans('user.name')]))
                 ->code(202)
@@ -180,8 +189,17 @@ class UserResourceController extends BaseController
     public function destroyAll(Request $request)
     {
         try {
+
             $data = $request->all();
             $ids = $data['ids'];
+            $order_count = Order::whereIn('user_id',$ids)->count();
+            if($order_count)
+            {
+                return $this->response->message('巡检员已分配巡检单，请勿删除或重新分配巡检员下巡检单')
+                    ->status('error')
+                    ->url(guard_url('user'))
+                    ->redirect();
+            }
             $this->repository->forceDelete($ids);
 
             return $this->response->message(trans('messages.success.deleted', ['Module' => trans('user.name')]))
