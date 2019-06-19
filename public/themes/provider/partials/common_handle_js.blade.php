@@ -19,8 +19,13 @@
                         data : data,
                         type : 'delete',
                         success : function (data) {
-                            obj.del();
                             layer.close(load);
+                            if(data.code == 400 )
+                            {
+                                layer.alert(data.msg, {icon: 5});
+                            }else{
+                                obj.del();
+                            }
                         },
                         error : function (jqXHR, textStatus, errorThrown) {
                             layer.close(load);
@@ -92,14 +97,20 @@
                                 data :  {'ids':data_id_obj,'_token' : "{!! csrf_token() !!}"},
                                 type : 'POST',
                                 success : function (data) {
-                                    var nPage = $(".layui-laypage-curr em").eq(1).text();
-                                    //执行重载
-                                    table.reload('fb-table', {
-                                        page: {
-                                            curr: nPage //重新从第 1 页开始
-                                        }
-                                    });
                                     layer.close(load);
+                                    if(data.code == 400 )
+                                    {
+                                        layer.alert(data.msg, {icon: 5});
+                                    }else{
+                                        var nPage = $(".layui-laypage-curr em").eq(1).text();
+                                        //执行重载
+                                        table.reload('fb-table', {
+                                            page: {
+                                                curr: nPage //重新从第 1 页开始
+                                            }
+                                        });
+                                    }
+
                                 },
                                 error : function (jqXHR, textStatus, errorThrown) {
                                     layer.close(load);

@@ -159,8 +159,9 @@ class UserResourceController extends BaseController
             $order_count = Order::where('user_id',$user->id)->count();
             if($order_count)
             {
-                return $this->response->message('该巡检员已分配巡检单，请勿删除或重新分配该巡检员下的巡检单')
-                    ->status('error')
+                return $this->response->message('该巡检员已分配巡检单，请勿删除或先重新分配该巡检员下的巡检单')
+                    ->code(400)
+                    ->status('success')
                     ->url(guard_url('user'))
                     ->redirect();
             }
@@ -195,8 +196,9 @@ class UserResourceController extends BaseController
             $order_count = Order::whereIn('user_id',$ids)->count();
             if($order_count)
             {
-                return $this->response->message('巡检员已分配巡检单，请勿删除或重新分配巡检员下的巡检单')
-                    ->status('error')
+                return $this->response->message('巡检员已分配巡检单，请勿删除或先重新分配巡检员下的巡检单')
+                    ->code(400)
+                    ->status('success')
                     ->url(guard_url('user'))
                     ->redirect();
             }
