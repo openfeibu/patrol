@@ -50,7 +50,7 @@
                 ,{field:'id',title:'ID', width:80, sort: true}
                 ,{field:'name',title:'{!! trans('user.label.name')!!}',edit:'text'}
                 ,{field:'avatar_url',title:'{!! trans('user.label.avatar_url')!!}',toolbar:'#imageTEM'}
-                ,{field:'phone',title:'{!! trans('user.label.phone')!!}',edit:'text'}
+                ,{field:'phone',title:'{!! trans('user.label.phone')!!}'}
                 ,{field:'wechat',title:'{!! trans('user.label.wechat')!!}',edit:'text'}
                 ,{field:'score',title:'操作', width:200, align: 'right',toolbar:'#barDemo'}
             ]]

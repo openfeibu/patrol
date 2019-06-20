@@ -29,6 +29,7 @@ class OrderTransformer extends TransformerAbstract
             'status' => $order->status,
             'status_desc' => $order->status_desc,
             'created_at' => $order->created_at->format('Y-m-d H:i:s') ,
+            'passed_at' => $order->passed_at ,
         ];
     }
 }

@@ -65,7 +65,7 @@
             ,url: index_url
             ,cols: [[
                 {checkbox: true, fixed: true}
-                ,{field:'id',title:'ID', width:80, sort: true}
+                ,{field:'id',title:'ID', width:80}
                 ,{field:'payment_company_name',title:"{{ trans('payment_company.name') }}"}
                 ,{field:'merchant_name',title:"{{ trans('merchant.name') }}"}
                 ,{field:'phone',title:"{{ trans('merchant.label.phone') }}",width:150}
@@ -74,7 +74,7 @@
                 ,{field:'city',title:"{{ trans('merchant.label.city') }}", width:75}
                 ,{field:'provider_name',title:"{{ trans('provider.name') }}", width:80}
                 ,{field:'user_name',title:"{{ trans('user.name') }}", width:80}
-                ,{field:'created_at',title:"{{ trans('app.created_at') }}",width:120}
+                ,{field:'passed_at',title:"{{ trans('order.label.passed_at') }}",width:120}
                 ,{field:'score',title:'操作', width:150, align: 'right',toolbar:'#barDemo'}
             ]]
             ,id: 'fb-table'

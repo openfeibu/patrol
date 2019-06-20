@@ -60,9 +60,11 @@ class OrderResourceController extends BaseController
         $search_province = isset($search['search_province']) ? $search['search_province'] : '';
         $search_city = isset($search['search_city']) ? $search['search_city'] : '';
         $search_merchant_name = isset($search['search_merchant_name']) ? $search['search_merchant_name'] : '';
+        $search_user = isset($search['search_user']) ? $search['search_user'] : '';
 
         if ($this->response->typeIs('json')) {
             $data = $this->repository->join('merchants','merchants.id','=','orders.merchant_id')
+                ->leftJoin('users','users.id','=','orders.user_id')
                 ->where('orders.status',$status)
                 ->where('orders.payment_company_id',Auth::user()->payment_company_id);
             if($provider_id)
@@ -99,6 +101,12 @@ class OrderResourceController extends BaseController
                     return $query->where('merchants.address','like','%'.$search_name.'%')->orWhere('merchants.province','like','%'.$search_name.'%')->orWhere('merchants.city','like','%'.$search_name.'%')->orWhere('merchants.name','like','%'.$search_name.'%');
                 });
             }
+            if($search_user)
+            {
+                $data = $data->where(function ($query) use ($search_user){
+                    return $query->where('users.name','like','%'.$search_user.'%')->orWhere('users.phone','like','%'.$search_user.'%');
+                });
+            }
             $data = $data
                 ->setPresenter(\App\Repositories\Presenter\OrderPresenter::class)
                 ->orderBy('orders.id','desc')
@@ -114,7 +122,7 @@ class OrderResourceController extends BaseController
         $providers = Provider::orderBy('id','desc')->get();
         return $this->response->title(trans('app.admin.panel'))
             ->view('order.'.$status)
-            ->data(compact('providers','provider_id','search_address','search_province','search_city','search_merchant_name','search_name'))
+            ->data(compact('providers','provider_id','search_address','search_province','search_city','search_merchant_name','search_name','search_user','status'))
             ->output();
     }
     public function index(Request $request)
@@ -309,6 +317,7 @@ class OrderResourceController extends BaseController
             $order_record = OrderRecord::where('order_id',$id)->orderBy('id','desc')->first();
             Order::where('id',$id)->update([
                 'status' => 'pass',
+                'passed_at' => date('Y-m-d H:i:s')
             ]);
 
             OrderRecord::where('id',$order_record->id)->update([
@@ -478,8 +487,10 @@ class OrderResourceController extends BaseController
         $search_province = isset($search['search_province']) ? $search['search_province'] : '';
         $search_city = isset($search['search_city']) ? $search['search_city'] : '';
         $search_merchant_name = isset($search['search_merchant_name']) ? $search['search_merchant_name'] : '';
+        $search_user = isset($search['search_user']) ? $search['search_user'] : '';
 
-        $data = $this->repository
+        $data = $this->repository->join('merchants','merchants.id','=','orders.merchant_id')
+            ->leftJoin('users','users.id','=','orders.user_id')
             ->where('orders.status','pass')
             ->where('orders.payment_company_id',Auth::user()->payment_company_id);
 
@@ -509,6 +520,12 @@ class OrderResourceController extends BaseController
         {
             $data = $data->where(function ($query) use ($search_merchant_name){
                 return $query->where('merchants.name','like','%'.$search_merchant_name.'%');
+            });
+        }
+        if($search_user)
+        {
+            $data = $data->where(function ($query) use ($search_user){
+                return $query->where('users.name','like','%'.$search_user.'%')->orWhere('users.phone','like','%'.$search_user.'%');
             });
         }
         $orders = $data->orderBy('orders.id','desc')->all(['orders.*']);

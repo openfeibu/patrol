@@ -40,5 +40,9 @@
 <div class="layui-inline mt10">
     <input class="layui-input layui-input-inline search_key" name="search_merchant_name" id="demoReload" placeholder="商户名" autocomplete="off" value="{{ $search_merchant_name }}">
 </div>
-
+@if(in_array($status,['working','finish','pass','return']))
+    <div class="layui-inline mt10">
+        <input class="layui-input layui-input-inline search_key" name="search_user" id="demoReload" placeholder="巡检员姓名/手机" autocomplete="off" value="{{ $search_user }}">
+    </div>
+@endif
 <button class="layui-btn mt10" data-type="reload">搜索</button>

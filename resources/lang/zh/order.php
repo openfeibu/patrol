@@ -6,6 +6,7 @@ return [
     'label'       => [
         'order_sn' => '巡检单号',
         'status' => '状态',
+        'passed_at' => '审核时间'
     ],
     'status' => [
         'pending_provider' => '待分配服务商',

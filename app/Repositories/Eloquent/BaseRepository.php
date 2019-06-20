@@ -253,6 +253,11 @@ abstract class BaseRepository extends PrettusRepository implements RepositoryInt
         $this->model = $this->model->join($table, $first, $operator, $second, $type, $where = false);
         return $this;
     }
+    public function leftJoin($table, $first, $operator = null, $second = null, $type = 'inner', $where = false)
+    {
+        $this->model = $this->model->leftJoin($table, $first, $operator, $second, $type, $where = false);
+        return $this;
+    }
     public function whereIn($field,$values)
     {
         $this->model = $this->model->whereIn($field, $values);
