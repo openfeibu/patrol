@@ -55,6 +55,7 @@ Route::group([
     Route::post('note_order','OrderResourceController@noteOrder')->name('order.note_order');
     Route::get('export_order','OrderResourceController@exportOrder')->name('order.export');
     Route::get('export_order_pdf','OrderResourceController@exportOrderPdf')->name('order.export.pdf');
+    Route::post('export_order_pdf','OrderResourceController@exportOrderPdf')->name('order.export.pdf');
 
     Route::get('/setting/company', 'SettingResourceController@company')->name('setting.company.index');
     Route::post('/setting/updateCompany', 'SettingResourceController@updateCompany');
@@ -129,6 +130,7 @@ Route::group([
     Route::post('note_order','OrderResourceController@NoteOrder')->name('order.note_order');
     Route::get('export_order','OrderResourceController@exportOrder')->name('order.export');
     Route::get('export_order_pdf','OrderResourceController@exportOrderPdf')->name('order.export.pdf');
+    Route::post('export_order_pdf','OrderResourceController@exportOrderPdf')->name('order.export.pdf');
 
     Route::resource('payment_user', 'PaymentUserResourceController');
     Route::post('/payment_user/destroyAll', 'PaymentUserResourceController@destroyAll')->name('payment_user.destroy_all');
@@ -163,6 +165,7 @@ Route::group([
     Route::post('note_order','OrderResourceController@NoteOrder')->name('order.note_order');
     Route::get('export_order','OrderResourceController@exportOrder')->name('order.export');
     Route::get('export_order_pdf','OrderResourceController@exportOrderPdf')->name('order.export.pdf');
+    Route::post('export_order_pdf','OrderResourceController@exportOrderPdf')->name('order.export.pdf');
 
     Route::resource('user', 'UserResourceController');
     Route::post('/user/destroyAll', 'UserResourceController@destroyAll')->name('user.destroy_all');

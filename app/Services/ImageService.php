@@ -110,43 +110,48 @@ class ImageService
         $watermark_usage = 'merchant/watermark';
         $directory = storage_path('uploads') . DIRECTORY_SEPARATOR . 'merchant'.DIRECTORY_SEPARATOR.'original';
         $watermark_directory = storage_path('uploads') . DIRECTORY_SEPARATOR . 'merchant'.DIRECTORY_SEPARATOR.'watermark';
+        $thumb_directory = storage_path('uploads') . DIRECTORY_SEPARATOR . 'merchant'.DIRECTORY_SEPARATOR.'original'.DIRECTORY_SEPARATOR.'thumb';
         $url = '/uploads/'.$usage;
-
+        $thumb_url = $url.'/thumb';
 
         //保存图片文件到服务器
         $i = 0;
         foreach ($files as $file) {
             $extension = $file->getClientOriginalExtension();
-            $imageName = $merchant_name.'-'.date('YmdHis').rand(100000, 999999) . '.' . $extension;
+            $imageName = $merchant_name.'-'.date('YmdHis').rand(100000, 999999) . '.'.$extension ;
             $img = $url.'/'.$imageName;
+            $thumb = $thumb_url.'/'.$imageName;
 
             Storage::put($img, file_get_contents($file->getRealPath()));
 
             $image_path = $directory.DIRECTORY_SEPARATOR.$imageName;
+            $thumb_path = $thumb_directory.DIRECTORY_SEPARATOR.$imageName;
+
+            image_png_size_add($image_path,$thumb_path,800,0.8);
 
             $new_image_path = $watermark_directory.DIRECTORY_SEPARATOR.$imageName;
 
-            list($width, $height, $type) = getimagesize($image_path);
+            list($width, $height, $type) = getimagesize($thumb_path);
 
-            $img = Image::make($image_path);
+            $img = Image::make($thumb_path);
 
-            $img->text($merchant_name, 0, $height-120,function($font) {
+            $img->text($merchant_name, 0, $height-60,function($font) {
                 $font->file(base_path('storage/uploads/font').'/'.'simsun.ttf');
-                $font->size(40);
+                $font->size(20);
                 $font->color('#ffffff');
                 $font->valign('top');
                 //$font->angle(45);
             });
-            $img->text($address, 0, $height-80,function($font) {
+            $img->text($address, 0, $height-40,function($font) {
                 $font->file(base_path('storage/uploads/font').'/'.'simsun.ttf');
-                $font->size(40);
+                $font->size(20);
                 $font->color('#ffffff');
                 $font->valign('top');
                 //$font->angle(45);
             });
-            $img->text(date('Y-m-d H:i:s'), 0, $height-40,function($font) {
+            $img->text(date('Y-m-d H:i:s'), 0, $height-20,function($font) {
                 $font->file(base_path('storage/uploads/font').'/'.'simsun.ttf');
-                $font->size(40);
+                $font->size(20);
                 $font->color('#ffffff');
                 $font->valign('top');
                 //$font->angle(45);

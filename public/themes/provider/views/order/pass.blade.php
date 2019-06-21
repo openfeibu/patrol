@@ -127,7 +127,25 @@
         $(".export-order-pdf").on("click",function(){
             var url = "{{ guard_url('export_order_pdf') }}?_token={!! csrf_token() !!}"
             var load =layer.load();
-            window.location.href = url;
+            var form = $("<form method='post' target='_blank'></form>");
+            var input;
+            form.attr({"action":url});
+            data.forEach(function(v){
+                data_id_obj[i] = v.id; i++
+                // url += '&ids[]='+v.id;
+                input = $("<input type='hidden'>");
+                input.attr({"name":"ids[]"});
+                input.val(v.id);
+                form.append(input);
+            });
+//            $.each(params,function (key,value) {
+//                input = $("<input type='hidden'>");
+//                input.attr({"name":key});
+//                input.val(value);
+//                form.append(input);
+//            });
+            $(document.body).append(form);
+            form.submit();
             layer.close(load);
         })
     });

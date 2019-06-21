@@ -448,7 +448,7 @@ class OrderResourceController extends BaseController
         $search_city = isset($search['search_city']) ? $search['search_city'] : '';
         $search_merchant_name = isset($search['search_merchant_name']) ? $search['search_merchant_name'] : '';
         $search_user = isset($search['search_user']) ? $search['search_user'] : '';
-
+        $ids = $request->input('ids',[]);
         $data = $this->repository->join('merchants','merchants.id','=','orders.merchant_id')
             ->leftJoin('users','users.id','=','orders.user_id')
             ->where('orders.status','pass')
@@ -487,7 +487,11 @@ class OrderResourceController extends BaseController
                 return $query->where('users.name','like','%'.$search_user.'%')->orWhere('users.phone','like','%'.$search_user.'%');
             });
         }
-        $orders = $data->orderBy('orders.id','desc')->all(['orders.*']);
+        if($ids)
+        {
+            $data = $data->whereIn('orders.id',$ids);
+        }
+        $orders = $data->orderBy('passed_at','desc')->orderBy('orders.id','desc')->all(['orders.*']);
         $export_pdf = new ExportPdfService();
         return $export_pdf->export_orders($orders);
     }

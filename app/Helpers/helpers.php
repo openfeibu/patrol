@@ -766,12 +766,12 @@ if (!function_exists('isVaildExcel')) {
     }
 }
 if (!function_exists('image_png_size_add')) {
-    function image_png_size_add($imgsrc, $imgdst)
+    function image_png_size_add($imgsrc, $imgdst,$max_width=1000,$size=0.9)
     {
         list($width, $height, $type) = getimagesize($imgsrc);
-        $ratio = $width > 1000 ? 1000 / $width : 1;
-        $new_width = $ratio * $width * 0.9;
-        $new_height = $ratio * $height * 0.9;
+        $ratio = $width > $max_width ? $max_width / $width : 1;
+        $new_width = $ratio * $width * $size;
+        $new_height = $ratio * $height * $size;
 
         switch ($type) {
             case 1:
