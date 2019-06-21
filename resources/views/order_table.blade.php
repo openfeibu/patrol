@@ -98,6 +98,9 @@
     <table width="1000" class="k-w-table line_table member_table">
         <tbody>
 
+        <tr class="line-table-height line-table-t">
+            <td class="k-s-content layui-col-md6" colspan="4">巡检单ID：{{ $order_record['order_id'] }}</td>
+        </tr>
 
         <tr class="line-table-height line-table-t">
             <td class="k-s-content layui-col-md6" >{{ trans('merchant.label.merchant_sn') }}：{{ $merchant->merchant_sn }}</td>
