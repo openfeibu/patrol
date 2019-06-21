@@ -103,28 +103,28 @@
         </tr>
 
         <tr class="line-table-height line-table-t">
-            <td class="k-s-content layui-col-md6" >{{ trans('merchant.label.merchant_sn') }}：{{ $merchant->merchant_sn }}</td>
-            <td class="k-s-content layui-col-md6">{{ trans('merchant.name') }}：{{ $merchant->name }}</td>
+            <td class="k-s-content layui-col-md6" colspan="2">{{ trans('merchant.label.merchant_sn') }}：{{ $merchant->merchant_sn }}</td>
+            <td class="k-s-content layui-col-md6" colspan="2">{{ trans('merchant.name') }}：{{ $merchant->name }}</td>
         </tr>
         <tr class="line-table-height line-table-t">
-            <td class="k-s-content layui-col-md6" >{{ trans('order_record.label.terminal_identification') }}：{{ $order_record['terminal_identification'] }}</td>
-            <td class="k-s-content layui-col-md6">{{ trans('order_record.label.patrol_company') }}：{{ $order_record['patrol_company'] }}</td>
+            <td class="k-s-content layui-col-md6" colspan="2">{{ trans('order_record.label.terminal_identification') }}：{{ $order_record['terminal_identification'] }}</td>
+            <td class="k-s-content layui-col-md6" colspan="2">{{ trans('order_record.label.patrol_company') }}：{{ $order_record['patrol_company'] }}</td>
         </tr>
         <tr class="line-table-height line-table-t">
-            <td class="k-s-content layui-col-md6" >{{ trans('order_record.label.model') }}： {{ $order_record['model'] }}</td>
-            <td class="k-s-content layui-col-md6">{{ trans('order_record.label.address') }}：{{ $order_record['address'] }}</td>
+            <td class="k-s-content layui-col-md6" colspan="2">{{ trans('order_record.label.model') }}： {{ $order_record['model'] }}</td>
+            <td class="k-s-content layui-col-md6" colspan="2">{{ trans('order_record.label.address') }}：{{ $order_record['address'] }}</td>
         </tr>
         <tr class="line-table-height line-table-t">
-            <td class="k-s-content layui-col-md6" >{{ trans('order_record.label.patrol_man') }}：{{ $order_record['patrol_man'] }}</td>
-            <td class="k-s-content layui-col-md6">{{ trans('order_record.label.template') }}：{{ $order_record['template'] }}</td>
+            <td class="k-s-content layui-col-md6" colspan="2">{{ trans('order_record.label.patrol_man') }}：{{ $order_record['patrol_man'] }}</td>
+            <td class="k-s-content layui-col-md6" colspan="2">{{ trans('order_record.label.template') }}：{{ $order_record['template'] }}</td>
         </tr>
         <tr class="line-table-height line-table-t">
-            <td class="k-s-content layui-col-md6" >{{ trans('order_record.label.leader_phone') }}：{{ $order_record['leader_phone'] }}</td>
-            <td class="k-s-content layui-col-md6">{{ trans('order_record.label.patrol_mode') }}：{{ $order_record['patrol_mode'] }}</td>
+            <td class="k-s-content layui-col-md6"  colspan="2">{{ trans('order_record.label.leader_phone') }}：{{ $order_record['leader_phone'] }}</td>
+            <td class="k-s-content layui-col-md6" colspan="2">{{ trans('order_record.label.patrol_mode') }}：{{ $order_record['patrol_mode'] }}</td>
         </tr>
         <tr class="line-table-height line-table-t">
-            <td class="k-s-content layui-col-md6" >{{ trans('order_record.label.sn') }}：{{ $order_record['sn'] }}</td>
-            <td class="k-s-content layui-col-md6">{{ trans('order_record.label.pn') }}：{{ $order_record['pn'] }}</td>
+            <td class="k-s-content layui-col-md6" colspan="2" >{{ trans('order_record.label.sn') }}：{{ $order_record['sn'] }}</td>
+            <td class="k-s-content layui-col-md6" colspan="2">{{ trans('order_record.label.pn') }}：{{ $order_record['pn'] }}</td>
         </tr>
         <tr class="line-table-height  ">
             <td class="k-s-content layui-col-md1 line-table-c" >序号</td>
