@@ -125,7 +125,12 @@
                 
 		})
         $(".export-order-pdf").on("click",function(){
+            var checkStatus = table.checkStatus('fb-table')
+                    ,data = checkStatus.data;
+            var data_id_obj = {};
+            var i = 0;
             var url = "{{ guard_url('export_order_pdf') }}?_token={!! csrf_token() !!}"
+
             var load =layer.load();
             var form = $("<form method='post' target='_blank'></form>");
             var input;
@@ -146,6 +151,7 @@
 //            });
             $(document.body).append(form);
             form.submit();
+
             layer.close(load);
         })
     });
